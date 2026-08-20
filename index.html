@@ -714,7 +714,7 @@
     </div>
 
     <script>
-        // BEZPIECZNY HASH HASH SHA-256 DLA HASŁA: "Minecraft2020!?!"
+        // BEZPIECZNY HASH SHA-256 HASŁA ADMINA
         const CORRECT_PASSWORD_HASH = "8be96bf56e2ebef0b1e4a30eef7ed44ea095c1a8aa6290e29b13fa2fc07b5a83";
 
         function togglePasswordVisibility() {
@@ -744,7 +744,7 @@
             const inputVal = document.getElementById("adminPasswordInput").value;
             const errorDiv = document.getElementById("loginError");
 
-            // Konwersja tekstu wpisanego przez użytkownika na hash SHA-256
+            // Konwersja wpisanego tekstu na hash SHA-256
             const msgBuffer = new TextEncoder().encode(inputVal);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
