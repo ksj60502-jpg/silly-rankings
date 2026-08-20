@@ -3,151 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silly Rankings — Oficjalny System Dywizji</title>
+    <title>Silly Rankings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
-        
-        body { background-color: #030407; color: #f8fafc; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
-        .space-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 50% 20%, #0a0b14 0%, #030407 100%); }
-        .glass-card { background: rgba(13, 17, 28, 0.75); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8); }
-        
-        .tier-ht1 { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.4); }
-        .tier-lt1 { background: linear-gradient(135deg, #7c2d12, #c2410c); color: #fdba74; border: 1px solid rgba(251, 146, 60, 0.4); }
-        .tier-ht2 { background: linear-gradient(135deg, #78350f, #b45309); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.4); }
-        .tier-lt2 { background: linear-gradient(135deg, #3f3f46, #52525b); color: #e4e4e7; border: 1px solid rgba(161, 161, 170, 0.4); }
-        .tier-ht3 { background: linear-gradient(135deg, #14532d, #166534); color: #86efac; border: 1px solid rgba(74, 222, 128, 0.4); }
-        .tier-lt3 { background: linear-gradient(135deg, #064e3b, #047857); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.4); }
-        .tier-ht4 { background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.4); }
-        .tier-lt4 { background: linear-gradient(135deg, #172554, #1e40af); color: #bfdbfe; border: 1px solid rgba(147, 197, 253, 0.4); }
-        .tier-ht5 { background: linear-gradient(135deg, #3b0764, #581c87); color: #d8b4fe; border: 1px solid rgba(192, 132, 252, 0.4); }
-        .tier-lt5 { background: linear-gradient(135deg, #4c1d95, #6d28d9); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.4); }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+        body { background-color: #030407; color: #f8fafc; font-family: 'Outfit', sans-serif; }
+        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .tier-ht1 { color: #fca5a5; background: #991b1b; } .tier-lt1 { color: #fdba74; background: #c2410c; }
+        .tier-ht2 { color: #fde047; background: #b45309; } .tier-lt2 { color: #e4e4e7; background: #52525b; }
+        .tier-ht3 { color: #86efac; background: #166534; } .tier-lt3 { color: #6ee7b7; background: #047857; }
+        .tier-ht4 { color: #93c5fd; background: #1d4ed8; } .tier-lt4 { color: #bfdbfe; background: #1e40af; }
+        .tier-ht5 { color: #d8b4fe; background: #581c87; } .tier-lt5 { color: #c4b5fd; background: #6d28d9; }
     </style>
 </head>
-<body class="min-h-screen pb-16">
+<body class="p-4 md:p-10">
 
-    <div class="space-bg"></div>
+    <!-- Baner Discord -->
+    <div class="max-w-3xl mx-auto mb-6 glass rounded-2xl p-4 flex flex-wrap items-center justify-center gap-4 text-center border-purple-500/30">
+        <span class="bg-purple-600 text-[10px] px-2 py-1 rounded font-black uppercase">Discord</span>
+        <p class="text-xs font-medium">Chcesz się znaleźć na tabeli? Wbijaj na serwer DC i bądź sprawdzony!</p>
+        <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-xs font-bold px-4 py-1.5 rounded-lg transition-all">Dołącz teraz</a>
+    </div>
 
-    <header class="w-full max-w-6xl mx-auto px-6 pt-10">
-        <!-- BANER DISCORD -->
-        <div class="glass-card rounded-2xl p-4 mb-6 text-center border-purple-500/30 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <span class="bg-purple-600 text-white text-[10px] font-black px-2 py-0.5 rounded-md uppercase">Discord</span>
-            <p class="text-xs text-slate-300 font-medium">Chcesz się znaleźć na tabeli? Wbijaj na serwer DC i bądź sprawdzony!</p>
-            <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold px-4 py-1.5 rounded-lg transition-all">Dołącz teraz</a>
-        </div>
+    <!-- Tabela -->
+    <div class="max-w-3xl mx-auto glass rounded-3xl p-6 md:p-8">
+        <h1 class="text-2xl font-black mb-6">Oficjalny Ranking</h1>
+        <input type="text" id="search" onkeyup="render()" placeholder="Szukaj gracza..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 mb-6 outline-none focus:border-purple-500">
+        
+        <table class="w-full text-left">
+            <thead><tr class="text-slate-500 text-[10px] uppercase">
+                <th class="p-3">#</th><th class="p-3">Gracz</th><th class="p-3">Dywizja</th><th class="p-3 text-right">ELO</th>
+            </tr></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        
+        <button onclick="document.getElementById('admin').classList.toggle('hidden')" class="mt-8 text-[10px] text-slate-600 uppercase font-bold tracking-widest">Panel Admina</button>
+    </div>
 
-        <div class="glass-card rounded-3xl p-6 md:px-10 flex flex-col sm:flex-row justify-between items-center gap-6">
-            <div class="flex items-center space-x-4">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/40">
-                    <span class="text-2xl font-black">SR</span>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300">Silly Rankings</h1>
-                    <p class="text-sm text-slate-400 font-medium">Oficjalna tablica wyników i dywizji</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-3 bg-slate-950/80 p-2 rounded-2xl border border-slate-800">
-                <button onclick="switchView('viewer')" id="btnViewer" class="px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all">Widok Gracza</button>
-                <button onclick="showLoginModal()" id="btnAdmin" class="px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all">Panel Admina</button>
-            </div>
-        </div>
-    </header>
-
-    <main class="w-full max-w-6xl mx-auto px-6 mt-8">
-        <div id="viewerView" class="space-y-6">
-            <div class="glass-card rounded-3xl p-8">
-                <input type="text" id="searchInput" onkeyup="renderTables()" placeholder="Szukaj gracza..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3 text-sm mb-6 outline-none focus:border-purple-500">
-                <table class="w-full text-left">
-                    <thead><tr class="text-slate-400 text-xs uppercase">
-                        <th class="py-4 px-6">Pozycja</th><th class="py-4 px-6">Gracz</th><th class="py-4 px-6">Dywizja</th><th class="py-4 px-6 text-right">ELO</th>
-                    </tr></thead>
-                    <tbody id="playerTableBody" class="divide-y divide-slate-800/50"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="adminView" class="hidden glass-card rounded-3xl p-8">
-            <h2 class="text-2xl font-bold mb-6 text-purple-300">Panel Admina</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <input type="text" id="adminName" placeholder="Nick" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3">
-                <select id="adminTier" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3">
-                    <option value="HT1">HT1</option><option value="LT1">LT1</option><option value="HT2">HT2</option><option value="LT2">LT2</option>
-                    <option value="HT3">HT3</option><option value="LT3">LT3</option><option value="HT4">HT4</option><option value="LT4">LT4</option>
-                    <option value="HT5">HT5</option><option value="LT5">LT5</option>
-                </select>
-                <input type="number" id="adminElo" placeholder="ELO" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3">
-                <button onclick="addOrUpdatePlayer()" id="saveBtn" class="md:col-span-3 bg-purple-600 py-3 rounded-xl font-bold">Zapisz</button>
-            </div>
-            <table class="w-full text-left">
-                <tbody id="adminTableBody"></tbody>
-            </table>
-        </div>
-    </main>
-
-    <div id="loginModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center">
-        <div class="glass-card p-8 rounded-3xl w-80 text-center">
-            <input type="password" id="adminPasswordInput" placeholder="Hasło" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl mb-4 text-center">
-            <button onclick="verifyPassword()" class="w-full bg-purple-600 py-3 rounded-xl font-bold">Zaloguj</button>
+    <!-- Admin -->
+    <div id="admin" class="hidden max-w-3xl mx-auto mt-6 glass rounded-2xl p-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <input id="n" placeholder="Nick" class="bg-slate-900 p-2 rounded text-sm">
+            <select id="t" class="bg-slate-900 p-2 rounded text-sm">
+                <option>HT1</option><option>LT1</option><option>HT2</option><option>LT2</option>
+                <option>HT3</option><option>LT3</option><option>HT4</option><option>LT4</option>
+                <option>HT5</option><option>LT5</option>
+            </select>
+            <input id="e" type="number" placeholder="ELO" class="bg-slate-900 p-2 rounded text-sm">
+            <button onclick="add()" class="bg-purple-600 rounded text-sm font-bold">Dodaj</button>
         </div>
     </div>
 
     <script>
-        let players = JSON.parse(localStorage.getItem('silly_players')) || [
-            { name: "ItzAgg", tier: "HT1", elo: 3200 },
-            { name: "Carbstuk", tier: "HT2", elo: 2850 },
-            { name: "Connornonor", tier: "HT3", elo: 2710 },
-            { name: "Mloddy_", tier: "LT1", elo: 2550 },
-            { name: "Tchomad", tier: "LT2", elo: 2450 },
-            { name: "Dymoty", tier: "LT3", elo: 2100 },
-            { name: "ximixemx", tier: "LT4", elo: 1500 },
-            { name: "franczesco4", tier: "LT5", elo: 900 }
+        let p = JSON.parse(localStorage.getItem('data')) || [
+            {n: "Conor", t: "HT3", e: 2700}, {n: "Mloddy_", t: "LT1", e: 2500},
+            {n: "Tchomad", t: "LT2", e: 2400}, {n: "Dymoty", t: "LT3", e: 2100},
+            {n: "ximixemx", t: "LT4", e: 1500}, {n: "franczesco4", t: "LT5", e: 900}
         ];
 
-        function renderTables() {
-            players.sort((a, b) => b.elo - a.elo);
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const vBody = document.getElementById('playerTableBody');
-            const aBody = document.getElementById('adminTableBody');
-            vBody.innerHTML = aBody.innerHTML = '';
-
-            players.forEach((p, i) => {
-                if(p.name.toLowerCase().includes(query)) {
-                    vBody.innerHTML += `<tr class="hover:bg-slate-800">
-                        <td class="py-4 px-6 text-purple-400 font-bold">#${i+1}</td>
-                        <td class="py-4 px-6 font-bold">${p.name}</td>
-                        <td class="py-4 px-6"><span class="tier-${p.tier.toLowerCase()} px-2 py-1 rounded text-xs font-black">${p.tier}</span></td>
-                        <td class="py-4 px-6 text-right">${p.elo}</td>
+        function render() {
+            let q = document.getElementById('search').value.toLowerCase();
+            let b = document.getElementById('tableBody');
+            b.innerHTML = '';
+            p.sort((a,b) => b.e - a.e);
+            p.forEach((x, i) => {
+                if(x.n.toLowerCase().includes(q)) {
+                    b.innerHTML += `<tr class="border-t border-slate-800/50">
+                        <td class="p-3 text-purple-400 font-bold">#${i+1}</td>
+                        <td class="p-3 font-bold">${x.n}</td>
+                        <td class="p-3"><span class="tier-${x.t.toLowerCase()} px-2 py-0.5 rounded text-[10px] font-black">${x.t}</span></td>
+                        <td class="p-3 text-right font-mono">${x.e}</td>
                     </tr>`;
-                    aBody.innerHTML += `<tr><td class="py-2">${p.name}</td><td class="py-2 text-right"><button onclick="deletePlayer(${i})" class="text-red-400">Usuń</button></td></tr>`;
                 }
             });
-            localStorage.setItem('silly_players', JSON.stringify(players));
+            localStorage.setItem('data', JSON.stringify(p));
         }
 
-        function addOrUpdatePlayer() {
-            const name = document.getElementById('adminName').value;
-            const tier = document.getElementById('adminTier').value;
-            const elo = parseInt(document.getElementById('adminElo').value);
-            if(name && !isNaN(elo)) {
-                players.push({name, tier, elo});
-                renderTables();
-            }
+        function add() {
+            p.push({n: document.getElementById('n').value, t: document.getElementById('t').value, e: parseInt(document.getElementById('e').value)});
+            render();
         }
-
-        function deletePlayer(i) { players.splice(i, 1); renderTables(); }
-        function switchView(v) {
-            document.getElementById('viewerView').classList.toggle('hidden', v !== 'viewer');
-            document.getElementById('adminView').classList.toggle('hidden', v !== 'admin');
-        }
-        function showLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
-        function verifyPassword() {
-            if(document.getElementById('adminPasswordInput').value === "admin") {
-                document.getElementById('loginModal').classList.add('hidden');
-                switchView('admin');
-            } else alert("Błędne hasło!");
-        }
-
-        renderTables();
+        render();
     </script>
 </body>
 </html>
