@@ -10,6 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
@@ -207,7 +208,7 @@
         }
 
         .tier-testing-button:disabled {
-            opacity: 0.6;
+            opacity: 0.55;
             cursor: not-allowed;
         }
 
@@ -223,7 +224,10 @@
 <body class="min-h-screen flex flex-col pb-16">
 
     <!-- TŁO -->
-    <div class="space-bg" id="spaceBackground"></div>
+    <div
+        class="space-bg"
+        id="spaceBackground"
+    ></div>
 
 
     <!-- HEADER -->
@@ -244,6 +248,7 @@
                     </div>
 
                     <div>
+
                         <h1
                             class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300"
                         >
@@ -253,6 +258,7 @@
                         <p class="text-sm text-slate-400 font-medium">
                             Oficjalna tablica wyników i dywizji Minecraft
                         </p>
+
                     </div>
 
                 </div>
@@ -294,10 +300,15 @@
     <section class="w-full max-w-6xl mx-auto px-6 mt-4">
 
         <div
-            class="glass-card rounded-2xl p-6 md:p-8 border-purple-500/30"
+            class="glass-card rounded-2xl p-6 md:p-8 border-purple-500/30 relative overflow-hidden"
         >
 
-            <div class="text-center mb-6">
+            <div class="absolute -top-20 -left-20 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl"></div>
+
+            <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-pink-600/10 rounded-full blur-3xl"></div>
+
+
+            <div class="text-center mb-6 relative z-10">
 
                 <div
                     class="mx-auto mb-4 w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/30"
@@ -307,7 +318,7 @@
                     </span>
                 </div>
 
-                <h2 class="text-2xl font-extrabold">
+                <h2 class="text-2xl md:text-3xl font-extrabold">
                     Zapisz się na Tier-testing
                 </h2>
 
@@ -321,8 +332,34 @@
 
             <form
                 id="tierTestingForm"
-                class="max-w-xl mx-auto"
+                class="max-w-xl mx-auto relative z-10"
             >
+
+                <!-- WEB3FORMS -->
+                <input
+                    type="hidden"
+                    name="access_key"
+                    value="WKLEJ_TUTAJ_ACCESS_KEY"
+                >
+
+                <input
+                    type="hidden"
+                    name="subject"
+                    value="🎮 Nowe zgłoszenie — Silly Rankings Tier-testing"
+                >
+
+                <input
+                    type="hidden"
+                    name="from_name"
+                    value="Silly Rankings"
+                >
+
+                <input
+                    type="hidden"
+                    name="botcheck"
+                    value=""
+                >
+
 
                 <div class="flex flex-col sm:flex-row gap-3">
 
@@ -336,6 +373,7 @@
                         required
                         autocomplete="off"
                         spellcheck="false"
+                        pattern="[A-Za-z0-9_]{3,16}"
                         class="flex-1 bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-slate-200 outline-none transition-all"
                     >
 
@@ -354,12 +392,12 @@
 
             <div
                 id="tierTestingMessage"
-                class="hidden text-center text-sm mt-5"
+                class="hidden text-center text-sm mt-5 relative z-10"
             ></div>
 
 
-            <p class="text-center text-xs text-slate-600 mt-5">
-                Zgłoszenie zostanie przekazane administracji Silly Rankings.
+            <p class="text-center text-xs text-slate-600 mt-5 relative z-10">
+                Zgłoszenie zostanie wysłane do administracji Silly Rankings.
             </p>
 
         </div>
@@ -509,43 +547,83 @@
                         Wszystkie
                     </button>
 
-                    <button data-tier="HT1" onclick="filterTier('HT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="HT1"
+                        onclick="filterTier('HT1')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         HT1
                     </button>
 
-                    <button data-tier="LT1" onclick="filterTier('LT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="LT1"
+                        onclick="filterTier('LT1')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         LT1
                     </button>
 
-                    <button data-tier="HT2" onclick="filterTier('HT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="HT2"
+                        onclick="filterTier('HT2')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         HT2
                     </button>
 
-                    <button data-tier="LT2" onclick="filterTier('LT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="LT2"
+                        onclick="filterTier('LT2')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         LT2
                     </button>
 
-                    <button data-tier="HT3" onclick="filterTier('HT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="HT3"
+                        onclick="filterTier('HT3')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         HT3
                     </button>
 
-                    <button data-tier="LT3" onclick="filterTier('LT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="LT3"
+                        onclick="filterTier('LT3')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         LT3
                     </button>
 
-                    <button data-tier="HT4" onclick="filterTier('HT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="HT4"
+                        onclick="filterTier('HT4')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         HT4
                     </button>
 
-                    <button data-tier="LT4" onclick="filterTier('LT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="LT4"
+                        onclick="filterTier('LT4')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         LT4
                     </button>
 
-                    <button data-tier="HT5" onclick="filterTier('HT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="HT5"
+                        onclick="filterTier('HT5')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         HT5
                     </button>
 
-                    <button data-tier="LT5" onclick="filterTier('LT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                    <button
+                        data-tier="LT5"
+                        onclick="filterTier('LT5')"
+                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
+                    >
                         LT5
                     </button>
 
@@ -604,7 +682,6 @@
     >
 
         <div
-            id="modalContent"
             class="glass-card rounded-3xl p-7 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden"
         >
 
@@ -622,7 +699,6 @@
             <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
 
 
-            <!-- SKIN -->
             <div class="flex justify-center mb-6 relative z-10">
 
                 <div
@@ -866,7 +942,7 @@
 
 
     /* =========================================================
-       URL SKINÓW
+       SKINY
     ========================================================= */
 
     function getHeadUrl(name) {
@@ -895,10 +971,6 @@
     }
 
 
-    /* =========================================================
-       FALLBACK DLA GŁÓWKI
-    ========================================================= */
-
     function handleHeadError(img, name) {
 
         if (
@@ -925,14 +997,7 @@
     }
 
 
-    /* =========================================================
-       FALLBACK DLA PEŁNEGO SKINA
-    ========================================================= */
-
-    function handleFullSkinError(
-        img,
-        name
-    ) {
+    function handleFullSkinError(img, name) {
 
         if (
             img.dataset.fallback !== "1"
@@ -952,12 +1017,11 @@
         }
 
 
-        img.style.display = "none";
+        img.style.display =
+            "none";
 
         document
-            .getElementById(
-                "skinLoading"
-            )
+            .getElementById("skinLoading")
             .classList
             .remove("hidden");
 
@@ -989,7 +1053,8 @@
                     "div"
                 );
 
-            star.className = "star";
+            star.className =
+                "star";
 
 
             const size =
@@ -1059,8 +1124,11 @@
             players.length === 0
         ) {
 
-            avg.innerText = "0";
-            top.innerText = "-";
+            avg.innerText =
+                "0";
+
+            top.innerText =
+                "-";
 
             return;
 
@@ -1095,7 +1163,7 @@
 
 
     /* =========================================================
-       RENDER TABELI
+       TABELA
     ========================================================= */
 
     function renderTables() {
@@ -1115,7 +1183,8 @@
                 .toLowerCase();
 
 
-        body.innerHTML = "";
+        body.innerHTML =
+            "";
 
 
         players.forEach(
@@ -1159,7 +1228,9 @@
                     !matchesSearch ||
                     !matchesTier
                 ) {
+
                     return;
+
                 }
 
 
@@ -1172,6 +1243,7 @@
                     document.createElement(
                         "tr"
                     );
+
 
                 row.className =
                     "player-row cursor-pointer group";
@@ -1260,12 +1332,13 @@
 
 
     /* =========================================================
-       FILTROWANIE
+       FILTRY
     ========================================================= */
 
     function filterTier(tier) {
 
-        activeTierFilter = tier;
+        activeTierFilter =
+            tier;
 
 
         document
@@ -1302,7 +1375,7 @@
 
 
     /* =========================================================
-       WYSZUKIWANIE
+       SEARCH
     ========================================================= */
 
     function filterPlayers() {
@@ -1313,7 +1386,7 @@
 
 
     /* =========================================================
-       MODAL GRACZA
+       MODAL
     ========================================================= */
 
     function openPlayerModal(
@@ -1441,10 +1514,6 @@
     }
 
 
-    /* =========================================================
-       ZAMKNIĘCIE MODALA
-    ========================================================= */
-
     function closePlayerModal() {
 
         document
@@ -1460,14 +1529,11 @@
         );
 
 
-        currentModalName = "";
+        currentModalName =
+            "";
 
     }
 
-
-    /* =========================================================
-       KLIKNIĘCIE W TŁO MODALA
-    ========================================================= */
 
     document
         .getElementById(
@@ -1490,17 +1556,12 @@
         );
 
 
-    /* =========================================================
-       ESC
-    ========================================================= */
-
     document.addEventListener(
         "keydown",
         function(event) {
 
             if (
-                event.key ===
-                    "Escape" &&
+                event.key === "Escape" &&
                 !document
                     .getElementById(
                         "playerModal"
@@ -1591,11 +1652,9 @@
 
         textarea.select();
 
-
         document.execCommand(
             "copy"
         );
-
 
         textarea.remove();
 
@@ -1658,7 +1717,7 @@
 
 
     /* =========================================================
-       TIER TESTING — WYSYŁANIE ZGŁOSZENIA
+       TIER TESTING — WEB3FORMS
     ========================================================= */
 
     const tierTestingForm =
@@ -1696,9 +1755,7 @@
                 tierTestingNick.value.trim();
 
 
-            /*
-             * Walidacja nicku Minecraft.
-             */
+            /* Walidacja nicku */
 
             if (
                 !/^[A-Za-z0-9_]{3,16}$/.test(
@@ -1720,7 +1777,6 @@
             tierTestingButton.disabled =
                 true;
 
-
             tierTestingButton.innerText =
                 "Wysyłanie...";
 
@@ -1729,54 +1785,79 @@
                 "hidden text-center text-sm mt-5";
 
 
+            /*
+             * Tworzymy dane formularza.
+             */
+
+            const formData =
+                new FormData(
+                    tierTestingForm
+                );
+
+
+            /*
+             * Dodatkowe dane wiadomości.
+             */
+
+            formData.set(
+                "subject",
+                `🎮 Tier-testing — ${nickname}`
+            );
+
+
+            formData.set(
+                "message",
+                `Nowe zgłoszenie na Tier-testing.
+
+Nick Minecraft:
+${nickname}
+
+Źródło:
+Silly Rankings`
+            );
+
+
             try {
 
                 const response =
                     await fetch(
-                        "/api/tier-testing",
+                        "https://api.web3forms.com/submit",
                         {
                             method:
                                 "POST",
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
                             body:
-                                JSON.stringify({
-                                    nickname:
-                                        nickname
-                                })
+                                formData
                         }
                     );
 
 
-                let data = {};
+                const data =
+                    await response.json();
 
-                try {
 
-                    data =
-                        await response.json();
-
-                } catch {
-
-                    data = {};
-
-                }
+                console.log(
+                    "Web3Forms:",
+                    data
+                );
 
 
                 if (
-                    !response.ok
+                    !response.ok ||
+                    !data.success
                 ) {
 
                     throw new Error(
                         data.message ||
-                        "Wystąpił błąd podczas wysyłania."
+                        "Web3Forms odrzucił zgłoszenie."
                     );
 
                 }
 
+
+                /*
+                 * SUKCES
+                 */
 
                 tierTestingMessage.innerText =
                     "✓ Zgłoszenie zostało wysłane! Administracja otrzyma Twój nick.";
@@ -1792,13 +1873,13 @@
             } catch (error) {
 
                 console.error(
-                    "Tier-testing error:",
+                    "Web3Forms error:",
                     error
                 );
 
 
                 tierTestingMessage.innerText =
-                    "✕ Nie udało się wysłać zgłoszenia. Spróbuj ponownie później.";
+                    "✕ Nie udało się wysłać zgłoszenia. Sprawdź Access Key Web3Forms.";
 
                 tierTestingMessage.className =
                     "text-center text-sm mt-5 text-red-400";
@@ -1808,7 +1889,6 @@
 
                 tierTestingButton.disabled =
                     false;
-
 
                 tierTestingButton.innerText =
                     "Zapisz się";
@@ -1849,7 +1929,7 @@
 
 
     /*
-     * Odświeżamy URL-e skinów co 60 sekund.
+     * Odświeżanie skinów co 60 sekund.
      */
 
     setInterval(
