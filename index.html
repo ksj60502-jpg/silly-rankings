@@ -2,86 +2,72 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silly Rankings | Pro System</title>
+    <title>Silly Rankings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* TŁO Z GWIAZDAMI */
-        body { 
-            background: radial-gradient(circle at 50% 20%, #0a0b14 0%, #030407 100%); 
-            color: #fff; font-family: sans-serif; min-height: 100vh;
-        }
-        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(12px); border: 1px solid #1e293b; }
-        .tier-ht1 { background: #991b1b; } .tier-lt1 { background: #c2410c; }
-        .tier-ht2 { background: #b45309; } .tier-lt2 { background: #52525b; }
-        .tier-ht3 { background: #166534; } .tier-lt3 { background: #047857; }
-        .tier-ht4 { background: #1d4ed8; } .tier-lt4 { background: #1e40af; }
-        .tier-ht5 { background: #581c87; } .tier-lt5 { background: #6d28d9; }
+        body { background: radial-gradient(circle at 50% 50%, #0a0b14 0%, #030407 100%); color: white; font-family: sans-serif; }
+        .glass { background: rgba(13, 17, 28, 0.7); border: 1px solid #1e293b; border-radius: 1rem; }
+        .tier-ht1 { background: #b91c1c; } .tier-ht2 { background: #d97706; }
+        .tier-ht3 { background: #15803d; } .tier-lt1 { background: #ea580c; }
+        .tier-lt2 { background: #4b5563; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 md:p-10">
 
-    <div class="max-w-4xl mx-auto space-y-6">
-        <!-- BANER DISCORD -->
-        <div class="glass p-4 rounded-xl flex items-center justify-between border-purple-900/30">
-            <div class="flex items-center gap-3">
-                <span class="bg-indigo-600 text-[10px] font-bold px-2 py-1 rounded">DISCORD</span>
-                <p class="text-xs text-gray-300">Wbijaj na serwer Silly Rankings!</p>
+    <div class="max-w-5xl mx-auto space-y-6">
+        <!-- HEADER -->
+        <div class="glass p-6 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="bg-purple-600 p-4 rounded-xl font-bold text-xl">SR</div>
+                <div>
+                    <h1 class="text-2xl font-bold">Silly Rankings</h1>
+                    <p class="text-gray-400 text-sm">Oficjalna tablica wyników i dywizji Minecraft</p>
+                </div>
             </div>
-            <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-white text-black text-[10px] font-bold px-4 py-1.5 rounded-lg hover:bg-gray-200">DOŁĄCZ</a>
+            <div class="bg-black p-1 rounded-xl border border-gray-800">
+                <button class="px-6 py-2 rounded-lg bg-purple-600 text-sm font-bold">Widok Gracza</button>
+            </div>
         </div>
 
-        <!-- PODIUM -->
-        <div id="podium" class="grid grid-cols-3 gap-4 h-40"></div>
+        <!-- STATYSTYKI -->
+        <div class="grid grid-cols-3 gap-6">
+            <div class="glass p-6"><div class="text-gray-500 text-xs uppercase font-bold">Liczba graczy</div><div class="text-2xl font-bold mt-1">8</div></div>
+            <div class="glass p-6"><div class="text-gray-500 text-xs uppercase font-bold">Średnie ELO</div><div class="text-2xl font-bold mt-1">2283</div></div>
+            <div class="glass p-6"><div class="text-gray-500 text-xs uppercase font-bold">Top 1 gracza</div><div class="text-2xl font-bold mt-1">ItzAgg</div></div>
+        </div>
 
-        <!-- TABELA -->
-        <div class="glass p-6 rounded-2xl">
-            <input type="text" id="search" onkeyup="render()" placeholder="Wyszukaj gracza..." class="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 mb-6 outline-none focus:border-purple-500 transition-all">
+        <!-- RANKING -->
+        <div class="glass p-8">
+            <h2 class="text-xl font-bold mb-2">Ranking Graczy</h2>
+            <p class="text-gray-400 text-sm mb-6">Kliknij w wiersz gracza, aby zobaczyć jego profil, pozycję i skin.</p>
+            <input type="text" id="search" onkeyup="render()" placeholder="Szukaj gracza..." class="w-full bg-black border border-gray-800 rounded-xl px-4 py-3 mb-6 outline-none focus:border-purple-500">
+            
+            <div class="grid grid-cols-4 text-gray-500 text-xs uppercase font-bold px-4 mb-4">
+                <div>Pozycja</div><div>Gracz</div><div>Dywizja</div><div class="text-right">Punkty ELO</div>
+            </div>
             <div id="tableBody" class="space-y-2"></div>
         </div>
     </div>
 
     <script>
-        let p = [
+        let players = [
             {n: "ItzAgg", t: "HT1", e: 3200}, {n: "Carbstuk", t: "HT2", e: 2850},
             {n: "Connornonor", t: "HT3", e: 2710}, {n: "Mloddy_", t: "LT1", e: 2550},
-            {n: "Tchomad", t: "LT2", e: 2450}, {n: "Dymoty", t: "LT3", e: 2100},
-            {n: "ximixemx", t: "LT4", e: 1500}, {n: "franczesco4", t: "LT5", e: 900}
+            {n: "Tchomad", t: "LT2", e: 2450}
         ];
 
         function render() {
             let q = document.getElementById('search').value.toLowerCase();
             let b = document.getElementById('tableBody');
-            let pod = document.getElementById('podium');
             b.innerHTML = '';
-            pod.innerHTML = '';
-            
-            p.sort((a,b) => b.e - a.e);
-
-            // Podium
-            p.slice(0, 3).forEach((x, i) => {
-                pod.innerHTML += `
-                <div class="glass flex flex-col items-center justify-center rounded-xl p-2">
-                    <img src="https://minotar.net/avatar/${x.n}/32.png" class="rounded mb-1">
-                    <span class="text-[10px] font-bold">${x.n}</span>
-                    <span class="text-purple-400 text-[9px]">${x.e}</span>
-                </div>`;
-            });
-
-            // Tabela
-            p.forEach((x, i) => {
-                if(x.n.toLowerCase().includes(q)) {
+            players.sort((a,b) => b.e - a.e).forEach((p, i) => {
+                if(p.n.toLowerCase().includes(q)) {
                     b.innerHTML += `
-                    <div class="glass p-3 rounded-xl flex items-center justify-between border border-gray-800/50">
-                        <div class="flex items-center gap-4">
-                            <span class="text-purple-500 font-bold w-6">#${i+1}</span>
-                            <img src="https://minotar.net/avatar/${x.n}/24.png" class="rounded">
-                            <span class="font-bold text-sm">${x.n}</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="tier-${x.t.toLowerCase()} px-2 py-0.5 rounded text-[9px] font-bold">${x.t}</span>
-                            <span class="text-purple-400 font-bold text-xs w-16 text-right">${x.e} ELO</span>
-                        </div>
+                    <div class="bg-black/40 p-4 rounded-xl grid grid-cols-4 items-center border border-gray-800 hover:border-purple-500 transition">
+                        <div class="font-bold">#${i+1}</div>
+                        <div class="font-bold flex items-center gap-3"><img src="https://minotar.net/avatar/${p.n}/30.png" class="rounded"> ${p.n}</div>
+                        <div><span class="tier-${p.t.toLowerCase()} text-[10px] font-bold px-3 py-1 rounded">${p.t}</span></div>
+                        <div class="text-right font-bold">${p.e} ELO</div>
                     </div>`;
                 }
             });
