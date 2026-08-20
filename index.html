@@ -513,3 +513,66 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silly Rankings — Oficjalny System Dywizji</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+        
+        body { background-color: #030407; color: #f8fafc; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+        .space-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 50% 20%, #0a0b14 0%, #030407 100%); }
+        .glass-card { background: rgba(13, 17, 28, 0.75); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8); }
+        
+        .tier-ht1 { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.4); }
+        .tier-lt1 { background: linear-gradient(135deg, #7c2d12, #c2410c); color: #fdba74; border: 1px solid rgba(251, 146, 60, 0.4); }
+        .tier-ht2 { background: linear-gradient(135deg, #78350f, #b45309); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.4); }
+        .tier-lt2 { background: linear-gradient(135deg, #3f3f46, #52525b); color: #e4e4e7; border: 1px solid rgba(161, 161, 170, 0.4); }
+        .tier-ht3 { background: linear-gradient(135deg, #14532d, #166534); color: #86efac; border: 1px solid rgba(74, 222, 128, 0.4); }
+        .tier-lt3 { background: linear-gradient(135deg, #064e3b, #047857); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.4); }
+        .tier-ht4 { background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.4); }
+        .tier-lt4 { background: linear-gradient(135deg, #172554, #1e40af); color: #bfdbfe; border: 1px solid rgba(147, 197, 253, 0.4); }
+        .tier-ht5 { background: linear-gradient(135deg, #3b0764, #581c87); color: #d8b4fe; border: 1px solid rgba(192, 132, 252, 0.4); }
+        .tier-lt5 { background: linear-gradient(135deg, #4c1d95, #6d28d9); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.4); }
+    </style>
+</head>
+<body class="min-h-screen pb-16">
+
+    <div class="space-bg"></div>
+
+    <header class="w-full max-w-6xl mx-auto px-6 pt-10">
+        <!-- BANER DISCORD -->
+        <div class="glass-card rounded-2xl p-4 mb-6 text-center border-purple-500/30 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span class="bg-purple-600 text-white text-[10px] font-black px-2 py-0.5 rounded-md uppercase">Discord</span>
+            <p class="text-xs text-slate-300 font-medium">Chcesz się znaleźć na tabeli? Wbijaj na serwer DC i bądź sprawdzony!</p>
+            <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold px-4 py-1.5 rounded-lg transition-all">Dołącz teraz</a>
+        </div>
+
+        <div class="glass-card rounded-3xl p-6 md:px-10 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/40">
+                    <span class="text-2xl font-black">SR</span>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300">Silly Rankings</h1>
+                    <p class="text-sm text-slate-400 font-medium">Oficjalna tablica wyników i dywizji</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3 bg-slate-950/80 p-2 rounded-2xl border border-slate-800">
+                <button onclick="switchView('viewer')" id="btnViewer" class="px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all">Widok Gracza</button>
+                <button onclick="showLoginModal()" id="btnAdmin" class="px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all">Panel Admina</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- (Pozostała część kodu pozostaje bez zmian - reszta wyświetlania tabeli) -->
+    <!-- [Tutaj wklej resztę skryptów i sekcji main z poprzedniej wersji] -->
+    
+    <script>
+        // Skrypty działają tak samo...
+    </script>
+</body>
+</html>
