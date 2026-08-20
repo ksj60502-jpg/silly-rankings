@@ -1,6 +1,6 @@
 <script>
-        // PRAWIDŁOWY HASH SHA-256 HASŁA "Minecraft2020!?!"
-        const CORRECT_PASSWORD_HASH = "0d75f28a7e0ce3fbfa7dbed843c05eb7690fa24bbefbcbc97b71597a731efc1b";
+        // Ukryte hasło zakodowane w Base64 (TWluZWNyYWZ0MjAyMCE/IQ== to "Minecraft2020!?!")
+        const CORRECT_PASSWORD_HASH = "TWluZWNyYWZ0MjAyMCE/IQ==";
 
         function togglePasswordVisibility() {
             const input = document.getElementById("adminPasswordInput");
@@ -25,15 +25,12 @@
             }
         }
 
-        async function checkAdminPassword() {
+        function checkAdminPassword() {
             const inputVal = document.getElementById("adminPasswordInput").value;
             const errorDiv = document.getElementById("loginError");
 
-            // Konwersja wpisanego tekstu na hash SHA-256
-            const msgBuffer = new TextEncoder().encode(inputVal);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const inputHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            // Zamiana wpisanego tekstu na format Base64 w celu ukrycia
+            const inputHash = btoa(inputVal);
 
             if (inputHash === CORRECT_PASSWORD_HASH) {
                 sessionStorage.setItem("silly_admin_auth", "true");
