@@ -1,35 +1,10 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Silly Rankings</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #030407; color: white; font-family: sans-serif; }
-    </style>
 </head>
-<body class="p-10">
-
-    <div class="max-w-2xl mx-auto bg-slate-900 p-8 rounded-2xl">
-        <h1 class="text-2xl font-bold mb-4">Ranking Graczy</h1>
-        <div id="lista" class="space-y-2"></div>
-    </div>
-
-    <script>
-        const gracze = [
-            {n: "ItzAgg", e: 3200}, {n: "Carbstuk", e: 2850},
-            {n: "Connornonor", e: 2710}, {n: "Mloddy_", e: 2550}
-        ];
-
-        const kontener = document.getElementById('lista');
-        gracze.sort((a,b) => b.e - a.e).forEach((g, i) => {
-            kontener.innerHTML += `
-                <div class="p-3 bg-slate-800 rounded flex justify-between">
-                    <span>${i+1}. ${g.n}</span>
-                    <span class="font-bold text-purple-400">${g.e} ELO</span>
-                </div>
-            `;
-        });
-    </script>
+<body style="background: black; color: white; padding: 50px; font-family: sans-serif;">
+    <h1>Strona działa!</h1>
+    <p>Jeśli to widzisz, kod jest poprawny.</p>
 </body>
 </html>
