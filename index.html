@@ -206,6 +206,11 @@
             }
         }
 
+        .tier-testing-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         @media (max-width: 640px) {
             .modal-skin {
                 max-height: 280px;
@@ -285,6 +290,83 @@
     </section>
 
 
+    <!-- TIER TESTING -->
+    <section class="w-full max-w-6xl mx-auto px-6 mt-4">
+
+        <div
+            class="glass-card rounded-2xl p-6 md:p-8 border-purple-500/30"
+        >
+
+            <div class="text-center mb-6">
+
+                <div
+                    class="mx-auto mb-4 w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/30"
+                >
+                    <span class="text-2xl">
+                        🏆
+                    </span>
+                </div>
+
+                <h2 class="text-2xl font-extrabold">
+                    Zapisz się na Tier-testing
+                </h2>
+
+                <p class="text-sm text-slate-400 mt-2">
+                    Wpisz swój nick Minecraft, aby zgłosić się do
+                    tier-testingu.
+                </p>
+
+            </div>
+
+
+            <form
+                id="tierTestingForm"
+                class="max-w-xl mx-auto"
+            >
+
+                <div class="flex flex-col sm:flex-row gap-3">
+
+                    <input
+                        type="text"
+                        id="tierTestingNick"
+                        name="nickname"
+                        placeholder="Twój nick Minecraft..."
+                        maxlength="16"
+                        minlength="3"
+                        required
+                        autocomplete="off"
+                        spellcheck="false"
+                        class="flex-1 bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-slate-200 outline-none transition-all"
+                    >
+
+                    <button
+                        type="submit"
+                        id="tierTestingButton"
+                        class="tier-testing-button px-6 py-3.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-2xl text-sm font-bold text-white transition-all shadow-lg shadow-purple-600/20 whitespace-nowrap"
+                    >
+                        Zapisz się
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div
+                id="tierTestingMessage"
+                class="hidden text-center text-sm mt-5"
+            ></div>
+
+
+            <p class="text-center text-xs text-slate-600 mt-5">
+                Zgłoszenie zostanie przekazane administracji Silly Rankings.
+            </p>
+
+        </div>
+
+    </section>
+
+
     <!-- MAIN -->
     <main class="w-full max-w-6xl mx-auto px-6 mt-8 flex-grow">
 
@@ -303,6 +385,7 @@
                     </div>
 
                     <div>
+
                         <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
                             Liczba graczy
                         </p>
@@ -313,6 +396,7 @@
                         >
                             0
                         </h4>
+
                     </div>
 
                 </div>
@@ -327,6 +411,7 @@
                     </div>
 
                     <div>
+
                         <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
                             Średnie ELO
                         </p>
@@ -337,6 +422,7 @@
                         >
                             0
                         </h4>
+
                     </div>
 
                 </div>
@@ -351,6 +437,7 @@
                     </div>
 
                     <div>
+
                         <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
                             Top 1 Gracza
                         </p>
@@ -361,6 +448,7 @@
                         >
                             -
                         </h4>
+
                     </div>
 
                 </div>
@@ -704,11 +792,15 @@
 
         try {
 
-            const saved = localStorage.getItem("silly_players");
+            const saved =
+                localStorage.getItem(
+                    "silly_players"
+                );
 
             if (saved) {
 
-                const parsed = JSON.parse(saved);
+                const parsed =
+                    JSON.parse(saved);
 
                 if (Array.isArray(parsed)) {
                     players = parsed;
@@ -726,15 +818,22 @@
         }
 
 
-        if (!Array.isArray(players) || players.length === 0) {
+        if (
+            !Array.isArray(players) ||
+            players.length === 0
+        ) {
 
-            players = [...defaultPlayers];
+            players = [
+                ...defaultPlayers
+            ];
 
         }
 
 
         players.sort(
-            (a, b) => Number(b.elo) - Number(a.elo)
+            (a, b) =>
+                Number(b.elo) -
+                Number(a.elo)
         );
 
     }
@@ -768,14 +867,6 @@
 
     /* =========================================================
        URL SKINÓW
-       
-       MCHeads obsługuje username bezpośrednio.
-       
-       HEAD:
-       https://mc-heads.net/avatar/USERNAME/64
-
-       FULL BODY:
-       https://mc-heads.net/player/USERNAME/256
     ========================================================= */
 
     function getHeadUrl(name) {
@@ -810,12 +901,9 @@
 
     function handleHeadError(img, name) {
 
-        /*
-         * Jeżeli pierwsze żądanie nie zadziała,
-         * próbujemy endpointu /head.
-         */
-
-        if (img.dataset.fallback !== "1") {
+        if (
+            img.dataset.fallback !== "1"
+        ) {
 
             img.dataset.fallback = "1";
 
@@ -831,13 +919,8 @@
         }
 
 
-        /*
-         * Jeśli również nie zadziała,
-         * ukrywamy obrazek zamiast pokazywać
-         * zepsuty placeholder.
-         */
-
-        img.style.visibility = "hidden";
+        img.style.visibility =
+            "hidden";
 
     }
 
@@ -846,9 +929,14 @@
        FALLBACK DLA PEŁNEGO SKINA
     ========================================================= */
 
-    function handleFullSkinError(img, name) {
+    function handleFullSkinError(
+        img,
+        name
+    ) {
 
-        if (img.dataset.fallback !== "1") {
+        if (
+            img.dataset.fallback !== "1"
+        ) {
 
             img.dataset.fallback = "1";
 
@@ -867,8 +955,11 @@
         img.style.display = "none";
 
         document
-            .getElementById("skinLoading")
-            .classList.remove("hidden");
+            .getElementById(
+                "skinLoading"
+            )
+            .classList
+            .remove("hidden");
 
     }
 
@@ -887,16 +978,23 @@
         if (!container) return;
 
 
-        for (let i = 0; i < 45; i++) {
+        for (
+            let i = 0;
+            i < 45;
+            i++
+        ) {
 
             const star =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             star.className = "star";
 
 
             const size =
                 Math.random() * 3 + 1;
+
 
             star.style.width =
                 size + "px";
@@ -905,19 +1003,26 @@
                 size + "px";
 
             star.style.left =
-                Math.random() * 100 + "vw";
+                Math.random() * 100 +
+                "vw";
 
             star.style.top =
-                Math.random() * -50 + "vh";
+                Math.random() * -50 +
+                "vh";
 
             star.style.animationDuration =
-                Math.random() * 5 + 3 + "s";
+                Math.random() * 5 +
+                3 +
+                "s";
 
             star.style.animationDelay =
-                Math.random() * 5 + "s";
+                Math.random() * 5 +
+                "s";
 
 
-            container.appendChild(star);
+            container.appendChild(
+                star
+            );
 
         }
 
@@ -950,7 +1055,9 @@
             players.length;
 
 
-        if (players.length === 0) {
+        if (
+            players.length === 0
+        ) {
 
             avg.innerText = "0";
             top.innerText = "-";
@@ -962,15 +1069,22 @@
 
         const totalElo =
             players.reduce(
-                (sum, player) =>
-                    sum + Number(player.elo || 0),
+                (
+                    sum,
+                    player
+                ) =>
+                    sum +
+                    Number(
+                        player.elo || 0
+                    ),
                 0
             );
 
 
         avg.innerText =
             Math.round(
-                totalElo / players.length
+                totalElo /
+                players.length
             );
 
 
@@ -993,7 +1107,9 @@
 
         const search =
             document
-                .getElementById("searchInput")
+                .getElementById(
+                    "searchInput"
+                )
                 .value
                 .trim()
                 .toLowerCase();
@@ -1002,125 +1118,140 @@
         body.innerHTML = "";
 
 
-        players.forEach((player, index) => {
+        players.forEach(
+            (
+                player,
+                index
+            ) => {
 
-            const name =
-                String(player.name);
-
-            const tier =
-                String(player.tier).toUpperCase();
-
-            const elo =
-                Number(player.elo);
-
-
-            const matchesSearch =
-                name
-                    .toLowerCase()
-                    .includes(search);
-
-
-            const matchesTier =
-                activeTierFilter === "ALL" ||
-                tier === activeTierFilter;
-
-
-            if (
-                !matchesSearch ||
-                !matchesTier
-            ) {
-                return;
-            }
-
-
-            const tierClass =
-                "tier-" +
-                tier.toLowerCase();
-
-
-            const row =
-                document.createElement("tr");
-
-            row.className =
-                "player-row cursor-pointer group";
-
-
-            row.addEventListener(
-                "click",
-                () => {
-
-                    openPlayerModal(
-                        name,
-                        tier,
-                        elo,
-                        index + 1
+                const name =
+                    String(
+                        player.name
                     );
 
+                const tier =
+                    String(
+                        player.tier
+                    ).toUpperCase();
+
+                const elo =
+                    Number(
+                        player.elo
+                    );
+
+
+                const matchesSearch =
+                    name
+                        .toLowerCase()
+                        .includes(
+                            search
+                        );
+
+
+                const matchesTier =
+                    activeTierFilter ===
+                        "ALL" ||
+                    tier ===
+                        activeTierFilter;
+
+
+                if (
+                    !matchesSearch ||
+                    !matchesTier
+                ) {
+                    return;
                 }
-            );
 
 
-            row.innerHTML = `
-
-                <td class="py-4 px-6 font-extrabold text-purple-400 whitespace-nowrap">
-                    #${index + 1}
-                </td>
+                const tierClass =
+                    "tier-" +
+                    tier.toLowerCase();
 
 
-                <td class="py-4 px-6">
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
 
-                    <div class="flex items-center space-x-4">
+                row.className =
+                    "player-row cursor-pointer group";
 
-                        <div
-                            class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-center overflow-hidden shrink-0"
-                        >
 
-                            <img
-                                src="${getHeadUrl(name)}"
-                                data-fallback="0"
-                                class="skin-head w-10 h-10"
-                                alt="Skin ${escapeHTML(name)}"
-                                loading="lazy"
-                                onerror="handleHeadError(this, '${escapeHTML(name)}')"
+                row.addEventListener(
+                    "click",
+                    () => {
+
+                        openPlayerModal(
+                            name,
+                            tier,
+                            elo,
+                            index + 1
+                        );
+
+                    }
+                );
+
+
+                row.innerHTML = `
+
+                    <td class="py-4 px-6 font-extrabold text-purple-400 whitespace-nowrap">
+                        #${index + 1}
+                    </td>
+
+                    <td class="py-4 px-6">
+
+                        <div class="flex items-center space-x-4">
+
+                            <div
+                                class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-center overflow-hidden shrink-0"
                             >
+
+                                <img
+                                    src="${getHeadUrl(name)}"
+                                    data-fallback="0"
+                                    class="skin-head w-10 h-10"
+                                    alt="Skin ${escapeHTML(name)}"
+                                    loading="lazy"
+                                    onerror="handleHeadError(this, '${escapeHTML(name)}')"
+                                >
+
+                            </div>
+
+                            <span
+                                class="font-bold text-slate-100 text-lg group-hover:text-purple-300 transition-colors"
+                            >
+                                ${escapeHTML(name)}
+                            </span>
 
                         </div>
 
+                    </td>
+
+                    <td class="py-4 px-6">
 
                         <span
-                            class="font-bold text-slate-100 text-lg group-hover:text-purple-300 transition-colors"
+                            class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}"
                         >
-                            ${escapeHTML(name)}
+                            ${escapeHTML(tier)}
                         </span>
 
-                    </div>
+                    </td>
 
-                </td>
-
-
-                <td class="py-4 px-6">
-
-                    <span
-                        class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}"
+                    <td
+                        class="py-4 px-6 text-right font-mono font-bold text-purple-300 text-lg whitespace-nowrap"
                     >
-                        ${escapeHTML(tier)}
-                    </span>
+                        ${elo} ELO
+                    </td>
 
-                </td>
-
-
-                <td
-                    class="py-4 px-6 text-right font-mono font-bold text-purple-300 text-lg whitespace-nowrap"
-                >
-                    ${elo} ELO
-                </td>
-
-            `;
+                `;
 
 
-            body.appendChild(row);
+                body.appendChild(
+                    row
+                );
 
-        });
+            }
+        );
 
 
         updateStats();
@@ -1138,13 +1269,17 @@
 
 
         document
-            .querySelectorAll(".tier-filter")
-            .forEach(button => {
+            .querySelectorAll(
+                ".tier-filter"
+            )
+            .forEach(
+                button => {
 
-                button.className =
-                    "tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all";
+                    button.className =
+                        "tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all";
 
-            });
+                }
+            );
 
 
         const activeButton =
@@ -1188,7 +1323,8 @@
         rankPos
     ) {
 
-        currentModalName = name;
+        currentModalName =
+            name;
 
 
         const modal =
@@ -1211,7 +1347,8 @@
 
         document.getElementById(
             "modalPlayerName"
-        ).innerText = name;
+        ).innerText =
+            name;
 
 
         document.getElementById(
@@ -1242,48 +1379,48 @@
             elo + " ELO";
 
 
-        /*
-         * Reset obrazka.
-         */
+        skin.style.display =
+            "block";
 
-        skin.style.display = "block";
-        skin.style.visibility = "visible";
+        skin.style.visibility =
+            "visible";
 
-        skin.dataset.fallback = "0";
-
-        loading.classList.remove("hidden");
+        skin.dataset.fallback =
+            "0";
 
 
-        /*
-         * Ładujemy AKTUALNY pełny skin.
-         */
-
-        skin.onload = function () {
-
-            loading.classList.add("hidden");
-
-            skin.style.display = "block";
-
-        };
+        loading.classList.remove(
+            "hidden"
+        );
 
 
-        skin.onerror = function () {
+        skin.onload =
+            function() {
 
-            handleFullSkinError(
-                skin,
-                name
-            );
+                loading.classList.add(
+                    "hidden"
+                );
 
-        };
+                skin.style.display =
+                    "block";
+
+            };
+
+
+        skin.onerror =
+            function() {
+
+                handleFullSkinError(
+                    skin,
+                    name
+                );
+
+            };
 
 
         skin.src =
             getFullSkinUrl(name);
 
-
-        /*
-         * NameMC
-         */
 
         document.getElementById(
             "modalNameMcBtn"
@@ -1292,11 +1429,10 @@
             encodeURIComponent(name);
 
 
-        /*
-         * Pokaż modal.
-         */
+        modal.classList.remove(
+            "hidden"
+        );
 
-        modal.classList.remove("hidden");
 
         document.body.classList.add(
             "modal-open"
@@ -1312,8 +1448,11 @@
     function closePlayerModal() {
 
         document
-            .getElementById("playerModal")
-            .classList.add("hidden");
+            .getElementById(
+                "playerModal"
+            )
+            .classList
+            .add("hidden");
 
 
         document.body.classList.remove(
@@ -1331,7 +1470,9 @@
     ========================================================= */
 
     document
-        .getElementById("playerModal")
+        .getElementById(
+            "playerModal"
+        )
         .addEventListener(
             "click",
             function(event) {
@@ -1358,9 +1499,12 @@
         function(event) {
 
             if (
-                event.key === "Escape" &&
+                event.key ===
+                    "Escape" &&
                 !document
-                    .getElementById("playerModal")
+                    .getElementById(
+                        "playerModal"
+                    )
                     .classList
                     .contains("hidden")
             ) {
@@ -1429,22 +1573,29 @@
                 "textarea"
             );
 
-        textarea.value = text;
+
+        textarea.value =
+            text;
 
         textarea.style.position =
             "fixed";
 
-        textarea.style.opacity = "0";
+        textarea.style.opacity =
+            "0";
+
 
         document.body.appendChild(
             textarea
         );
 
+
         textarea.select();
+
 
         document.execCommand(
             "copy"
         );
+
 
         textarea.remove();
 
@@ -1469,11 +1620,6 @@
         renderTables();
 
 
-        /*
-         * Jeśli modal jest otwarty,
-         * przeładuj również pełnego skina.
-         */
-
         if (currentModalName) {
 
             const skin =
@@ -1488,10 +1634,13 @@
                 );
 
 
-            skin.dataset.fallback = "0";
+            skin.dataset.fallback =
+                "0";
+
 
             skin.style.display =
                 "block";
+
 
             loading.classList.remove(
                 "hidden"
@@ -1509,11 +1658,175 @@
 
 
     /* =========================================================
+       TIER TESTING — WYSYŁANIE ZGŁOSZENIA
+    ========================================================= */
+
+    const tierTestingForm =
+        document.getElementById(
+            "tierTestingForm"
+        );
+
+
+    const tierTestingNick =
+        document.getElementById(
+            "tierTestingNick"
+        );
+
+
+    const tierTestingButton =
+        document.getElementById(
+            "tierTestingButton"
+        );
+
+
+    const tierTestingMessage =
+        document.getElementById(
+            "tierTestingMessage"
+        );
+
+
+    tierTestingForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const nickname =
+                tierTestingNick.value.trim();
+
+
+            /*
+             * Walidacja nicku Minecraft.
+             */
+
+            if (
+                !/^[A-Za-z0-9_]{3,16}$/.test(
+                    nickname
+                )
+            ) {
+
+                tierTestingMessage.innerText =
+                    "✕ Nick musi mieć 3–16 znaków i może zawierać tylko litery, cyfry oraz _.";
+
+                tierTestingMessage.className =
+                    "text-center text-sm mt-5 text-red-400";
+
+                return;
+
+            }
+
+
+            tierTestingButton.disabled =
+                true;
+
+
+            tierTestingButton.innerText =
+                "Wysyłanie...";
+
+
+            tierTestingMessage.className =
+                "hidden text-center text-sm mt-5";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/tier-testing",
+                        {
+                            method:
+                                "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    nickname:
+                                        nickname
+                                })
+                        }
+                    );
+
+
+                let data = {};
+
+                try {
+
+                    data =
+                        await response.json();
+
+                } catch {
+
+                    data = {};
+
+                }
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Wystąpił błąd podczas wysyłania."
+                    );
+
+                }
+
+
+                tierTestingMessage.innerText =
+                    "✓ Zgłoszenie zostało wysłane! Administracja otrzyma Twój nick.";
+
+                tierTestingMessage.className =
+                    "text-center text-sm mt-5 text-green-400";
+
+
+                tierTestingNick.value =
+                    "";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Tier-testing error:",
+                    error
+                );
+
+
+                tierTestingMessage.innerText =
+                    "✕ Nie udało się wysłać zgłoszenia. Spróbuj ponownie później.";
+
+                tierTestingMessage.className =
+                    "text-center text-sm mt-5 text-red-400";
+
+
+            } finally {
+
+                tierTestingButton.disabled =
+                    false;
+
+
+                tierTestingButton.innerText =
+                    "Zapisz się";
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
        SEARCH INPUT
     ========================================================= */
 
     document
-        .getElementById("searchInput")
+        .getElementById(
+            "searchInput"
+        )
         .addEventListener(
             "input",
             filterPlayers
@@ -1537,8 +1850,6 @@
 
     /*
      * Odświeżamy URL-e skinów co 60 sekund.
-     * MCHeads sam posiada cache po swojej stronie,
-     * więc nie pobieramy danych co sekundę.
      */
 
     setInterval(
