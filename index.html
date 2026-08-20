@@ -10,7 +10,6 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
@@ -243,13 +242,10 @@
 
 <body class="min-h-screen flex flex-col pb-16">
 
-    <!-- TŁO -->
     <div class="space-bg" id="spaceBackground"></div>
-
 
     <!-- HEADER -->
     <header class="w-full max-w-6xl mx-auto px-6 pt-8">
-
         <div class="glass-card rounded-3xl p-6 md:px-10">
 
             <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
@@ -265,7 +261,6 @@
                     </div>
 
                     <div>
-
                         <h1
                             class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300"
                         >
@@ -275,7 +270,6 @@
                         <p class="text-sm text-slate-400 font-medium">
                             Oficjalna tablica wyników i dywizji Minecraft
                         </p>
-
                     </div>
 
                 </div>
@@ -283,16 +277,13 @@
             </div>
 
         </div>
-
     </header>
 
 
     <!-- DISCORD -->
     <section class="w-full max-w-6xl mx-auto px-6 mt-4">
 
-        <div
-            class="glass-card rounded-2xl p-6 border-indigo-500/30 text-center"
-        >
+        <div class="glass-card rounded-2xl p-6 border-indigo-500/30 text-center">
 
             <p class="text-sm text-indigo-100 font-medium mb-4">
                 Chcesz znaleźć się na tabeli?
@@ -318,7 +309,6 @@
 
         <div id="viewerView" class="space-y-6">
 
-
             <!-- STATYSTYKI -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
@@ -331,7 +321,6 @@
                     </div>
 
                     <div>
-
                         <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
                             Liczba graczy
                         </p>
@@ -342,7 +331,6 @@
                         >
                             0
                         </h4>
-
                     </div>
 
                 </div>
@@ -357,7 +345,6 @@
                     </div>
 
                     <div>
-
                         <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
                             Średnie ELO
                         </p>
@@ -368,7 +355,6 @@
                         >
                             0
                         </h4>
-
                     </div>
 
                 </div>
@@ -383,7 +369,6 @@
                     </div>
 
                     <div>
-
                         <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
                             Top 1 Gracza
                         </p>
@@ -394,7 +379,6 @@
                         >
                             -
                         </h4>
-
                     </div>
 
                 </div>
@@ -458,8 +442,6 @@
                         value=""
                     >
 
-
-                    <!-- NICK -->
                     <div>
 
                         <label
@@ -483,7 +465,6 @@
                     </div>
 
 
-                    <!-- DISCORD -->
                     <div>
 
                         <label
@@ -507,7 +488,6 @@
                     </div>
 
 
-                    <!-- OPIS -->
                     <div>
 
                         <label
@@ -533,10 +513,7 @@
                     </div>
 
 
-                    <!-- ZGODA -->
-                    <label
-                        class="flex items-start gap-3 cursor-pointer"
-                    >
+                    <label class="flex items-start gap-3 cursor-pointer">
 
                         <input
                             id="rulesAccepted"
@@ -554,14 +531,12 @@
                     </label>
 
 
-                    <!-- STATUS -->
                     <div
                         id="formStatus"
                         class="hidden rounded-2xl px-5 py-4 text-sm font-semibold"
                     ></div>
 
 
-                    <!-- BUTTON -->
                     <button
                         id="submitTierButton"
                         type="submit"
@@ -628,83 +603,43 @@
                         Wszystkie
                     </button>
 
-                    <button
-                        data-tier="HT1"
-                        onclick="filterTier('HT1')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="HT1" onclick="filterTier('HT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         HT1
                     </button>
 
-                    <button
-                        data-tier="LT1"
-                        onclick="filterTier('LT1')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="LT1" onclick="filterTier('LT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         LT1
                     </button>
 
-                    <button
-                        data-tier="HT2"
-                        onclick="filterTier('HT2')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="HT2" onclick="filterTier('HT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         HT2
                     </button>
 
-                    <button
-                        data-tier="LT2"
-                        onclick="filterTier('LT2')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="LT2" onclick="filterTier('LT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         LT2
                     </button>
 
-                    <button
-                        data-tier="HT3"
-                        onclick="filterTier('HT3')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="HT3" onclick="filterTier('HT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         HT3
                     </button>
 
-                    <button
-                        data-tier="LT3"
-                        onclick="filterTier('LT3')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="LT3" onclick="filterTier('LT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         LT3
                     </button>
 
-                    <button
-                        data-tier="HT4"
-                        onclick="filterTier('HT4')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="HT4" onclick="filterTier('HT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         HT4
                     </button>
 
-                    <button
-                        data-tier="LT4"
-                        onclick="filterTier('LT4')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="LT4" onclick="filterTier('LT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         LT4
                     </button>
 
-                    <button
-                        data-tier="HT5"
-                        onclick="filterTier('HT5')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="HT5" onclick="filterTier('HT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         HT5
                     </button>
 
-                    <button
-                        data-tier="LT5"
-                        onclick="filterTier('LT5')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300"
-                    >
+                    <button data-tier="LT5" onclick="filterTier('LT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
                         LT5
                     </button>
 
@@ -884,7 +819,7 @@
 
     /* =========================================================
        GRACZE
-       ITZAGG + XIMIXEMX
+       ITZAGG + CARBSTUK + XIMIXEMX
     ========================================================= */
 
     const defaultPlayers = [
@@ -892,6 +827,11 @@
             name: "ItzAgg",
             tier: "HT1",
             elo: 3200
+        },
+        {
+            name: "Carbstuk",
+            tier: "HT2",
+            elo: 950
         },
         {
             name: "ximixemx",
@@ -925,12 +865,6 @@
     ========================================================= */
 
     function loadPlayers() {
-
-        /*
-         * Lista jest resetowana do defaultPlayers przy każdym
-         * uruchomieniu strony, dzięki czemu Carbstuk nie wróci
-         * ze starego localStorage.
-         */
 
         players = [...defaultPlayers];
 
@@ -1599,30 +1533,23 @@
                 "textarea"
             );
 
-
         textarea.value = text;
-
 
         textarea.style.position =
             "fixed";
 
-
         textarea.style.opacity =
             "0";
-
 
         document.body.appendChild(
             textarea
         );
 
-
         textarea.select();
-
 
         document.execCommand(
             "copy"
         );
-
 
         textarea.remove();
 
@@ -1799,7 +1726,6 @@
             submitButton.disabled =
                 true;
 
-
             submitButton.innerText =
                 "Wysyłanie...";
 
@@ -1892,7 +1818,6 @@
 
                 }
 
-
             } catch (error) {
 
                 console.error(
@@ -1909,7 +1834,6 @@
 
                 submitButton.disabled =
                     false;
-
 
                 submitButton.innerText =
                     "Wyślij zgłoszenie";
@@ -1979,9 +1903,9 @@
     updateStats();
 
 
-    /*
-     * Odświeżanie skinów co 60 sekund.
-     */
+    /* =========================================================
+       ODŚWIEŻANIE SKINÓW CO 60 SEKUND
+    ========================================================= */
 
     setInterval(
         refreshPlayerSkins,
