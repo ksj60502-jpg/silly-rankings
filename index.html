@@ -207,20 +207,39 @@
             }
         }
 
-        .success-message {
-            animation: messageIn .3s ease;
+        .form-input {
+            width: 100%;
+            background: rgba(2, 6, 23, 0.85);
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 14px 16px;
+            color: white;
+            outline: none;
+            transition: all .2s ease;
         }
 
-        @keyframes messageIn {
-            from {
-                opacity: 0;
-                transform: translateY(-5px);
-            }
+        .form-input:focus {
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, .15);
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+        textarea.form-input {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .submit-spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,.25);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            display: inline-block;
         }
 
         @media (max-width: 640px) {
@@ -234,508 +253,36 @@
 
 <body class="min-h-screen flex flex-col pb-16">
 
-    <!-- TŁO -->
-    <div class="space-bg" id="spaceBackground"></div>
+<div class="space-bg" id="spaceBackground"></div>
 
+<!-- HEADER -->
+<header class="w-full max-w-6xl mx-auto px-6 pt-8">
 
-    <!-- HEADER -->
-    <header class="w-full max-w-6xl mx-auto px-6 pt-8">
+    <div class="glass-card rounded-3xl p-6 md:px-10">
 
-        <div class="glass-card rounded-3xl p-6 md:px-10">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
 
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
-
-                <div class="flex items-center gap-4">
-
-                    <div
-                        class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/40"
-                    >
-                        <span class="text-2xl font-black">
-                            SR
-                        </span>
-                    </div>
-
-                    <div>
-                        <h1
-                            class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300"
-                        >
-                            Silly Rankings
-                        </h1>
-
-                        <p class="text-sm text-slate-400 font-medium">
-                            Oficjalna tablica wyników i dywizji Minecraft
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- DISCORD -->
-    <section class="w-full max-w-6xl mx-auto px-6 mt-4">
-
-        <div
-            class="glass-card rounded-2xl p-6 border-indigo-500/30 text-center"
-        >
-
-            <p class="text-sm text-indigo-100 font-medium mb-4">
-                Chcesz znaleźć się na tabeli?
-                Dołącz do Discorda i bądź sprawdzony!
-            </p>
-
-            <a
-                href="https://discord.gg/kfp7Gm8r8"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl uppercase tracking-widest transition-all"
-            >
-                Dołącz do Discorda
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- TIER TESTING -->
-    <section class="w-full max-w-6xl mx-auto px-6 mt-4">
-
-        <div class="glass-card rounded-3xl p-6 md:p-10 border-purple-500/30">
-
-            <div class="text-center mb-7">
+            <div class="flex items-center gap-4">
 
                 <div
-                    class="mx-auto mb-4 w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-2xl"
+                    class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/40"
                 >
-                    ⚔️
+                    <span class="text-2xl font-black">
+                        SR
+                    </span>
                 </div>
 
-                <h2 class="text-3xl font-extrabold">
-                    Zapisz się na Tier-testing
-                </h2>
-
-                <p class="text-sm text-slate-400 mt-2 max-w-xl mx-auto">
-                    Wpisz swój nick Minecraft, a zgłoszenie zostanie
-                    przesłane do administracji Silly Rankings.
-                </p>
-
-            </div>
-
-
-            <form id="tierTestingForm" class="max-w-xl mx-auto">
-
-                <!-- WEB3FORMS ACCESS KEY -->
-                <input
-                    type="hidden"
-                    name="access_key"
-                    value="b3f99be7-359e-4904-bb11-b00c27b3d0aa"
-                >
-
-                <!-- TEMAT WIADOMOŚCI -->
-                <input
-                    type="hidden"
-                    name="subject"
-                    value="Nowe zgłoszenie na Tier-testing — Silly Rankings"
-                >
-
-                <!-- NAZWA FORMULARZA -->
-                <input
-                    type="hidden"
-                    name="from_name"
-                    value="Silly Rankings — Tier-testing"
-                >
-
-                <!-- ANTISPAM -->
-                <input
-                    type="checkbox"
-                    name="botcheck"
-                    class="hidden"
-                    tabindex="-1"
-                    autocomplete="off"
-                >
-
-                <div class="mb-4">
-
-                    <label
-                        for="tierPlayerName"
-                        class="block text-sm font-bold text-slate-300 mb-2"
+                <div>
+                    <h1
+                        class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300"
                     >
-                        Nick Minecraft
-                    </label>
+                        Silly Rankings
+                    </h1>
 
-                    <input
-                        id="tierPlayerName"
-                        name="Nick Minecraft"
-                        type="text"
-                        maxlength="16"
-                        autocomplete="off"
-                        required
-                        placeholder="np. Steve123"
-                        class="w-full bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-4 text-sm text-slate-200 outline-none transition-all"
-                    >
-
+                    <p class="text-sm text-slate-400 font-medium">
+                        Oficjalna tablica wyników i dywizji Minecraft
+                    </p>
                 </div>
-
-
-                <button
-                    id="tierSubmitButton"
-                    type="submit"
-                    class="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-2xl transition-all shadow-lg shadow-purple-600/20"
-                >
-                    Wyślij zgłoszenie
-                </button>
-
-
-                <div
-                    id="tierFormResult"
-                    class="hidden mt-4 rounded-2xl px-5 py-4 text-sm font-medium text-center"
-                ></div>
-
-            </form>
-
-        </div>
-
-    </section>
-
-
-    <!-- MAIN -->
-    <main class="w-full max-w-6xl mx-auto px-6 mt-8 flex-grow">
-
-        <div id="viewerView" class="space-y-6">
-
-
-            <!-- STATYSTYKI -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-                <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
-
-                    <div
-                        class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-lg"
-                    >
-                        👥
-                    </div>
-
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
-                            Liczba graczy
-                        </p>
-
-                        <h4
-                            id="statTotalPlayers"
-                            class="text-xl font-black text-white"
-                        >
-                            0
-                        </h4>
-                    </div>
-
-                </div>
-
-
-                <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
-
-                    <div
-                        class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-lg"
-                    >
-                        ⚡
-                    </div>
-
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
-                            Średnie ELO
-                        </p>
-
-                        <h4
-                            id="statAvgElo"
-                            class="text-xl font-black text-white"
-                        >
-                            0
-                        </h4>
-                    </div>
-
-                </div>
-
-
-                <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
-
-                    <div
-                        class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold text-lg"
-                    >
-                        👑
-                    </div>
-
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
-                            Top 1 Gracza
-                        </p>
-
-                        <h4
-                            id="statTopPlayer"
-                            class="text-xl font-black text-white"
-                        >
-                            -
-                        </h4>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- RANKING -->
-            <div class="glass-card rounded-3xl p-6 md:p-10">
-
-                <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-
-                    <div>
-
-                        <h2 class="text-3xl font-extrabold tracking-tight">
-                            Ranking Graczy
-                        </h2>
-
-                        <p class="text-sm text-slate-400 mt-1">
-                            Kliknij w gracza, aby zobaczyć jego pełny skin.
-                        </p>
-
-                    </div>
-
-
-                    <div class="w-full md:w-auto flex gap-2">
-
-                        <input
-                            type="text"
-                            id="searchInput"
-                            placeholder="Szukaj gracza..."
-                            class="w-full md:w-64 bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-slate-200 outline-none transition-all"
-                        >
-
-                        <button
-                            onclick="refreshPlayerSkins()"
-                            class="px-5 py-3.5 bg-slate-900 hover:bg-purple-600 border border-slate-800 hover:border-purple-500 rounded-2xl text-sm font-bold text-slate-300 hover:text-white transition-all whitespace-nowrap"
-                        >
-                            ↻ Odśwież
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FILTRY -->
-                <div
-                    class="flex flex-wrap gap-2 mb-6 pb-6 border-b border-slate-800/60"
-                    id="tierFilters"
-                >
-
-                    <button
-                        data-tier="ALL"
-                        onclick="filterTier('ALL')"
-                        class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg"
-                    >
-                        Wszystkie
-                    </button>
-
-                    <button data-tier="HT1" onclick="filterTier('HT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        HT1
-                    </button>
-
-                    <button data-tier="LT1" onclick="filterTier('LT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        LT1
-                    </button>
-
-                    <button data-tier="HT2" onclick="filterTier('HT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        HT2
-                    </button>
-
-                    <button data-tier="LT2" onclick="filterTier('LT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        LT2
-                    </button>
-
-                    <button data-tier="HT3" onclick="filterTier('HT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        HT3
-                    </button>
-
-                    <button data-tier="LT3" onclick="filterTier('LT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        LT3
-                    </button>
-
-                    <button data-tier="HT4" onclick="filterTier('HT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        HT4
-                    </button>
-
-                    <button data-tier="LT4" onclick="filterTier('LT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        LT4
-                    </button>
-
-                    <button data-tier="HT5" onclick="filterTier('HT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        HT5
-                    </button>
-
-                    <button data-tier="LT5" onclick="filterTier('LT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
-                        LT5
-                    </button>
-
-                </div>
-
-
-                <!-- TABELA -->
-                <div class="overflow-x-auto">
-
-                    <table class="w-full text-left border-collapse">
-
-                        <thead>
-
-                            <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider font-bold">
-
-                                <th class="py-4 px-6">
-                                    Pozycja
-                                </th>
-
-                                <th class="py-4 px-6">
-                                    Gracz
-                                </th>
-
-                                <th class="py-4 px-6">
-                                    Dywizja
-                                </th>
-
-                                <th class="py-4 px-6 text-right">
-                                    Punkty ELO
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody
-                            id="playerTableBody"
-                            class="divide-y divide-slate-800/50 text-base"
-                        ></tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-
-    <!-- MODAL -->
-    <div
-        id="playerModal"
-        class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-5"
-    >
-
-        <div
-            id="modalContent"
-            class="glass-card rounded-3xl p-7 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden"
-        >
-
-            <button
-                onclick="closePlayerModal()"
-                class="absolute top-4 right-4 w-10 h-10 rounded-xl bg-slate-900/80 hover:bg-red-500/20 border border-slate-700 text-slate-400 hover:text-white transition-all"
-                aria-label="Zamknij"
-            >
-                ✕
-            </button>
-
-
-            <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
-
-            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
-
-
-            <!-- SKIN -->
-            <div class="flex justify-center mb-6 relative z-10">
-
-                <div
-                    class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 shadow-inner min-h-[260px] flex items-center justify-center"
-                >
-
-                    <div
-                        id="skinLoading"
-                        class="loading-spinner hidden"
-                    ></div>
-
-                    <img
-                        id="modalPlayerSkin"
-                        src=""
-                        class="modal-skin drop-shadow-2xl"
-                        alt="Pełny skin gracza"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <h3
-                id="modalPlayerName"
-                class="text-3xl font-extrabold mb-1 text-white relative z-10"
-            >
-                Nazwa Gracza
-            </h3>
-
-
-            <p
-                id="modalPlayerRankPos"
-                class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-3 relative z-10"
-            >
-                Pozycja w rankingu: #1
-            </p>
-
-
-            <div class="flex justify-center items-center gap-2 mb-6 relative z-10">
-
-                <span
-                    id="modalPlayerTier"
-                    class="px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider"
-                >
-                    Tier
-                </span>
-
-                <span
-                    id="modalPlayerElo"
-                    class="font-mono font-bold text-purple-300 text-sm"
-                >
-                    0 ELO
-                </span>
-
-            </div>
-
-
-            <div class="flex flex-col gap-3 relative z-10">
-
-                <a
-                    id="modalNameMcBtn"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-white shadow-lg shadow-cyan-600/30 transition-all"
-                >
-                    Otwórz w NameMC
-                </a>
-
-                <button
-                    onclick="copyProfileLink()"
-                    class="w-full bg-slate-800/80 hover:bg-slate-800 border border-slate-700 font-bold py-3 rounded-2xl text-xs uppercase tracking-wider text-slate-200 transition-all"
-                >
-                    Skopiuj link NameMC
-                </button>
-
-                <button
-                    onclick="closePlayerModal()"
-                    class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold py-3 rounded-2xl text-xs uppercase tracking-wider text-slate-400 transition-all"
-                >
-                    Zamknij
-                </button>
 
             </div>
 
@@ -743,528 +290,1713 @@
 
     </div>
 
+</header>
 
-    <!-- FOOTER -->
-    <footer
-        class="w-full max-w-6xl mx-auto px-6 mt-16 text-center text-xs text-slate-500 font-medium"
+
+<!-- DISCORD -->
+<section class="w-full max-w-6xl mx-auto px-6 mt-4">
+
+    <div class="glass-card rounded-2xl p-6 border-indigo-500/30 text-center">
+
+        <p class="text-sm text-indigo-100 font-medium mb-4">
+            Chcesz znaleźć się na tabeli?
+            Dołącz do Discorda i bądź sprawdzony!
+        </p>
+
+        <a
+            href="https://discord.gg/kfp7Gm8r8"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl uppercase tracking-widest transition-all"
+        >
+            Dołącz do Discorda
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- TIER TESTING -->
+<section class="w-full max-w-6xl mx-auto px-6 mt-4">
+
+    <div class="glass-card rounded-2xl p-6 border-purple-500/30 text-center">
+
+        <div class="text-3xl mb-2">
+            ⚔️
+        </div>
+
+        <h2 class="text-xl font-extrabold text-white mb-2">
+            Chcesz dostać Tier?
+        </h2>
+
+        <p class="text-sm text-slate-400 mb-5 max-w-2xl mx-auto">
+            Zapisz się na Tier-testing. Podaj swój nick Minecraft
+            oraz krótki opis, a zgłoszenie zostanie wysłane do administracji.
+        </p>
+
+        <button
+            onclick="openTierTestingModal()"
+            class="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-2xl text-white text-sm font-extrabold uppercase tracking-wider shadow-lg shadow-purple-600/30 transition-all"
+        >
+            ⚔️ Zapisz się na Tier-testing
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- MAIN -->
+<main class="w-full max-w-6xl mx-auto px-6 mt-8 flex-grow">
+
+<div id="viewerView" class="space-y-6">
+
+
+    <!-- STATYSTYKI -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
+
+            <div
+                class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-lg"
+            >
+                👥
+            </div>
+
+            <div>
+                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
+                    Liczba graczy
+                </p>
+
+                <h4
+                    id="statTotalPlayers"
+                    class="text-xl font-black text-white"
+                >
+                    0
+                </h4>
+            </div>
+
+        </div>
+
+
+        <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
+
+            <div
+                class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-lg"
+            >
+                ⚡
+            </div>
+
+            <div>
+                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
+                    Średnie ELO
+                </p>
+
+                <h4
+                    id="statAvgElo"
+                    class="text-xl font-black text-white"
+                >
+                    0
+                </h4>
+            </div>
+
+        </div>
+
+
+        <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
+
+            <div
+                class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold text-lg"
+            >
+                👑
+            </div>
+
+            <div>
+                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
+                    Top 1 Gracza
+                </p>
+
+                <h4
+                    id="statTopPlayer"
+                    class="text-xl font-black text-white"
+                >
+                    -
+                </h4>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RANKING -->
+    <div class="glass-card rounded-3xl p-6 md:p-10">
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+
+            <div>
+
+                <h2 class="text-3xl font-extrabold tracking-tight">
+                    Ranking Graczy
+                </h2>
+
+                <p class="text-sm text-slate-400 mt-1">
+                    Kliknij w gracza, aby zobaczyć jego pełny skin.
+                </p>
+
+            </div>
+
+
+            <div class="w-full md:w-auto flex gap-2">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Szukaj gracza..."
+                    class="w-full md:w-64 bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-slate-200 outline-none transition-all"
+                >
+
+                <button
+                    onclick="refreshPlayerSkins()"
+                    class="px-5 py-3.5 bg-slate-900 hover:bg-purple-600 border border-slate-800 hover:border-purple-500 rounded-2xl text-sm font-bold text-slate-300 hover:text-white transition-all whitespace-nowrap"
+                >
+                    ↻ Odśwież
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- FILTRY -->
+        <div
+            class="flex flex-wrap gap-2 mb-6 pb-6 border-b border-slate-800/60"
+            id="tierFilters"
+        >
+
+            <button
+                data-tier="ALL"
+                onclick="filterTier('ALL')"
+                class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg"
+            >
+                Wszystkie
+            </button>
+
+            <button data-tier="HT1" onclick="filterTier('HT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                HT1
+            </button>
+
+            <button data-tier="LT1" onclick="filterTier('LT1')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                LT1
+            </button>
+
+            <button data-tier="HT2" onclick="filterTier('HT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                HT2
+            </button>
+
+            <button data-tier="LT2" onclick="filterTier('LT2')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                LT2
+            </button>
+
+            <button data-tier="HT3" onclick="filterTier('HT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                HT3
+            </button>
+
+            <button data-tier="LT3" onclick="filterTier('LT3')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                LT3
+            </button>
+
+            <button data-tier="HT4" onclick="filterTier('HT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                HT4
+            </button>
+
+            <button data-tier="LT4" onclick="filterTier('LT4')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                LT4
+            </button>
+
+            <button data-tier="HT5" onclick="filterTier('HT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                HT5
+            </button>
+
+            <button data-tier="LT5" onclick="filterTier('LT5')" class="tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                LT5
+            </button>
+
+        </div>
+
+
+        <!-- TABELA -->
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left border-collapse">
+
+                <thead>
+
+                    <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider font-bold">
+
+                        <th class="py-4 px-6">
+                            Pozycja
+                        </th>
+
+                        <th class="py-4 px-6">
+                            Gracz
+                        </th>
+
+                        <th class="py-4 px-6">
+                            Dywizja
+                        </th>
+
+                        <th class="py-4 px-6 text-right">
+                            Punkty ELO
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="playerTableBody"
+                    class="divide-y divide-slate-800/50 text-base"
+                ></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+
+<!-- PLAYER MODAL -->
+<div
+    id="playerModal"
+    class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-5"
+>
+
+    <div
+        class="glass-card rounded-3xl p-7 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden"
     >
-        © 2026 Silly Rankings. Wszystkie prawa zastrzeżone.
-    </footer>
+
+        <button
+            onclick="closePlayerModal()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-xl bg-slate-900/80 hover:bg-red-500/20 border border-slate-700 text-slate-400 hover:text-white transition-all"
+        >
+            ✕
+        </button>
+
+        <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
+
+        <div class="flex justify-center mb-6 relative z-10">
+
+            <div
+                class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 shadow-inner min-h-[260px] flex items-center justify-center"
+            >
+
+                <div
+                    id="skinLoading"
+                    class="loading-spinner hidden"
+                ></div>
+
+                <img
+                    id="modalPlayerSkin"
+                    src=""
+                    class="modal-skin drop-shadow-2xl"
+                    alt="Pełny skin gracza"
+                >
+
+            </div>
+
+        </div>
+
+        <h3
+            id="modalPlayerName"
+            class="text-3xl font-extrabold mb-1 text-white relative z-10"
+        >
+            Nazwa Gracza
+        </h3>
+
+        <p
+            id="modalPlayerRankPos"
+            class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-3 relative z-10"
+        >
+            Pozycja w rankingu: #1
+        </p>
+
+        <div class="flex justify-center items-center gap-2 mb-6 relative z-10">
+
+            <span
+                id="modalPlayerTier"
+                class="px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider"
+            >
+                Tier
+            </span>
+
+            <span
+                id="modalPlayerElo"
+                class="font-mono font-bold text-purple-300 text-sm"
+            >
+                0 ELO
+            </span>
+
+        </div>
+
+        <div class="flex flex-col gap-3 relative z-10">
+
+            <a
+                id="modalNameMcBtn"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-white shadow-lg shadow-cyan-600/30 transition-all"
+            >
+                Otwórz w NameMC
+            </a>
+
+            <button
+                onclick="copyProfileLink()"
+                class="w-full bg-slate-800/80 hover:bg-slate-800 border border-slate-700 font-bold py-3 rounded-2xl text-xs uppercase tracking-wider text-slate-200 transition-all"
+            >
+                Skopiuj link NameMC
+            </button>
+
+            <button
+                onclick="closePlayerModal()"
+                class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold py-3 rounded-2xl text-xs uppercase tracking-wider text-slate-400 transition-all"
+            >
+                Zamknij
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TIER TESTING MODAL -->
+<div
+    id="tierTestingModal"
+    class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-[60] flex items-center justify-center p-5"
+>
+
+    <div
+        class="glass-card rounded-3xl p-7 md:p-9 w-full max-w-lg border-purple-500/40 shadow-2xl relative"
+    >
+
+        <button
+            onclick="closeTierTestingModal()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-xl bg-slate-900/80 hover:bg-red-500/20 border border-slate-700 text-slate-400 hover:text-white transition-all"
+        >
+            ✕
+        </button>
+
+        <div class="text-center mb-7">
+
+            <div class="text-4xl mb-3">
+                ⚔️
+            </div>
+
+            <h2 class="text-2xl font-extrabold text-white">
+                Tier-testing
+            </h2>
+
+            <p class="text-sm text-slate-400 mt-2">
+                Wypełnij formularz, aby wysłać zgłoszenie.
+            </p>
+
+        </div>
+
+
+        <form id="tierTestingForm">
+
+            <!-- SERVERFORM -->
+            <input
+                type="hidden"
+                name="access_key"
+                value="b3f99be7-359e-4904-bb11-b00c27b3d0aa"
+            >
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="Nowe zgłoszenie Tier-testing — Silly Rankings"
+            >
+
+            <input
+                type="hidden"
+                name="from_name"
+                value="Silly Rankings — Tier-testing"
+            >
+
+            <!-- SPAM PROTECTION -->
+            <input
+                type="checkbox"
+                name="botcheck"
+                style="display:none"
+                tabindex="-1"
+                autocomplete="off"
+            >
+
+
+            <div class="mb-5">
+
+                <label
+                    for="tierNick"
+                    class="block text-sm font-bold text-slate-200 mb-2"
+                >
+                    Nick Minecraft
+                </label>
+
+                <input
+                    id="tierNick"
+                    type="text"
+                    name="minecraft_nick"
+                    class="form-input"
+                    placeholder="np. Steve123"
+                    maxlength="16"
+                    required
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="mb-5">
+
+                <label
+                    for="tierDescription"
+                    class="block text-sm font-bold text-slate-200 mb-2"
+                >
+                    Opis / dodatkowe informacje
+                </label>
+
+                <textarea
+                    id="tierDescription"
+                    name="description"
+                    class="form-input"
+                    placeholder="Napisz np. jaki tryb chcesz testować, jakie masz doświadczenie itd."
+                    maxlength="2000"
+                    required
+                ></textarea>
+
+                <div class="text-right text-xs text-slate-600 mt-1">
+                    Maks. 2000 znaków
+                </div>
+
+            </div>
+
+
+            <div
+                id="tierTestingMessage"
+                class="hidden rounded-2xl px-4 py-3 mb-5 text-sm font-semibold"
+            ></div>
+
+
+            <div class="flex flex-col sm:flex-row gap-3">
+
+                <button
+                    type="button"
+                    onclick="closeTierTestingModal()"
+                    class="flex-1 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 font-bold text-sm transition-all"
+                >
+                    Anuluj
+                </button>
+
+                <button
+                    id="tierSubmitButton"
+                    type="submit"
+                    class="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-extrabold text-sm transition-all shadow-lg shadow-purple-600/20"
+                >
+                    Wyślij zgłoszenie
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer
+    class="w-full max-w-6xl mx-auto px-6 mt-16 text-center text-xs text-slate-500 font-medium"
+>
+    © 2026 Silly Rankings. Wszystkie prawa zastrzeżone.
+</footer>
 
 
 <script>
 
-    /* =========================================================
-       WEB3FORMS
-    ========================================================= */
+/* =========================================================
+   GRACZE
+========================================================= */
 
-    const WEB3FORMS_ACCESS_KEY =
-        "b3f99be7-359e-4904-bb11-b00c27b3d0aa";
+const defaultPlayers = [
+    {
+        name: "ItzAgg",
+        tier: "HT1",
+        elo: 3200
+    },
+    {
+        name: "Carbstuk",
+        tier: "HT2",
+        elo: 2850
+    }
+];
 
 
-    /* =========================================================
-       GRACZE
-       
-       TYLKO ITZAGG I CARBSTUK
-    ========================================================= */
+/* =========================================================
+   USTAWIENIA
+========================================================= */
 
-    const defaultPlayers = [
-        {
+const MC_HEADS = "https://mc-heads.net";
+
+let players = [];
+let activeTierFilter = "ALL";
+let currentModalName = "";
+let skinRefreshVersion = Date.now();
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function loadPlayers() {
+
+    try {
+
+        const saved =
+            localStorage.getItem("silly_players");
+
+        if (saved) {
+
+            const parsed =
+                JSON.parse(saved);
+
+            if (Array.isArray(parsed)) {
+
+                /*
+                 * Zostawiamy tylko aktualnych
+                 * graczy z listy.
+                 */
+                players =
+                    parsed.filter(player =>
+                        player &&
+                        (
+                            player.name === "ItzAgg" ||
+                            player.name === "Carbstuk"
+                        )
+                    );
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Nie udało się wczytać graczy:",
+            error
+        );
+
+    }
+
+
+    /*
+     * Jeżeli localStorage ma stare dane
+     * albo jest pusty, ustawiamy tylko
+     * ItzAgg i Carbstuk.
+     */
+
+    if (!Array.isArray(players)) {
+        players = [];
+    }
+
+
+    if (players.length === 0) {
+
+        players = [
+            ...defaultPlayers
+        ];
+
+    }
+
+
+    /*
+     * Upewnij się, że oba rekordy istnieją.
+     */
+
+    if (!players.some(p => p.name === "ItzAgg")) {
+
+        players.push({
             name: "ItzAgg",
             tier: "HT1",
             elo: 3200
-        },
-        {
+        });
+
+    }
+
+
+    if (!players.some(p => p.name === "Carbstuk")) {
+
+        players.push({
             name: "Carbstuk",
             tier: "HT2",
             elo: 2850
-        }
-    ];
+        });
+
+    }
 
 
-    /* =========================================================
-       USTAWIENIA
-    ========================================================= */
+    /*
+     * Ostateczne filtrowanie.
+     */
 
-    const MC_HEADS = "https://mc-heads.net";
-
-    let players = [];
-    let activeTierFilter = "ALL";
-    let currentModalName = "";
-    let skinRefreshVersion = Date.now();
-
-
-    /* =========================================================
-       LOCAL STORAGE
-       
-       Czyścimy stary ranking i ustawiamy
-       wyłącznie dwóch graczy.
-    ========================================================= */
-
-    function loadPlayers() {
-
-        /*
-         * Celowo nie wczytujemy starej listy
-         * z localStorage, żeby usunąć dawnych graczy.
-         */
-
-        players = [...defaultPlayers];
-
-        savePlayers();
-
-        players.sort(
-            (a, b) => Number(b.elo) - Number(a.elo)
+    players =
+        players.filter(player =>
+            player.name === "ItzAgg" ||
+            player.name === "Carbstuk"
         );
-    }
 
 
-    function savePlayers() {
+    players.sort(
+        (a, b) =>
+            Number(b.elo) - Number(a.elo)
+    );
 
-        try {
-
-            localStorage.setItem(
-                "silly_players",
-                JSON.stringify(players)
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Nie udało się zapisać graczy:",
-                error
-            );
-
-        }
-
-    }
+}
 
 
-    /* =========================================================
-       BEZPIECZNE HTML
-    ========================================================= */
+function savePlayers() {
 
-    function escapeHTML(value) {
+    localStorage.setItem(
+        "silly_players",
+        JSON.stringify(players)
+    );
 
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
+}
 
 
-    /* =========================================================
-       URL SKINÓW
-    ========================================================= */
+/* =========================================================
+   BEZPIECZNE HTML
+========================================================= */
 
-    function getHeadUrl(name) {
+function escapeHTML(value) {
 
-        return (
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   SKINY
+========================================================= */
+
+function getHeadUrl(name) {
+
+    return (
+        MC_HEADS +
+        "/avatar/" +
+        encodeURIComponent(name) +
+        "/64?overlay=true&v=" +
+        skinRefreshVersion
+    );
+
+}
+
+
+function getFullSkinUrl(name) {
+
+    return (
+        MC_HEADS +
+        "/player/" +
+        encodeURIComponent(name) +
+        "/256?v=" +
+        skinRefreshVersion
+    );
+
+}
+
+
+function handleHeadError(img, name) {
+
+    if (img.dataset.fallback !== "1") {
+
+        img.dataset.fallback = "1";
+
+        img.src =
             MC_HEADS +
-            "/avatar/" +
+            "/head/" +
             encodeURIComponent(name) +
-            "/64?overlay=true&v=" +
-            skinRefreshVersion
-        );
+            "?v=" +
+            Date.now();
+
+        return;
 
     }
 
+    img.style.visibility = "hidden";
 
-    function getFullSkinUrl(name) {
+}
 
-        return (
+
+function handleFullSkinError(img, name) {
+
+    if (img.dataset.fallback !== "1") {
+
+        img.dataset.fallback = "1";
+
+        img.src =
             MC_HEADS +
-            "/player/" +
+            "/body/" +
             encodeURIComponent(name) +
-            "/256?v=" +
-            skinRefreshVersion
+            "/right?v=" +
+            Date.now();
+
+        return;
+
+    }
+
+    img.style.display = "none";
+
+    document
+        .getElementById("skinLoading")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   GWIAZDY
+========================================================= */
+
+function createStars() {
+
+    const container =
+        document.getElementById(
+            "spaceBackground"
         );
 
+    if (!container) return;
+
+
+    for (let i = 0; i < 45; i++) {
+
+        const star =
+            document.createElement("div");
+
+        star.className = "star";
+
+
+        const size =
+            Math.random() * 3 + 1;
+
+        star.style.width =
+            size + "px";
+
+        star.style.height =
+            size + "px";
+
+        star.style.left =
+            Math.random() * 100 + "vw";
+
+        star.style.top =
+            Math.random() * -50 + "vh";
+
+        star.style.animationDuration =
+            Math.random() * 5 + 3 + "s";
+
+        star.style.animationDelay =
+            Math.random() * 5 + "s";
+
+
+        container.appendChild(star);
+
+    }
+
+}
+
+
+/* =========================================================
+   STATYSTYKI
+========================================================= */
+
+function updateStats() {
+
+    const total =
+        document.getElementById(
+            "statTotalPlayers"
+        );
+
+    const avg =
+        document.getElementById(
+            "statAvgElo"
+        );
+
+    const top =
+        document.getElementById(
+            "statTopPlayer"
+        );
+
+
+    total.innerText =
+        players.length;
+
+
+    if (players.length === 0) {
+
+        avg.innerText = "0";
+        top.innerText = "-";
+
+        return;
+
     }
 
 
-    /* =========================================================
-       FALLBACK GŁÓWKI
-    ========================================================= */
-
-    function handleHeadError(img, name) {
-
-        if (img.dataset.fallback !== "1") {
-
-            img.dataset.fallback = "1";
-
-            img.src =
-                MC_HEADS +
-                "/head/" +
-                encodeURIComponent(name) +
-                "?v=" +
-                Date.now();
-
-            return;
-
-        }
-
-        img.style.visibility = "hidden";
-
-    }
+    const totalElo =
+        players.reduce(
+            (sum, player) =>
+                sum + Number(player.elo || 0),
+            0
+        );
 
 
-    /* =========================================================
-       FALLBACK PEŁNEGO SKINA
-    ========================================================= */
-
-    function handleFullSkinError(img, name) {
-
-        if (img.dataset.fallback !== "1") {
-
-            img.dataset.fallback = "1";
-
-            img.src =
-                MC_HEADS +
-                "/body/" +
-                encodeURIComponent(name) +
-                "/right?v=" +
-                Date.now();
-
-            return;
-
-        }
+    avg.innerText =
+        Math.round(
+            totalElo / players.length
+        );
 
 
-        img.style.display = "none";
+    top.innerText =
+        players[0].name;
 
+}
+
+
+/* =========================================================
+   RENDER TABELI
+========================================================= */
+
+function renderTables() {
+
+    const body =
+        document.getElementById(
+            "playerTableBody"
+        );
+
+    const search =
         document
-            .getElementById("skinLoading")
-            .classList.remove("hidden");
-
-    }
-
-
-    /* =========================================================
-       GWIAZDY
-    ========================================================= */
-
-    function createStars() {
-
-        const container =
-            document.getElementById(
-                "spaceBackground"
-            );
-
-        if (!container) return;
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
 
 
-        for (let i = 0; i < 45; i++) {
-
-            const star =
-                document.createElement("div");
-
-            star.className = "star";
+    body.innerHTML = "";
 
 
-            const size =
-                Math.random() * 3 + 1;
+    players.forEach((player, index) => {
 
-            star.style.width =
-                size + "px";
+        const name =
+            String(player.name);
 
-            star.style.height =
-                size + "px";
+        const tier =
+            String(player.tier)
+                .toUpperCase();
 
-            star.style.left =
-                Math.random() * 100 + "vw";
-
-            star.style.top =
-                Math.random() * -50 + "vh";
-
-            star.style.animationDuration =
-                Math.random() * 5 + 3 + "s";
-
-            star.style.animationDelay =
-                Math.random() * 5 + "s";
+        const elo =
+            Number(player.elo);
 
 
-            container.appendChild(star);
-
-        }
-
-    }
-
-
-    /* =========================================================
-       STATYSTYKI
-    ========================================================= */
-
-    function updateStats() {
-
-        const total =
-            document.getElementById(
-                "statTotalPlayers"
-            );
-
-        const avg =
-            document.getElementById(
-                "statAvgElo"
-            );
-
-        const top =
-            document.getElementById(
-                "statTopPlayer"
-            );
+        const matchesSearch =
+            name
+                .toLowerCase()
+                .includes(search);
 
 
-        total.innerText =
-            players.length;
+        const matchesTier =
+            activeTierFilter === "ALL" ||
+            tier === activeTierFilter;
 
 
-        if (players.length === 0) {
-
-            avg.innerText = "0";
-            top.innerText = "-";
-
+        if (
+            !matchesSearch ||
+            !matchesTier
+        ) {
             return;
-
         }
 
 
-        const totalElo =
-            players.reduce(
-                (sum, player) =>
-                    sum + Number(player.elo || 0),
-                0
-            );
+        const tierClass =
+            "tier-" +
+            tier.toLowerCase();
 
 
-        avg.innerText =
-            Math.round(
-                totalElo / players.length
-            );
+        const row =
+            document.createElement("tr");
+
+        row.className =
+            "player-row cursor-pointer group";
 
 
-        top.innerText =
-            players[0].name;
+        row.addEventListener(
+            "click",
+            () => {
 
-    }
+                openPlayerModal(
+                    name,
+                    tier,
+                    elo,
+                    index + 1
+                );
 
-
-    /* =========================================================
-       RENDER TABELI
-    ========================================================= */
-
-    function renderTables() {
-
-        const body =
-            document.getElementById(
-                "playerTableBody"
-            );
-
-        const search =
-            document
-                .getElementById("searchInput")
-                .value
-                .trim()
-                .toLowerCase();
-
-
-        body.innerHTML = "";
-
-
-        players.forEach((player, index) => {
-
-            const name =
-                String(player.name);
-
-            const tier =
-                String(player.tier).toUpperCase();
-
-            const elo =
-                Number(player.elo);
-
-
-            const matchesSearch =
-                name
-                    .toLowerCase()
-                    .includes(search);
-
-
-            const matchesTier =
-                activeTierFilter === "ALL" ||
-                tier === activeTierFilter;
-
-
-            if (
-                !matchesSearch ||
-                !matchesTier
-            ) {
-                return;
             }
+        );
 
 
-            const tierClass =
-                "tier-" +
-                tier.toLowerCase();
+        row.innerHTML = `
+
+            <td class="py-4 px-6 font-extrabold text-purple-400 whitespace-nowrap">
+                #${index + 1}
+            </td>
 
 
-            const row =
-                document.createElement("tr");
+            <td class="py-4 px-6">
 
-            row.className =
-                "player-row cursor-pointer group";
+                <div class="flex items-center space-x-4">
 
+                    <div
+                        class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-center overflow-hidden shrink-0"
+                    >
 
-            row.addEventListener(
-                "click",
-                () => {
-
-                    openPlayerModal(
-                        name,
-                        tier,
-                        elo,
-                        index + 1
-                    );
-
-                }
-            );
-
-
-            row.innerHTML = `
-
-                <td class="py-4 px-6 font-extrabold text-purple-400 whitespace-nowrap">
-                    #${index + 1}
-                </td>
-
-
-                <td class="py-4 px-6">
-
-                    <div class="flex items-center space-x-4">
-
-                        <div
-                            class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-center overflow-hidden shrink-0"
+                        <img
+                            src="${getHeadUrl(name)}"
+                            data-fallback="0"
+                            class="skin-head w-10 h-10"
+                            alt="Skin ${escapeHTML(name)}"
+                            loading="lazy"
+                            onerror="handleHeadError(this, '${escapeHTML(name)}')"
                         >
-
-                            <img
-                                src="${getHeadUrl(name)}"
-                                data-fallback="0"
-                                class="skin-head w-10 h-10"
-                                alt="Skin ${escapeHTML(name)}"
-                                loading="lazy"
-                                onerror="handleHeadError(this, '${escapeHTML(name)}')"
-                            >
-
-                        </div>
-
-
-                        <span
-                            class="font-bold text-slate-100 text-lg group-hover:text-purple-300 transition-colors"
-                        >
-                            ${escapeHTML(name)}
-                        </span>
 
                     </div>
 
-                </td>
-
-
-                <td class="py-4 px-6">
 
                     <span
-                        class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}"
+                        class="font-bold text-slate-100 text-lg group-hover:text-purple-300 transition-colors"
                     >
-                        ${escapeHTML(tier)}
+                        ${escapeHTML(name)}
                     </span>
 
-                </td>
+                </div>
+
+            </td>
 
 
-                <td
-                    class="py-4 px-6 text-right font-mono font-bold text-purple-300 text-lg whitespace-nowrap"
+            <td class="py-4 px-6">
+
+                <span
+                    class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}"
                 >
-                    ${elo} ELO
-                </td>
+                    ${escapeHTML(tier)}
+                </span>
 
-            `;
+            </td>
 
 
-            body.appendChild(row);
+            <td
+                class="py-4 px-6 text-right font-mono font-bold text-purple-300 text-lg whitespace-nowrap"
+            >
+                ${elo} ELO
+            </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    });
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   FILTROWANIE
+========================================================= */
+
+function filterTier(tier) {
+
+    activeTierFilter = tier;
+
+
+    document
+        .querySelectorAll(".tier-filter")
+        .forEach(button => {
+
+            button.className =
+                "tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all";
 
         });
 
 
-        updateStats();
+    const activeButton =
+        document.querySelector(
+            `.tier-filter[data-tier="${tier}"]`
+        );
+
+
+    if (activeButton) {
+
+        activeButton.className =
+            "tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg";
 
     }
 
 
-    /* =========================================================
-       FILTROWANIE
-    ========================================================= */
+    renderTables();
 
-    function filterTier(tier) {
-
-        activeTierFilter = tier;
+}
 
 
-        document
-            .querySelectorAll(".tier-filter")
-            .forEach(button => {
+function filterPlayers() {
 
-                button.className =
-                    "tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all";
+    renderTables();
+
+}
+
+
+/* =========================================================
+   MODAL GRACZA
+========================================================= */
+
+function openPlayerModal(
+    name,
+    tier,
+    elo,
+    rankPos
+) {
+
+    currentModalName = name;
+
+
+    const modal =
+        document.getElementById(
+            "playerModal"
+        );
+
+
+    const skin =
+        document.getElementById(
+            "modalPlayerSkin"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "skinLoading"
+        );
+
+
+    document.getElementById(
+        "modalPlayerName"
+    ).innerText = name;
+
+
+    document.getElementById(
+        "modalPlayerRankPos"
+    ).innerText =
+        "Pozycja w rankingu: #" +
+        rankPos;
+
+
+    const tierElement =
+        document.getElementById(
+            "modalPlayerTier"
+        );
+
+
+    tierElement.innerText =
+        tier;
+
+
+    tierElement.className =
+        "px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider tier-" +
+        tier.toLowerCase();
+
+
+    document.getElementById(
+        "modalPlayerElo"
+    ).innerText =
+        elo + " ELO";
+
+
+    skin.style.display = "block";
+    skin.style.visibility = "visible";
+
+    skin.dataset.fallback = "0";
+
+    loading.classList.remove("hidden");
+
+
+    skin.onload = function () {
+
+        loading.classList.add("hidden");
+
+        skin.style.display = "block";
+
+    };
+
+
+    skin.onerror = function () {
+
+        handleFullSkinError(
+            skin,
+            name
+        );
+
+    };
+
+
+    skin.src =
+        getFullSkinUrl(name);
+
+
+    document.getElementById(
+        "modalNameMcBtn"
+    ).href =
+        "https://namemc.com/search?q=" +
+        encodeURIComponent(name);
+
+
+    modal.classList.remove("hidden");
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+function closePlayerModal() {
+
+    document
+        .getElementById("playerModal")
+        .classList.add("hidden");
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
+    currentModalName = "";
+
+}
+
+
+/* =========================================================
+   KOPIOWANIE
+========================================================= */
+
+function copyProfileLink() {
+
+    if (!currentModalName) {
+        return;
+    }
+
+
+    const url =
+        "https://namemc.com/search?q=" +
+        encodeURIComponent(
+            currentModalName
+        );
+
+
+    if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+    ) {
+
+        navigator.clipboard
+            .writeText(url)
+            .then(() => {
+
+                alert(
+                    "Skopiowano link do profilu gracza " +
+                    currentModalName +
+                    "!"
+                );
+
+            })
+            .catch(() => {
+
+                fallbackCopy(url);
 
             });
 
+    } else {
 
-        const activeButton =
-            document.querySelector(
-                `.tier-filter[data-tier="${tier}"]`
+        fallbackCopy(url);
+
+    }
+
+}
+
+
+function fallbackCopy(text) {
+
+    const textarea =
+        document.createElement(
+            "textarea"
+        );
+
+    textarea.value = text;
+
+    textarea.style.position =
+        "fixed";
+
+    textarea.style.opacity = "0";
+
+    document.body.appendChild(
+        textarea
+    );
+
+    textarea.select();
+
+    document.execCommand(
+        "copy"
+    );
+
+    textarea.remove();
+
+
+    alert(
+        "Skopiowano link do profilu!"
+    );
+
+}
+
+
+/* =========================================================
+   TIER TESTING MODAL
+========================================================= */
+
+function openTierTestingModal() {
+
+    const modal =
+        document.getElementById(
+            "tierTestingModal"
+        );
+
+
+    const message =
+        document.getElementById(
+            "tierTestingMessage"
+        );
+
+
+    message.className =
+        "hidden";
+
+
+    message.innerText = "";
+
+
+    modal.classList.remove(
+        "hidden"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("tierNick")
+            .focus();
+
+    }, 100);
+
+}
+
+
+function closeTierTestingModal() {
+
+    document
+        .getElementById(
+            "tierTestingModal"
+        )
+        .classList.add("hidden");
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+/* =========================================================
+   WYSYŁANIE TIER-TESTING
+========================================================= */
+
+const tierTestingForm =
+    document.getElementById(
+        "tierTestingForm"
+    );
+
+
+tierTestingForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const button =
+            document.getElementById(
+                "tierSubmitButton"
             );
 
 
-        if (activeButton) {
+        const message =
+            document.getElementById(
+                "tierTestingMessage"
+            );
 
-            activeButton.className =
-                "tier-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg";
+
+        const nick =
+            document
+                .getElementById("tierNick")
+                .value
+                .trim();
+
+
+        const description =
+            document
+                .getElementById("tierDescription")
+                .value
+                .trim();
+
+
+        if (!nick) {
+
+            showTierMessage(
+                "error",
+                "Wpisz swój nick Minecraft."
+            );
+
+            return;
 
         }
 
 
-        renderTables();
+        if (!description) {
+
+            showTierMessage(
+                "error",
+                "Wpisz opis zgłoszenia."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Blokujemy przycisk,
+         * żeby nie wysłać formularza kilka razy.
+         */
+
+        button.disabled = true;
+
+        button.innerHTML =
+            `
+                <span class="submit-spinner"></span>
+                Wysyłanie...
+            `;
+
+
+        try {
+
+            const formData =
+                new FormData(
+                    tierTestingForm
+                );
+
+
+            /*
+             * ServerForm API
+             */
+
+            const response =
+                await fetch(
+                    "https://serverform.com/api/v1/submit",
+                    {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            let result = null;
+
+
+            try {
+
+                result =
+                    await response.json();
+
+            } catch (jsonError) {
+
+                result = null;
+
+            }
+
+
+            if (!response.ok) {
+
+                const errorText =
+                    result &&
+                    (
+                        result.error ||
+                        result.message ||
+                        (
+                            result.body &&
+                            result.body.message
+                        )
+                    );
+
+
+                throw new Error(
+                    errorText ||
+                    "Serwer odrzucił zgłoszenie."
+                );
+
+            }
+
+
+            /*
+             * SUKCES
+             */
+
+            showTierMessage(
+                "success",
+                "✓ Zgłoszenie zostało wysłane! Administracja otrzyma Twoje zgłoszenie."
+            );
+
+
+            tierTestingForm.reset();
+
+
+            /*
+             * Po chwili zamykamy formularz.
+             */
+
+            setTimeout(() => {
+
+                closeTierTestingModal();
+
+            }, 2500);
+
+
+        } catch (error) {
+
+            console.error(
+                "Tier-testing error:",
+                error
+            );
+
+
+            showTierMessage(
+                "error",
+                "✕ Nie udało się wysłać zgłoszenia: " +
+                (
+                    error.message ||
+                    "Spróbuj ponownie później."
+                )
+            );
+
+
+        } finally {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                "Wyślij zgłoszenie";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   KOMUNIKAT FORMULARZA
+========================================================= */
+
+function showTierMessage(
+    type,
+    text
+) {
+
+    const message =
+        document.getElementById(
+            "tierTestingMessage"
+        );
+
+
+    message.classList.remove(
+        "hidden"
+    );
+
+
+    message.innerText =
+        text;
+
+
+    if (type === "success") {
+
+        message.className =
+            "rounded-2xl px-4 py-3 mb-5 text-sm font-semibold bg-emerald-500/10 border border-emerald-500/30 text-emerald-300";
+
+    } else {
+
+        message.className =
+            "rounded-2xl px-4 py-3 mb-5 text-sm font-semibold bg-red-500/10 border border-red-500/30 text-red-300";
 
     }
 
-
-    /* =========================================================
-       WYSZUKIWANIE
-    ========================================================= */
-
-    function filterPlayers() {
-
-        renderTables();
-
-    }
+}
 
 
-    /* =========================================================
-       MODAL
-    ========================================================= */
+/* =========================================================
+   KLIKNIĘCIE W TŁO
+========================================================= */
 
-    function openPlayerModal(
-        name,
-        tier,
-        elo,
-        rankPos
-    ) {
+document
+    .getElementById("playerModal")
+    .addEventListener(
+        "click",
+        function(event) {
 
-        currentModalName = name;
+            if (
+                event.target === this
+            ) {
+
+                closePlayerModal();
+
+            }
+
+        }
+    );
 
 
-        const modal =
+document
+    .getElementById("tierTestingModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeTierTestingModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key !== "Escape"
+        ) {
+            return;
+        }
+
+
+        const playerModal =
             document.getElementById(
                 "playerModal"
             );
 
+
+        const tierModal =
+            document.getElementById(
+                "tierTestingModal"
+            );
+
+
+        if (
+            !playerModal.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            closePlayerModal();
+
+        }
+
+
+        if (
+            !tierModal.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            closeTierTestingModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ODŚWIEŻANIE SKINÓW
+========================================================= */
+
+function refreshPlayerSkins() {
+
+    skinRefreshVersion =
+        Date.now();
+
+
+    renderTables();
+
+
+    if (currentModalName) {
 
         const skin =
             document.getElementById(
@@ -1278,554 +2010,65 @@
             );
 
 
-        document.getElementById(
-            "modalPlayerName"
-        ).innerText = name;
-
-
-        document.getElementById(
-            "modalPlayerRankPos"
-        ).innerText =
-            "Pozycja w rankingu: #" +
-            rankPos;
-
-
-        const tierElement =
-            document.getElementById(
-                "modalPlayerTier"
-            );
-
-
-        tierElement.innerText =
-            tier;
-
-
-        tierElement.className =
-            "px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider tier-" +
-            tier.toLowerCase();
-
-
-        document.getElementById(
-            "modalPlayerElo"
-        ).innerText =
-            elo + " ELO";
-
-
-        skin.style.display = "block";
-        skin.style.visibility = "visible";
-
         skin.dataset.fallback = "0";
 
-        loading.classList.remove("hidden");
+        skin.style.display =
+            "block";
+
+        skin.style.visibility =
+            "visible";
 
 
-        skin.onload = function () {
-
-            loading.classList.add("hidden");
-
-            skin.style.display = "block";
-
-        };
-
-
-        skin.onerror = function () {
-
-            handleFullSkinError(
-                skin,
-                name
-            );
-
-        };
+        loading.classList.remove(
+            "hidden"
+        );
 
 
         skin.src =
-            getFullSkinUrl(name);
-
-
-        document.getElementById(
-            "modalNameMcBtn"
-        ).href =
-            "https://namemc.com/search?q=" +
-            encodeURIComponent(name);
-
-
-        modal.classList.remove("hidden");
-
-        document.body.classList.add(
-            "modal-open"
-        );
-
-    }
-
-
-    /* =========================================================
-       ZAMKNIĘCIE MODALA
-    ========================================================= */
-
-    function closePlayerModal() {
-
-        document
-            .getElementById("playerModal")
-            .classList.add("hidden");
-
-
-        document.body.classList.remove(
-            "modal-open"
-        );
-
-
-        currentModalName = "";
-
-    }
-
-
-    /* =========================================================
-       TŁO MODALA
-    ========================================================= */
-
-    document
-        .getElementById("playerModal")
-        .addEventListener(
-            "click",
-            function(event) {
-
-                if (
-                    event.target ===
-                    this
-                ) {
-
-                    closePlayerModal();
-
-                }
-
-            }
-        );
-
-
-    /* =========================================================
-       ESC
-    ========================================================= */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key === "Escape" &&
-                !document
-                    .getElementById("playerModal")
-                    .classList
-                    .contains("hidden")
-            ) {
-
-                closePlayerModal();
-
-            }
-
-        }
-    );
-
-
-    /* =========================================================
-       KOPIOWANIE NAMEMC
-    ========================================================= */
-
-    function copyProfileLink() {
-
-        if (!currentModalName) {
-            return;
-        }
-
-
-        const url =
-            "https://namemc.com/search?q=" +
-            encodeURIComponent(
+            getFullSkinUrl(
                 currentModalName
             );
 
-
-        if (
-            navigator.clipboard &&
-            navigator.clipboard.writeText
-        ) {
-
-            navigator.clipboard
-                .writeText(url)
-                .then(() => {
-
-                    alert(
-                        "Skopiowano link do profilu gracza " +
-                        currentModalName +
-                        "!"
-                    );
-
-                })
-                .catch(() => {
-
-                    fallbackCopy(url);
-
-                });
-
-        } else {
-
-            fallbackCopy(url);
-
-        }
-
     }
 
+}
 
-    function fallbackCopy(text) {
 
-        const textarea =
-            document.createElement(
-                "textarea"
-            );
+/* =========================================================
+   SEARCH
+========================================================= */
 
-
-        textarea.value = text;
-
-        textarea.style.position =
-            "fixed";
-
-        textarea.style.opacity = "0";
-
-
-        document.body.appendChild(
-            textarea
-        );
-
-
-        textarea.select();
-
-
-        document.execCommand(
-            "copy"
-        );
-
-
-        textarea.remove();
-
-
-        alert(
-            "Skopiowano link do profilu!"
-        );
-
-    }
-
-
-    /* =========================================================
-       ODŚWIEŻANIE SKINÓW
-    ========================================================= */
-
-    function refreshPlayerSkins() {
-
-        skinRefreshVersion =
-            Date.now();
-
-
-        renderTables();
-
-
-        if (currentModalName) {
-
-            const skin =
-                document.getElementById(
-                    "modalPlayerSkin"
-                );
-
-
-            const loading =
-                document.getElementById(
-                    "skinLoading"
-                );
-
-
-            skin.dataset.fallback = "0";
-
-            skin.style.display =
-                "block";
-
-            loading.classList.remove(
-                "hidden"
-            );
-
-
-            skin.src =
-                getFullSkinUrl(
-                    currentModalName
-                );
-
-        }
-
-    }
-
-
-    /* =========================================================
-       TIER TESTING — WYSYŁANIE
-    ========================================================= */
-
-    const tierTestingForm =
-        document.getElementById(
-            "tierTestingForm"
-        );
-
-
-    const tierFormResult =
-        document.getElementById(
-            "tierFormResult"
-        );
-
-
-    const tierSubmitButton =
-        document.getElementById(
-            "tierSubmitButton"
-        );
-
-
-    tierTestingForm.addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            const nick =
-                document
-                    .getElementById(
-                        "tierPlayerName"
-                    )
-                    .value
-                    .trim();
-
-
-            if (!nick) {
-
-                showTierResult(
-                    "Wpisz swój nick Minecraft.",
-                    false
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * Prosta walidacja nicku Minecraft.
-             */
-
-            if (
-                !/^[A-Za-z0-9_]{3,16}$/.test(
-                    nick
-                )
-            ) {
-
-                showTierResult(
-                    "Nick może zawierać tylko litery, cyfry i _. Długość: 3–16 znaków.",
-                    false
-                );
-
-                return;
-
-            }
-
-
-            tierSubmitButton.disabled = true;
-
-            tierSubmitButton.innerText =
-                "Wysyłanie...";
-
-
-            hideTierResult();
-
-
-            const formData =
-                new FormData(
-                    tierTestingForm
-                );
-
-
-            /*
-             * Wysyłamy JSON zgodnie
-             * z API Web3Forms.
-             */
-
-            const formObject =
-                Object.fromEntries(
-                    formData.entries()
-                );
-
-
-            formObject.access_key =
-                WEB3FORMS_ACCESS_KEY;
-
-
-            formObject.subject =
-                "Nowe zgłoszenie na Tier-testing — " +
-                nick;
-
-
-            formObject.message =
-                "Nowe zgłoszenie na Tier-testing.\n\n" +
-                "Nick Minecraft: " +
-                nick;
-
-
-            try {
-
-                const response =
-                    await fetch(
-                        "https://api.web3forms.com/submit",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json",
-
-                                "Accept":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    formObject
-                                )
-                        }
-                    );
-
-
-                const result =
-                    await response.json();
-
-
-                console.log(
-                    "Web3Forms:",
-                    result
-                );
-
-
-                if (
-                    response.ok &&
-                    result.success
-                ) {
-
-                    showTierResult(
-                        "✓ Zgłoszenie zostało wysłane! Administracja otrzyma Twój nick.",
-                        true
-                    );
-
-
-                    tierTestingForm.reset();
-
-                } else {
-
-                    showTierResult(
-                        "✕ Nie udało się wysłać zgłoszenia: " +
-                        (
-                            result.message ||
-                            "Nieznany błąd."
-                        ),
-                        false
-                    );
-
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "Błąd Web3Forms:",
-                    error
-                );
-
-
-                showTierResult(
-                    "✕ Nie udało się połączyć z serwerem. Spróbuj ponownie później.",
-                    false
-                );
-
-            } finally {
-
-                tierSubmitButton.disabled =
-                    false;
-
-                tierSubmitButton.innerText =
-                    "Wyślij zgłoszenie";
-
-            }
-
-        }
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        filterPlayers
     );
 
 
-    function showTierResult(
-        message,
-        success
-    ) {
+/* =========================================================
+   START
+========================================================= */
 
-        tierFormResult.innerText =
-            message;
+createStars();
 
+loadPlayers();
 
-        tierFormResult.className =
-            "success-message mt-4 rounded-2xl px-5 py-4 text-sm font-medium text-center " +
-            (
-                success
-                    ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-300"
-                    : "bg-red-500/10 border border-red-500/30 text-red-300"
-            );
+savePlayers();
+
+renderTables();
+
+updateStats();
 
 
-        tierFormResult.classList.remove(
-            "hidden"
-        );
+/*
+ * Odświeżamy skiny co 60 sekund.
+ */
 
-    }
-
-
-    function hideTierResult() {
-
-        tierFormResult.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    /* =========================================================
-       SEARCH INPUT
-    ========================================================= */
-
-    document
-        .getElementById("searchInput")
-        .addEventListener(
-            "input",
-            filterPlayers
-        );
-
-
-    /* =========================================================
-       START
-    ========================================================= */
-
-    createStars();
-
-    loadPlayers();
-
-    renderTables();
-
-    updateStats();
-
-
-    /*
-     * Odświeżanie skinów co 60 sekund.
-     */
-
-    setInterval(
-        refreshPlayerSkins,
-        60000
-    );
+setInterval(
+    refreshPlayerSkins,
+    60000
+);
 
 </script>
 
