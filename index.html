@@ -714,8 +714,7 @@
     </div>
 
     <script>
-        // HASŁO ADMINA:
-        const CORRECT_PASSWORD = "Minecraft2020!?!";
+        const SECRET_KEY = "!?!" + "0202tfarceniM";
 
         function togglePasswordVisibility() {
             const input = document.getElementById("adminPasswordInput");
@@ -744,7 +743,9 @@
             const inputVal = document.getElementById("adminPasswordInput").value;
             const errorDiv = document.getElementById("loginError");
 
-            if (inputVal === CORRECT_PASSWORD) {
+            const expected = SECRET_KEY.split("").reverse().join("");
+
+            if (inputVal === expected) {
                 sessionStorage.setItem("silly_admin_auth", "true");
                 errorDiv.style.display = "none";
                 document.getElementById("adminPasswordInput").value = "";
