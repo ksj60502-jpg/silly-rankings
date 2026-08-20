@@ -8,71 +8,72 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
         body {
-            background-color: #090a0f;
-            color: #f1f5f9;
+            background-color: #06070a;
+            color: #f8fafc;
             font-family: 'Outfit', sans-serif;
+            font-size: 16px;
         }
         .glass-card {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            background: rgba(13, 17, 28, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
         }
-        .tier-ht1 { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.3); }
-        .tier-lt1 { background: linear-gradient(135deg, #7c2d12, #c2410c); color: #fdba74; border: 1px solid rgba(251, 146, 60, 0.3); }
-        .tier-ht2 { background: linear-gradient(135deg, #78350f, #b45309); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.3); }
-        .tier-lt3 { background: linear-gradient(135deg, #064e3b, #047857); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.3); }
-        .tier-lt4 { background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.3); }
-        .tier-lt5 { background: linear-gradient(135deg, #4c1d95, #6d28d9); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.3); }
+        .tier-ht1 { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.4); }
+        .tier-lt1 { background: linear-gradient(135deg, #7c2d12, #c2410c); color: #fdba74; border: 1px solid rgba(251, 146, 60, 0.4); }
+        .tier-ht2 { background: linear-gradient(135deg, #78350f, #b45309); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.4); }
+        .tier-lt3 { background: linear-gradient(135deg, #064e3b, #047857); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.4); }
+        .tier-lt4 { background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.4); }
+        .tier-lt5 { background: linear-gradient(135deg, #4c1d95, #6d28d9); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.4); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white pb-12">
+<body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white pb-16">
 
     <!-- Górna nawigacja -->
-    <header class="w-full max-w-5xl mx-auto px-4 pt-8">
-        <div class="glass-card rounded-2xl p-4 md:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                    <span class="text-xl font-black">SR</span>
+    <header class="w-full max-w-6xl mx-auto px-6 pt-10">
+        <div class="glass-card rounded-3xl p-6 md:px-10 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/40">
+                    <span class="text-2xl font-black">SR</span>
                 </div>
                 <div>
-                    <h1 class="text-xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-purple-300">Silly Rankings</h1>
-                    <p class="text-xs text-slate-400 font-medium">Oficjalna tablica wyników i dywizji Minecraft</p>
+                    <h1 class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300">Silly Rankings</h1>
+                    <p class="text-sm text-slate-400 font-medium">Oficjalna tablica wyników i dywizji Minecraft</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-2 bg-slate-950/60 p-1.5 rounded-xl border border-slate-800">
-                <button onclick="switchView('viewer')" id="btnViewer" class="px-4 py-2 text-xs font-bold rounded-lg bg-purple-600 text-white shadow-md transition-all">Widok Gracza</button>
-                <button onclick="showLoginModal()" id="btnAdmin" class="px-4 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition-all">Panel Admina</button>
+            <div class="flex items-center space-x-3 bg-slate-950/80 p-2 rounded-2xl border border-slate-800">
+                <button onclick="switchView('viewer')" id="btnViewer" class="px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all">Widok Gracza</button>
+                <button onclick="showLoginModal()" id="btnAdmin" class="px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all">Panel Admina</button>
             </div>
         </div>
     </header>
 
     <!-- Główna zawartość -->
-    <main class="w-full max-w-5xl mx-auto px-4 mt-6 flex-grow">
+    <main class="w-full max-w-6xl mx-auto px-6 mt-8 flex-grow">
         
         <!-- WIDOK: VIEWER -->
-        <div id="viewerView" class="glass-card rounded-2xl p-6 md:p-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+        <div id="viewerView" class="glass-card rounded-3xl p-8 md:p-10">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-10">
                 <div>
-                    <h2 class="text-2xl font-bold tracking-tight">Ranking Graczy</h2>
-                    <p class="text-xs text-slate-400 mt-1">Aktualizowane w czasie rzeczywistym na podstawie ELO.</p>
+                    <h2 class="text-3xl font-extrabold tracking-tight">Ranking Graczy</h2>
+                    <p class="text-sm text-slate-400 mt-1">Aktualizowane w czasie rzeczywistym na podstawie ELO.</p>
                 </div>
-                <div class="w-full md:w-72">
-                    <input type="text" id="searchInput" onkeyup="filterPlayers()" placeholder="Szukaj gracza..." class="w-full bg-slate-950/60 border border-slate-800 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-xl px-4 py-2.5 text-xs text-slate-200 outline-none transition-all">
+                <div class="w-full md:w-80">
+                    <input type="text" id="searchInput" onkeyup="filterPlayers()" placeholder="Szukaj gracza..." class="w-full bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-slate-200 outline-none transition-all">
                 </div>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-slate-800/80 text-slate-400 text-[11px] uppercase tracking-wider font-semibold">
-                            <th class="py-3 px-4">Pozycja</th>
-                            <th class="py-3 px-4">Gracz</th>
-                            <th class="py-3 px-4">Dywizja</th>
-                            <th class="py-3 px-4 text-right">Punkty ELO</th>
+                        <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider font-bold">
+                            <th class="py-4 px-6">Pozycja</th>
+                            <th class="py-4 px-6">Gracz</th>
+                            <th class="py-4 px-6">Dywizja</th>
+                            <th class="py-4 px-6 text-right">Punkty ELO</th>
                         </tr>
                     </thead>
-                    <tbody id="playerTableBody" class="divide-y divide-slate-800/40 text-xs">
+                    <tbody id="playerTableBody" class="divide-y divide-slate-800/50 text-base">
                         <!-- Generowane dynamicznie -->
                     </tbody>
                 </table>
@@ -80,18 +81,18 @@
         </div>
 
         <!-- WIDOK: ADMIN -->
-        <div id="adminView" class="hidden glass-card rounded-2xl p-6 md:p-8 border-purple-500/20">
-            <div class="flex justify-between items-center mb-6">
+        <div id="adminView" class="hidden glass-card rounded-3xl p-8 md:p-10 border-purple-500/30">
+            <div class="flex justify-between items-center mb-8">
                 <div>
-                    <h2 class="text-2xl font-bold tracking-tight text-purple-300">Panel Zarządzania</h2>
-                    <p class="text-xs text-slate-400 mt-1">Dodawaj, edytuj oraz usuwaj graczy z bazy.</p>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-purple-300">Panel Zarządzania</h2>
+                    <p class="text-sm text-slate-400 mt-1">Dodawaj, edytuj oraz usuwaj graczy z bazy.</p>
                 </div>
-                <button onclick="logoutAdmin()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 text-xs px-3 py-1.5 rounded-xl font-semibold transition-all">Wyloguj</button>
+                <button onclick="logoutAdmin()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-4 py-2 rounded-xl font-bold transition-all">Wyloguj</button>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 bg-slate-950/50 p-4 rounded-2xl border border-slate-800">
-                <input type="text" id="adminName" placeholder="Nick w grze (np. ItzAgg)" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
-                <select id="adminTier" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 bg-slate-950/60 p-6 rounded-2xl border border-slate-800">
+                <input type="text" id="adminName" placeholder="Nick w grze (np. ItzAgg)" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
+                <select id="adminTier" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
                     <option value="HT1">HT1 (High Tier 1)</option>
                     <option value="LT1">LT1 (Low Tier 1)</option>
                     <option value="HT2">HT2 (High Tier 2)</option>
@@ -99,22 +100,22 @@
                     <option value="LT4">LT4 (Low Tier 4)</option>
                     <option value="LT5">LT5 (Low Tier 5)</option>
                 </select>
-                <input type="number" id="adminElo" placeholder="Punkty ELO (np. 2500)" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
-                <button onclick="addOrUpdatePlayer()" id="saveBtn" class="md:col-span-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-bold py-2.5 rounded-xl text-xs text-white shadow-lg shadow-purple-600/20 transition-all">Dodaj do Rankingu</button>
+                <input type="number" id="adminElo" placeholder="Punkty ELO (np. 2500)" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
+                <button onclick="addOrUpdatePlayer()" id="saveBtn" class="md:col-span-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-bold py-3.5 rounded-xl text-sm text-white shadow-xl shadow-purple-600/30 transition-all">Dodaj do Rankingu</button>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-slate-800/80 text-slate-400 text-[11px] uppercase tracking-wider font-semibold">
-                            <th class="py-3 px-4">#</th>
-                            <th class="py-3 px-4">Gracz</th>
-                            <th class="py-3 px-4">Dywizja</th>
-                            <th class="py-3 px-4">Punkty ELO</th>
-                            <th class="py-3 px-4 text-right">Akcje</th>
+                        <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider font-bold">
+                            <th class="py-4 px-6">#</th>
+                            <th class="py-4 px-6">Gracz</th>
+                            <th class="py-4 px-6">Dywizja</th>
+                            <th class="py-4 px-6">Punkty ELO</th>
+                            <th class="py-4 px-6 text-right">Akcje</th>
                         </tr>
                     </thead>
-                    <tbody id="adminTableBody" class="divide-y divide-slate-800/40 text-xs">
+                    <tbody id="adminTableBody" class="divide-y divide-slate-800/50 text-base">
                         <!-- Generowane dynamicznie -->
                     </tbody>
                 </table>
@@ -122,25 +123,37 @@
         </div>
     </main>
 
-    <!-- MODAL LOGOWANIA (Hasło) -->
-    <div id="loginModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="glass-card rounded-2xl p-6 md:p-8 w-full max-w-md border-purple-500/30 text-center shadow-2xl">
-            <h3 class="text-xl font-bold mb-2 text-purple-300">Weryfikacja Administratora</h3>
-            <p class="text-xs text-slate-400 mb-6">Wpisz hasło, aby uzyskać dostęp do panelu edycji.</p>
-            <input type="password" id="adminPasswordInput" placeholder="Hasło (np. Minecraft2020!)" class="w-full bg-slate-950/80 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-xs text-white outline-none mb-4 text-center">
-            <div class="flex space-x-2">
-                <button onclick="verifyPassword()" class="flex-1 bg-purple-600 hover:bg-purple-500 font-bold py-2.5 rounded-xl text-xs text-white transition-all">Zaloguj</button>
-                <button onclick="closeLoginModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs text-slate-300 transition-all">Anuluj</button>
+    <!-- SPECJALNE GUI DO HASŁA (MODAL) -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
+        <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
+            
+            <div class="w-16 h-16 bg-gradient-to-tr from-purple-600 to-pink-600 rounded-2xl mx-auto flex items-center justify-center shadow-lg shadow-purple-500/40 mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+
+            <h3 class="text-2xl font-extrabold mb-2 text-white">Strefa Administratora</h3>
+            <p class="text-xs text-slate-400 mb-8 font-medium">Wpisz bezpieczne hasło dostępu, aby zarządzać rankingiem.</p>
+            
+            <input type="password" id="adminPasswordInput" placeholder="••••••••••••••••" class="w-full bg-slate-950 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-4 text-sm text-white outline-none mb-6 text-center tracking-widest font-bold">
+            
+            <div class="flex space-x-3">
+                <button onclick="verifyPassword()" class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-white shadow-lg shadow-purple-600/30 transition-all">Zaloguj się</button>
+                <button onclick="closeLoginModal()" class="flex-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-slate-300 transition-all">Anuluj</button>
             </div>
         </div>
     </div>
 
     <!-- Stopka -->
-    <footer class="w-full max-w-5xl mx-auto px-4 mt-12 text-center text-xs text-slate-500 font-medium">
+    <footer class="w-full max-w-6xl mx-auto px-6 mt-16 text-center text-xs text-slate-500 font-medium">
         © 2026 Silly Rankings. Wszystkie prawa zastrzeżone.
     </footer>
 
     <script>
+        // Zakodowane hasło w Base64 (niewykrywalne na pierwszy rzut oka w kodzie źródłowym)
+        const _encPass = "TWluZWNyYWZ0MjAyMCE=";
+
         const defaultPlayers = [
             { name: "ItzAgg", tier: "HT1", elo: 3200 },
             { name: "Carbstuk", tier: "LT1", elo: 2850 },
@@ -171,29 +184,29 @@
                 const tierClass = 'tier-' + p.tier.toLowerCase();
                 
                 viewerBody.innerHTML += `
-                    <tr class="hover:bg-slate-800/20 transition-colors">
-                        <td class="py-3.5 px-4 font-extrabold text-purple-400">#${index + 1}</td>
-                        <td class="py-3.5 px-4 flex items-center space-x-3">
-                            <img src="https://minotar.net/avatar/${p.name}/32.png" class="w-7 h-7 rounded-lg shadow" alt="">
-                            <span class="font-bold text-slate-200">${p.name}</span>
+                    <tr class="hover:bg-slate-800/30 transition-colors">
+                        <td class="py-4 px-6 font-extrabold text-purple-400">#${index + 1}</td>
+                        <td class="py-4 px-6 flex items-center space-x-4">
+                            <img src="https://minotar.net/avatar/${p.name}/40.png" class="w-10 h-10 rounded-xl shadow-md" alt="">
+                            <span class="font-bold text-slate-100 text-lg">${p.name}</span>
                         </td>
-                        <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${tierClass}">${p.tier}</span></td>
-                        <td class="py-3.5 px-4 text-right font-mono font-bold text-purple-300">${p.elo} ELO</td>
+                        <td class="py-4 px-6"><span class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}">${p.tier}</span></td>
+                        <td class="py-4 px-6 text-right font-mono font-bold text-purple-300 text-lg">${p.elo} ELO</td>
                     </tr>
                 `;
 
                 adminBody.innerHTML += `
-                    <tr class="hover:bg-slate-800/20 transition-colors">
-                        <td class="py-3.5 px-4 font-bold text-slate-400">#${index + 1}</td>
-                        <td class="py-3.5 px-4 flex items-center space-x-3">
-                            <img src="https://minotar.net/avatar/${p.name}/32.png" class="w-7 h-7 rounded-lg shadow" alt="">
-                            <span class="font-bold text-slate-200">${p.name}</span>
+                    <tr class="hover:bg-slate-800/30 transition-colors">
+                        <td class="py-4 px-6 font-bold text-slate-400">#${index + 1}</td>
+                        <td class="py-4 px-6 flex items-center space-x-4">
+                            <img src="https://minotar.net/avatar/${p.name}/40.png" class="w-10 h-10 rounded-xl shadow-md" alt="">
+                            <span class="font-bold text-slate-100 text-lg">${p.name}</span>
                         </td>
-                        <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${tierClass}">${p.tier}</span></td>
-                        <td class="py-3.5 px-4 font-mono font-bold text-purple-300">${p.elo} ELO</td>
-                        <td class="py-3.5 px-4 text-right space-x-1.5">
-                            <button onclick="editPlayer(${index})" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/20 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all">Edytuj</button>
-                            <button onclick="deletePlayer(${index})" class="bg-red-600/20 hover:bg-red-600/40 text-red-400 border border-red-500/20 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all">Usuń</button>
+                        <td class="py-4 px-6"><span class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}">${p.tier}</span></td>
+                        <td class="py-4 px-6 font-mono font-bold text-purple-300 text-lg">${p.elo} ELO</td>
+                        <td class="py-4 px-6 text-right space-x-2">
+                            <button onclick="editPlayer(${index})" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/30 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">Edytuj</button>
+                            <button onclick="deletePlayer(${index})" class="bg-red-600/20 hover:bg-red-600/40 text-red-400 border border-red-500/30 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">Usuń</button>
                         </td>
                     </tr>
                 `;
@@ -209,13 +222,13 @@
             if (view === 'viewer') {
                 viewer.classList.remove('hidden');
                 admin.classList.add('hidden');
-                btnV.className = "px-4 py-2 text-xs font-bold rounded-lg bg-purple-600 text-white shadow-md transition-all";
-                btnA.className = "px-4 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition-all";
+                btnV.className = "px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all";
+                btnA.className = "px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all";
             } else {
                 viewer.classList.add('hidden');
                 admin.classList.remove('hidden');
-                btnA.className = "px-4 py-2 text-xs font-bold rounded-lg bg-purple-600 text-white shadow-md transition-all";
-                btnV.className = "px-4 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition-all";
+                btnA.className = "px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all";
+                btnV.className = "px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all";
             }
         }
 
@@ -230,13 +243,15 @@
         }
 
         function verifyPassword() {
-            const pass = document.getElementById('adminPasswordInput').value;
-            if (pass === "Minecraft2020!") {
+            const inputVal = document.getElementById('adminPasswordInput').value;
+            // Sprawdzenie zakodowanego hasła
+            if (btoa(inputVal) === _encPass) {
                 closeLoginModal();
                 switchView('admin');
             } else {
-                alert("Błędne hasło!");
+                alert("Błędne hasło administratora!");
                 document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminPasswordInput').focus();
             }
         }
 
@@ -291,6 +306,13 @@
                 row.style.display = name.includes(query) ? '' : 'none';
             });
         }
+
+        // Obsługa klawisza Enter w oknie logowania
+        document.getElementById('adminPasswordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                verifyPassword();
+            }
+        });
 
         saveAndRender();
     </script>
