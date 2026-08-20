@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silly Rankings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #030407; color: white; font-family: sans-serif; }
+        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
 </head>
-<body style="background: black; color: white; padding: 50px; font-family: sans-serif;">
-    <h1>Strona działa!</h1>
-    <p>Jeśli to widzisz, kod jest poprawny.</p>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Baner Discord -->
+        <div class="glass p-4 rounded-xl flex items-center justify-between border-purple-500/30">
+            <div class="flex items-center gap-3">
+                <span class="bg-indigo-600 text-[10px] font-bold px-2 py-1 rounded">DISCORD</span>
+                <p class="text-xs text-gray-300">Dołącz do serwera Silly Rankings!</p>
+            </div>
+            <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-white text-black text-[10px] font-bold px-4 py-1.5 rounded-lg hover:bg-gray-200">DOŁĄCZ</a>
+        </div>
+
+        <!-- Nagłówek -->
+        <div class="glass p-8 rounded-2xl text-center">
+            <h1 class="text-3xl font-black mb-2">Oficjalny Ranking Graczy</h1>
+            <p class="text-gray-400 text-sm">Sprawdź statystyki i dywizje.</p>
+        </div>
+
+        <!-- Tabela -->
+        <div class="glass p-6 rounded-2xl">
+            <input type="text" id="search" onkeyup="render()" placeholder="Szukaj gracza..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-5 py-3 mb-6 outline-none focus:border-purple-500 transition-all">
+            <div id="tableBody" class="space-y-2"></div>
+        </div>
+    </div>
+
+    <script>
+        let p = [
+            {n: "ItzAgg", t: "HT1", e: 3200}, {n: "Carbstuk", t: "HT2", e: 2850},
+            {n: "Connornonor", t: "HT3", e: 2710}, {n: "Mloddy_", t: "LT1", e: 2550},
+            {n: "Tchomad", t: "LT2", e: 2450}, {n: "Dymoty", t: "LT3", e: 2100},
+            {n: "ximixemx", t: "LT4", e: 1500}, {n: "franczesco4", t: "LT5", e: 900}
+        ];
+
+        function render() {
+            let q = document.getElementById('search').value.toLowerCase();
+            let b = document.getElementById('tableBody');
+            b.innerHTML = '';
+            
+            p.sort((a,b) => b.e - a.e).forEach((x, i) => {
+                if(x.n.toLowerCase().includes(q)) {
+                    b.innerHTML += `
+                    <div class="glass p-4 rounded-xl flex items-center justify-between border border-gray-800">
+                        <div class="flex items-center gap-4">
+                            <span class="text-purple-500 font-bold w-6">#${i+1}</span>
+                            <img src="https://minotar.net/avatar/${x.n}/32.png" class="rounded">
+                            <span class="font-bold">${x.n}</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-gray-800 px-2 py-1 rounded text-[10px] font-bold">${x.t}</span>
+                            <span class="text-purple-400 font-bold text-sm">${x.e} ELO</span>
+                        </div>
+                    </div>`;
+                }
+            });
+        }
+        render();
+    </script>
 </body>
 </html>
