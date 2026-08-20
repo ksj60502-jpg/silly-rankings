@@ -151,7 +151,6 @@
     </footer>
 
     <script>
-        // Zakodowane hasło w Base64 (niewykrywalne na pierwszy rzut oka w kodzie źródłowym)
         const _encPass = "TWluZWNyYWZ0MjAyMCE=";
 
         const defaultPlayers = [
@@ -244,7 +243,6 @@
 
         function verifyPassword() {
             const inputVal = document.getElementById('adminPasswordInput').value;
-            // Sprawdzenie zakodowanego hasła
             if (btoa(inputVal) === _encPass) {
                 closeLoginModal();
                 switchView('admin');
@@ -307,7 +305,6 @@
             });
         }
 
-        // Obsługa klawisza Enter w oknie logowania
         document.getElementById('adminPasswordInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 verifyPassword();
