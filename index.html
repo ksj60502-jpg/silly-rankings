@@ -272,18 +272,19 @@
         const defaultPlayers = [
             { name: "ItzAgg", tier: "HT1", elo: 3200 },
             { name: "Carbstuk", tier: "HT2", elo: 2850 },
-            { name: "Connornonor", tier: "LT1", elo: 2710 },
-            { name: "Tchomad", tier: "LT3", elo: 2450 },
-            { name: "Dymoty", tier: "LT4", elo: 2100 },
-            { name: "Mloddy_", tier: "LT5", elo: 1300 },
-            { name: "ximixemx", tier: "LT5", elo: 800 }
+            { name: "Connornonor", tier: "HT3", elo: 2710 },
+            { name: "Mloddy_", tier: "LT1", elo: 2550 },
+            { name: "Tchomad", tier: "LT2", elo: 2450 },
+            { name: "Dymoty", tier: "LT3", elo: 2100 },
+            { name: "ximixemx", tier: "LT4", elo: 1500 },
+            { name: "franczesco4", tier: "LT5", elo: 900 }
         ];
 
-        // Wymuszenie aktualizacji wersji pamięci podręcznej na v5
+        // Wymuszenie aktualizacji wersji pamięci podręcznej na v6
         let players = defaultPlayers;
-        if(!localStorage.getItem('silly_fixed_v5')) {
+        if(!localStorage.getItem('silly_fixed_v6')) {
             localStorage.setItem('silly_players', JSON.stringify(defaultPlayers));
-            localStorage.setItem('silly_fixed_v5', 'true');
+            localStorage.setItem('silly_fixed_v6', 'true');
         }
         players = JSON.parse(localStorage.getItem('silly_players')) || defaultPlayers;
 
