@@ -22,8 +22,12 @@
         .tier-ht1 { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.4); }
         .tier-lt1 { background: linear-gradient(135deg, #7c2d12, #c2410c); color: #fdba74; border: 1px solid rgba(251, 146, 60, 0.4); }
         .tier-ht2 { background: linear-gradient(135deg, #78350f, #b45309); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.4); }
+        .tier-lt2 { background: linear-gradient(135deg, #3f3f46, #52525b); color: #e4e4e7; border: 1px solid rgba(161, 161, 170, 0.4); }
+        .tier-ht3 { background: linear-gradient(135deg, #14532d, #166534); color: #86efac; border: 1px solid rgba(74, 222, 128, 0.4); }
         .tier-lt3 { background: linear-gradient(135deg, #064e3b, #047857); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.4); }
-        .tier-lt4 { background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.4); }
+        .tier-ht4 { background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.4); }
+        .tier-lt4 { background: linear-gradient(135deg, #172554, #1e40af); color: #bfdbfe; border: 1px solid rgba(147, 197, 253, 0.4); }
+        .tier-ht5 { background: linear-gradient(135deg, #3b0764, #581c87); color: #d8b4fe; border: 1px solid rgba(192, 132, 252, 0.4); }
         .tier-lt5 { background: linear-gradient(135deg, #4c1d95, #6d28d9); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.4); }
     </style>
 </head>
@@ -96,8 +100,12 @@
                     <option value="HT1">HT1 (High Tier 1)</option>
                     <option value="LT1">LT1 (Low Tier 1)</option>
                     <option value="HT2">HT2 (High Tier 2)</option>
+                    <option value="LT2">LT2 (Low Tier 2)</option>
+                    <option value="HT3">HT3 (High Tier 3)</option>
                     <option value="LT3">LT3 (Low Tier 3)</option>
+                    <option value="HT4">HT4 (High Tier 4)</option>
                     <option value="LT4">LT4 (Low Tier 4)</option>
+                    <option value="HT5">HT5 (High Tier 5)</option>
                     <option value="LT5">LT5 (Low Tier 5)</option>
                 </select>
                 <input type="number" id="adminElo" placeholder="Punkty ELO (np. 2500)" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
@@ -130,7 +138,6 @@
             <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
             
             <div class="flex justify-center mb-6">
-                <!-- Podgląd skina w pełnej okazałości z Minotara -->
                 <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 shadow-inner">
                     <img id="modalPlayerSkin" src="" class="h-44 object-contain mx-auto drop-shadow-2xl" alt="Skin gracza">
                 </div>
@@ -211,7 +218,6 @@
             players.forEach((p, index) => {
                 const tierClass = 'tier-' + p.tier.toLowerCase();
                 
-                // Widok gracza z obsługą kliknięcia otwierającego profil
                 viewerBody.innerHTML += `
                     <tr onclick="openPlayerModal('${p.name}', '${p.tier}', ${p.elo})" class="hover:bg-slate-800/40 transition-colors cursor-pointer group">
                         <td class="py-4 px-6 font-extrabold text-purple-400">#${index + 1}</td>
@@ -242,19 +248,13 @@
             });
         }
 
-        // Obsługa modala profilu gracza
         function openPlayerModal(name, tier, elo) {
             document.getElementById('modalPlayerName').innerText = name;
             document.getElementById('modalPlayerTier').innerText = tier;
             document.getElementById('modalPlayerTier').className = "px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider tier-" + tier.toLowerCase();
             document.getElementById('modalPlayerElo').innerText = elo + " ELO";
-            
-            // Ustawienie podglądu skina (pełna postać 3D z przodu)
             document.getElementById('modalPlayerSkin').src = `https://minotar.net/body/${name}/150.png`;
-            
-            // Link do NameMC
             document.getElementById('modalNameMcBtn').href = `https://namemc.com/search?q=${name}`;
-            
             document.getElementById('playerModal').classList.remove('hidden');
         }
 
@@ -336,7 +336,8 @@
             document.getElementById('adminTier').value = p.tier;
             document.getElementById('adminElo').value = p.elo;
             editingIndex = index;
-            document.getElementById('saveBtn').innerText = "Zaktualizuj Gracza";
+            document.getElementById('saveBtn').innerText = "Zaktualizuj Gracza (EDYCJA)";
+            window.scrollTo({ top: 200, behavior: 'smooth' });
         }
 
         function deletePlayer(index) {
