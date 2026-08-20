@@ -714,8 +714,8 @@
     </div>
 
     <script>
-        // HASŁO ADMINA:
-        const CORRECT_PASSWORD = "Minecraft2020!?!";
+        // BEZPIECZNY HASH HASH SHA-256 DLA HASŁA: "Minecraft2020!?!"
+        const CORRECT_PASSWORD_HASH = "8be96bf56e2ebef0b1e4a30eef7ed44ea095c1a8aa6290e29b13fa2fc07b5a83";
 
         function togglePasswordVisibility() {
             const input = document.getElementById("adminPasswordInput");
@@ -740,11 +740,17 @@
             }
         }
 
-        function checkAdminPassword() {
+        async function checkAdminPassword() {
             const inputVal = document.getElementById("adminPasswordInput").value;
             const errorDiv = document.getElementById("loginError");
 
-            if (inputVal === CORRECT_PASSWORD) {
+            // Konwersja tekstu wpisanego przez użytkownika na hash SHA-256
+            const msgBuffer = new TextEncoder().encode(inputVal);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const inputHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+            if (inputHash === CORRECT_PASSWORD_HASH) {
                 sessionStorage.setItem("silly_admin_auth", "true");
                 errorDiv.style.display = "none";
                 document.getElementById("adminPasswordInput").value = "";
