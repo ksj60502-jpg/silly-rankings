@@ -271,22 +271,19 @@
 
         const defaultPlayers = [
             { name: "ItzAgg", tier: "HT1", elo: 3200 },
-            { name: "Carbstuk", tier: "LT1", elo: 2850 },
-            { name: "Connornonor", tier: "HT2", elo: 2650 },
+            { name: "Carbstuk", tier: "HT2", elo: 2850 },
+            { name: "Connornonor", tier: "LT1", elo: 2710 },
             { name: "Tchomad", tier: "LT3", elo: 2450 },
             { name: "Dymoty", tier: "LT4", elo: 2100 },
             { name: "Mloddy_", tier: "LT5", elo: 1300 },
             { name: "ximixemx", tier: "LT5", elo: 800 }
         ];
 
-        // Automatyczne odświeżenie danych z nowymi tierami i ELO w localStorage
+        // Wymuszenie nadpisania starej pamięci podręcznej nową wersją v3
         let players = defaultPlayers;
-        localStorage.setItem('silly_players_v2', JSON.stringify(defaultPlayers));
-        // Jeśli masz stary klucz, kod automatycznie nadpisze tablicę
-        let savedPlayers = localStorage.getItem('silly_players');
-        if(!localStorage.getItem('silly_fixed_v2')) {
+        if(!localStorage.getItem('silly_fixed_v3')) {
             localStorage.setItem('silly_players', JSON.stringify(defaultPlayers));
-            localStorage.setItem('silly_fixed_v2', 'true');
+            localStorage.setItem('silly_fixed_v3', 'true');
         }
         players = JSON.parse(localStorage.getItem('silly_players')) || defaultPlayers;
 
