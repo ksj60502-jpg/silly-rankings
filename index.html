@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silly Rankings | System Graczy</title>
+    <title>Silly Rankings — Oficjalny System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
-        body { background: #030407; color: #fff; font-family: 'Outfit', sans-serif; }
-        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+        body { background-color: #030407; color: #f8fafc; font-family: 'Outfit', sans-serif; }
+        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
         .tier-ht1 { background: #991b1b; color: #fca5a5; } .tier-lt1 { background: #c2410c; color: #fdba74; }
         .tier-ht2 { background: #b45309; color: #fde047; } .tier-lt2 { background: #52525b; color: #e4e4e7; }
         .tier-ht3 { background: #166534; color: #86efac; } .tier-lt3 { background: #047857; color: #6ee7b7; }
@@ -20,33 +20,18 @@
 
     <!-- Baner Discord -->
     <div class="max-w-4xl mx-auto mb-8 glass rounded-2xl p-4 flex items-center justify-center gap-4 text-center border-purple-500/20">
-        <span class="bg-purple-600 text-[10px] px-2 py-1 rounded font-black uppercase tracking-widest">Discord</span>
-        <p class="text-xs font-medium text-slate-300">Oficjalna społeczność Silly Rankings. Dołącz, aby być na bieżąco!</p>
-        <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-[10px] font-bold px-4 py-1.5 rounded-lg transition-all">WEJDŹ</a>
+        <span class="bg-purple-600 text-[10px] px-2 py-1 rounded font-black uppercase">Discord</span>
+        <p class="text-xs font-medium text-slate-300">Chcesz się znaleźć na tabeli? Wbijaj na serwer DC i bądź sprawdzony!</p>
+        <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-[10px] font-bold px-4 py-1.5 rounded-lg transition-all">Dołącz teraz</a>
     </div>
 
-    <!-- Główna karta -->
-    <div class="max-w-4xl mx-auto glass rounded-3xl p-8 md:p-10 shadow-2xl">
-        <h1 class="text-4xl font-black mb-2 tracking-tight">Silly Rankings</h1>
-        <p class="text-slate-400 text-sm mb-10">Kliknij w gracza, aby zobaczyć szczegółowy profil.</p>
+    <div class="max-w-4xl mx-auto glass rounded-3xl p-8">
+        <h1 class="text-3xl font-black mb-2">Silly Rankings</h1>
+        <p class="text-slate-400 text-sm mb-8">Oficjalna tablica wyników i dywizji</p>
 
-        <input type="text" id="search" onkeyup="render()" placeholder="Wyszukaj zawodnika..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-5 py-4 mb-8 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all">
+        <input type="text" id="search" onkeyup="render()" placeholder="Szukaj gracza..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-5 py-3 mb-6 outline-none focus:border-purple-500">
         
         <div id="tableBody" class="space-y-3"></div>
-    </div>
-
-    <!-- Modal profilu -->
-    <div id="modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center p-6 z-50">
-        <div class="glass p-8 rounded-3xl w-full max-w-sm text-center border border-purple-500/30">
-            <img id="mAvatar" src="" class="mx-auto mb-6 drop-shadow-2xl h-40">
-            <h2 id="mName" class="text-3xl font-black mb-1"></h2>
-            <p id="mTier" class="text-xs font-bold uppercase tracking-widest mb-6"></p>
-            <div class="bg-slate-950 p-4 rounded-xl mb-6">
-                <span class="text-slate-500 text-[10px] uppercase font-bold">Punkty ELO</span>
-                <div id="mElo" class="text-2xl font-black"></div>
-            </div>
-            <button onclick="closeModal()" class="w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-xs uppercase">Zamknij profil</button>
-        </div>
     </div>
 
     <script>
@@ -65,27 +50,23 @@
             p.sort((a,b) => b.e - a.e).forEach((x, i) => {
                 if(x.n.toLowerCase().includes(q)) {
                     b.innerHTML += `
-                    <div onclick="openModal('${x.n}', '${x.t}', ${x.e})" class="glass p-4 rounded-2xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition-all">
+                    <div class="glass p-4 rounded-2xl flex items-center justify-between group hover:border-purple-500/50 transition-all">
                         <div class="flex items-center gap-4">
                             <span class="text-purple-500 font-black w-8">#${i+1}</span>
-                            <img src="https://minotar.net/avatar/${x.n}/32.png" class="rounded-lg">
-                            <span class="font-bold">${x.n}</span>
+                            <img src="https://minotar.net/avatar/${x.n}/32.png" class="rounded-lg shadow-lg">
+                            <div>
+                                <div class="font-bold text-lg">${x.n}</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest">Witaj, ${x.n}! Twój rekord: ${x.e} ELO</div>
+                            </div>
                         </div>
-                        <span class="tier-${x.t.toLowerCase()} px-3 py-1 rounded-lg text-[10px] font-black uppercase">${x.t}</span>
+                        <div class="flex items-center gap-6">
+                            <span class="tier-${x.t.toLowerCase()} px-3 py-1 rounded-lg text-[10px] font-black uppercase">${x.t}</span>
+                            <a href="https://namemc.com/search?q=${x.n}" target="_blank" class="text-[10px] underline text-slate-500 hover:text-white">Profil NameMC</a>
+                        </div>
                     </div>`;
                 }
             });
         }
-
-        function openModal(n, t, e) {
-            document.getElementById('mName').innerText = n;
-            document.getElementById('mTier').innerText = "Dywizja " + t;
-            document.getElementById('mElo').innerText = e + " ELO";
-            document.getElementById('mAvatar').src = `https://minotar.net/body/${n}/150.png`;
-            document.getElementById('modal').classList.remove('hidden');
-        }
-
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
         render();
     </script>
 </body>
