@@ -56,7 +56,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-10">
                 <div>
                     <h2 class="text-3xl font-extrabold tracking-tight">Ranking Graczy</h2>
-                    <p class="text-sm text-slate-400 mt-1">Aktualizowane w czasie rzeczywistym na podstawie ELO.</p>
+                    <p class="text-sm text-slate-400 mt-1">Kliknij w wiersz gracza, aby zobaczyć jego profil i skin.</p>
                 </div>
                 <div class="w-full md:w-80">
                     <input type="text" id="searchInput" onkeyup="filterPlayers()" placeholder="Szukaj gracza..." class="w-full bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-slate-200 outline-none transition-all">
@@ -123,6 +123,35 @@
         </div>
     </main>
 
+    <!-- OKIENKO MODAL PROFILU GRACZA -->
+    <div id="playerModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
+        <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
+            
+            <div class="flex justify-center mb-6">
+                <!-- Podgląd skina w pełnej okazałości z Minotara -->
+                <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 shadow-inner">
+                    <img id="modalPlayerSkin" src="" class="h-44 object-contain mx-auto drop-shadow-2xl" alt="Skin gracza">
+                </div>
+            </div>
+
+            <h3 id="modalPlayerName" class="text-3xl font-extrabold mb-1 text-white">Nazwa Gracza</h3>
+            <div class="flex justify-center items-center gap-2 mb-6">
+                <span id="modalPlayerTier" class="px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider">Tier</span>
+                <span id="modalPlayerElo" class="font-mono font-bold text-purple-300 text-sm">0 ELO</span>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <a id="modalNameMcBtn" href="" target="_blank" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-white shadow-lg shadow-cyan-600/30 transition-all flex items-center justify-center space-x-2">
+                    <span>Otwórz w NameMC</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <button onclick="closePlayerModal()" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-slate-300 transition-all">Zamknij</button>
+            </div>
+        </div>
+    </div>
+
     <!-- SPECJALNE GUI DO HASŁA (MODAL) -->
     <div id="loginModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
         <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden">
@@ -182,12 +211,13 @@
             players.forEach((p, index) => {
                 const tierClass = 'tier-' + p.tier.toLowerCase();
                 
+                // Widok gracza z obsługą kliknięcia otwierającego profil
                 viewerBody.innerHTML += `
-                    <tr class="hover:bg-slate-800/30 transition-colors">
+                    <tr onclick="openPlayerModal('${p.name}', '${p.tier}', ${p.elo})" class="hover:bg-slate-800/40 transition-colors cursor-pointer group">
                         <td class="py-4 px-6 font-extrabold text-purple-400">#${index + 1}</td>
                         <td class="py-4 px-6 flex items-center space-x-4">
-                            <img src="https://minotar.net/avatar/${p.name}/40.png" class="w-10 h-10 rounded-xl shadow-md" alt="">
-                            <span class="font-bold text-slate-100 text-lg">${p.name}</span>
+                            <img src="https://minotar.net/avatar/${p.name}/40.png" class="w-10 h-10 rounded-xl shadow-md group-hover:scale-105 transition-transform" alt="">
+                            <span class="font-bold text-slate-100 text-lg group-hover:text-purple-300 transition-colors">${p.name}</span>
                         </td>
                         <td class="py-4 px-6"><span class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}">${p.tier}</span></td>
                         <td class="py-4 px-6 text-right font-mono font-bold text-purple-300 text-lg">${p.elo} ELO</td>
@@ -210,6 +240,26 @@
                     </tr>
                 `;
             });
+        }
+
+        // Obsługa modala profilu gracza
+        function openPlayerModal(name, tier, elo) {
+            document.getElementById('modalPlayerName').innerText = name;
+            document.getElementById('modalPlayerTier').innerText = tier;
+            document.getElementById('modalPlayerTier').className = "px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider tier-" + tier.toLowerCase();
+            document.getElementById('modalPlayerElo').innerText = elo + " ELO";
+            
+            // Ustawienie podglądu skina (pełna postać 3D z przodu)
+            document.getElementById('modalPlayerSkin').src = `https://minotar.net/body/${name}/150.png`;
+            
+            // Link do NameMC
+            document.getElementById('modalNameMcBtn').href = `https://namemc.com/search?q=${name}`;
+            
+            document.getElementById('playerModal').classList.remove('hidden');
+        }
+
+        function closePlayerModal() {
+            document.getElementById('playerModal').classList.add('hidden');
         }
 
         function switchView(view) {
