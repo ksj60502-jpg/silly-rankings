@@ -279,11 +279,11 @@
             { name: "ximixemx", tier: "LT5", elo: 800 }
         ];
 
-        // Wymuszenie nadpisania starej pamięci podręcznej nową wersją v3
+        // Wymuszenie aktualizacji wersji pamięci podręcznej na v5
         let players = defaultPlayers;
-        if(!localStorage.getItem('silly_fixed_v3')) {
+        if(!localStorage.getItem('silly_fixed_v5')) {
             localStorage.setItem('silly_players', JSON.stringify(defaultPlayers));
-            localStorage.setItem('silly_fixed_v3', 'true');
+            localStorage.setItem('silly_fixed_v5', 'true');
         }
         players = JSON.parse(localStorage.getItem('silly_players')) || defaultPlayers;
 
