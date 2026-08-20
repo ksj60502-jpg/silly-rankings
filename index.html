@@ -271,15 +271,25 @@
 
         const defaultPlayers = [
             { name: "ItzAgg", tier: "HT1", elo: 3200 },
-            { name: "Connornonor", tier: "LT1", elo: 2850 },
-            { name: "Carbstuk", tier: "HT2", elo: 2650 },
+            { name: "Carbstuk", tier: "LT1", elo: 2850 },
+            { name: "Connornonor", tier: "HT2", elo: 2650 },
             { name: "Tchomad", tier: "LT3", elo: 2450 },
             { name: "Dymoty", tier: "LT4", elo: 2100 },
             { name: "Mloddy_", tier: "LT5", elo: 1300 },
             { name: "ximixemx", tier: "LT5", elo: 800 }
         ];
 
-        let players = JSON.parse(localStorage.getItem('silly_players')) || defaultPlayers;
+        // Automatyczne odświeżenie danych z nowymi tierami i ELO w localStorage
+        let players = defaultPlayers;
+        localStorage.setItem('silly_players_v2', JSON.stringify(defaultPlayers));
+        // Jeśli masz stary klucz, kod automatycznie nadpisze tablicę
+        let savedPlayers = localStorage.getItem('silly_players');
+        if(!localStorage.getItem('silly_fixed_v2')) {
+            localStorage.setItem('silly_players', JSON.stringify(defaultPlayers));
+            localStorage.setItem('silly_fixed_v2', 'true');
+        }
+        players = JSON.parse(localStorage.getItem('silly_players')) || defaultPlayers;
+
         let editingIndex = null;
         let activeTierFilter = 'ALL';
         let currentModalName = '';
