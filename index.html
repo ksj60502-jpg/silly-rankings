@@ -10,15 +10,14 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <style>
         * {
             box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
@@ -26,48 +25,42 @@
             background: #030407;
             color: #f8fafc;
             font-family: 'Outfit', sans-serif;
+            font-size: 16px;
             overflow-x: hidden;
         }
-
-        /* =========================
-           TŁO
-        ========================= */
 
         .space-bg {
             position: fixed;
             inset: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -10;
             overflow: hidden;
             background:
                 radial-gradient(
-                    circle at 50% 15%,
-                    #111225 0%,
-                    #080a13 35%,
-                    #030407 75%
+                    circle at 50% 20%,
+                    #0d1020 0%,
+                    #05060c 45%,
+                    #030407 100%
                 );
         }
 
-        .space-glow {
+        .space-bg::after {
+            content: "";
             position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: rgba(124, 58, 237, 0.08);
-            filter: blur(100px);
-            top: -300px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .space-glow-2 {
-            position: absolute;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            background: rgba(236, 72, 153, 0.05);
-            filter: blur(100px);
-            right: -200px;
-            bottom: -200px;
+            inset: 0;
+            background:
+                radial-gradient(
+                    circle at 15% 85%,
+                    rgba(124, 58, 237, 0.10),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 75%,
+                    rgba(236, 72, 153, 0.08),
+                    transparent 25%
+                );
+            pointer-events: none;
         }
 
         .star {
@@ -76,7 +69,7 @@
             border-radius: 50%;
             box-shadow:
                 0 0 8px #fff,
-                0 0 16px rgba(139, 92, 246, 0.8);
+                0 0 16px #8b5cf6;
             animation: fall linear infinite;
         }
 
@@ -100,893 +93,490 @@
             }
         }
 
-        /* =========================
-           GLASS
-        ========================= */
-
         .glass-card {
-            background: rgba(13, 17, 28, 0.78);
+            background: rgba(13, 17, 28, .76);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-
-            border: 1px solid rgba(255, 255, 255, 0.08);
-
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, .65),
-                inset 0 1px 0 rgba(255,255,255,.02);
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 25px 60px rgba(0,0,0,.65);
         }
 
-        /* =========================
-           TIERY
-        ========================= */
-
         .tier-ht1 {
-            background: linear-gradient(135deg, #7f1d1d, #991b1b);
-            color: #fca5a5;
-            border: 1px solid rgba(248, 113, 113, .4);
+            background: linear-gradient(135deg,#7f1d1d,#991b1b);
+            color:#fca5a5;
+            border:1px solid rgba(248,113,113,.4);
         }
 
         .tier-lt1 {
-            background: linear-gradient(135deg, #7c2d12, #c2410c);
-            color: #fdba74;
-            border: 1px solid rgba(251, 146, 60, .4);
+            background: linear-gradient(135deg,#7c2d12,#c2410c);
+            color:#fdba74;
+            border:1px solid rgba(251,146,60,.4);
         }
 
         .tier-ht2 {
-            background: linear-gradient(135deg, #78350f, #b45309);
-            color: #fde047;
-            border: 1px solid rgba(250, 204, 21, .4);
+            background: linear-gradient(135deg,#78350f,#b45309);
+            color:#fde047;
+            border:1px solid rgba(250,204,21,.4);
         }
 
         .tier-lt2 {
-            background: linear-gradient(135deg, #3f3f46, #52525b);
-            color: #e4e4e7;
-            border: 1px solid rgba(161, 161, 170, .4);
+            background: linear-gradient(135deg,#3f3f46,#52525b);
+            color:#e4e4e7;
+            border:1px solid rgba(161,161,170,.4);
         }
 
         .tier-ht3 {
-            background: linear-gradient(135deg, #14532d, #166534);
-            color: #86efac;
-            border: 1px solid rgba(74, 222, 128, .4);
+            background: linear-gradient(135deg,#14532d,#166534);
+            color:#86efac;
+            border:1px solid rgba(74,222,128,.4);
         }
 
         .tier-lt3 {
-            background: linear-gradient(135deg, #064e3b, #047857);
-            color: #6ee7b7;
-            border: 1px solid rgba(52, 211, 153, .4);
+            background: linear-gradient(135deg,#064e3b,#047857);
+            color:#6ee7b7;
+            border:1px solid rgba(52,211,153,.4);
         }
 
         .tier-ht4 {
-            background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
-            color: #93c5fd;
-            border: 1px solid rgba(96, 165, 250, .4);
+            background: linear-gradient(135deg,#1e3a8a,#1d4ed8);
+            color:#93c5fd;
+            border:1px solid rgba(96,165,250,.4);
         }
 
         .tier-lt4 {
-            background: linear-gradient(135deg, #172554, #1e40af);
-            color: #bfdbfe;
-            border: 1px solid rgba(147, 197, 253, .4);
+            background: linear-gradient(135deg,#172554,#1e40af);
+            color:#bfdbfe;
+            border:1px solid rgba(147,197,253,.4);
         }
 
         .tier-ht5 {
-            background: linear-gradient(135deg, #3b0764, #581c87);
-            color: #d8b4fe;
-            border: 1px solid rgba(192, 132, 252, .4);
+            background: linear-gradient(135deg,#3b0764,#581c87);
+            color:#d8b4fe;
+            border:1px solid rgba(192,132,252,.4);
         }
 
         .tier-lt5 {
-            background: linear-gradient(135deg, #4c1d95, #6d28d9);
-            color: #c4b5fd;
-            border: 1px solid rgba(167, 139, 250, .4);
+            background: linear-gradient(135deg,#4c1d95,#6d28d9);
+            color:#c4b5fd;
+            border:1px solid rgba(167,139,250,.4);
         }
-
-        /* =========================
-           GŁÓWKI
-        ========================= */
 
         .player-head {
-            width: 44px;
-            height: 44px;
-
-            object-fit: contain;
-
             image-rendering: pixelated;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(30, 41, 59, .9),
-                    rgba(2, 6, 23, .9)
-                );
-
-            border: 1px solid rgba(148, 163, 184, .2);
-            border-radius: 12px;
-
-            padding: 3px;
-
-            box-shadow:
-                0 8px 20px rgba(0,0,0,.35),
-                inset 0 0 10px rgba(255,255,255,.03);
-
-            transition:
-                transform .2s ease,
-                border-color .2s ease,
-                box-shadow .2s ease;
-        }
-
-        .player-row:hover .player-head {
-            transform: scale(1.12);
-            border-color: rgba(168, 85, 247, .65);
-
-            box-shadow:
-                0 0 20px rgba(139, 92, 246, .25),
-                0 8px 20px rgba(0,0,0,.4);
-        }
-
-        .modal-head {
-            width: 180px;
-            height: 180px;
-
+            image-rendering: crisp-edges;
             object-fit: contain;
-
-            image-rendering: pixelated;
-
-            filter:
-                drop-shadow(0 20px 30px rgba(0,0,0,.7))
-                drop-shadow(0 0 20px rgba(139,92,246,.15));
+            background: #020617;
         }
 
-        /* =========================
-           TABELA
-        ========================= */
+        .skin-loading {
+            animation: skinPulse 1.2s infinite ease-in-out;
+        }
 
-        .player-row {
-            cursor: pointer;
+        @keyframes skinPulse {
+            0%,100% {
+                opacity: .45;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .table-row {
             transition:
-                background .2s ease,
-                transform .2s ease;
+                background .18s ease,
+                transform .18s ease;
         }
 
-        .player-row:hover {
-            background: rgba(30, 41, 59, .35);
+        .table-row:hover {
+            background: rgba(51,65,85,.28);
         }
 
-        .rank-number {
-            color: #c084fc;
-            font-weight: 800;
+        .table-row:hover .player-head {
+            transform: scale(1.08);
         }
 
-        /* =========================
-           SCROLLBAR
-        ========================= */
+        .player-head {
+            transition: transform .18s ease;
+        }
 
-        ::-webkit-scrollbar {
-            width: 8px;
+        .modal-skin {
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        .scrollbar::-webkit-scrollbar {
             height: 8px;
+            width: 8px;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #030407;
+        .scrollbar::-webkit-scrollbar-track {
+            background: #080b13;
         }
 
-        ::-webkit-scrollbar-thumb {
+        .scrollbar::-webkit-scrollbar-thumb {
             background: #27233b;
             border-radius: 999px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
+        .scrollbar::-webkit-scrollbar-thumb:hover {
             background: #7c3aed;
-        }
-
-        /* =========================
-           MODAL
-        ========================= */
-
-        .modal-overlay {
-            background: rgba(0,0,0,.86);
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 640px) {
-            .player-head {
-                width: 38px;
-                height: 38px;
-            }
-
-            .modal-head {
-                width: 140px;
-                height: 140px;
-            }
         }
     </style>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen flex flex-col pb-16">
 
-    <!-- =========================
-         TŁO
-    ========================= -->
+<div class="space-bg" id="spaceBackground"></div>
 
-    <div class="space-bg" id="spaceBackground">
-        <div class="space-glow"></div>
-        <div class="space-glow-2"></div>
+<!-- HEADER -->
+<header class="w-full max-w-6xl mx-auto px-6 pt-10">
+
+    <div class="glass-card rounded-3xl p-6 md:px-10">
+
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+
+            <div class="flex items-center space-x-4">
+
+                <div
+                    class="w-14 h-14 rounded-2xl
+                    bg-gradient-to-tr from-purple-600 to-pink-500
+                    flex items-center justify-center
+                    shadow-xl shadow-purple-600/40"
+                >
+                    <span class="text-2xl font-black">SR</span>
+                </div>
+
+                <div>
+                    <h1
+                        class="text-2xl font-extrabold tracking-wide
+                        text-transparent bg-clip-text
+                        bg-gradient-to-r from-white via-slate-100 to-purple-300"
+                    >
+                        Silly Rankings
+                    </h1>
+
+                    <p class="text-sm text-slate-400 font-medium">
+                        Oficjalna tablica wyników i dywizji Minecraft
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-
-    <!-- =========================
-         HEADER
-    ========================= -->
-
-    <header class="w-full max-w-6xl mx-auto px-6 pt-8 md:pt-10">
-
-        <div class="glass-card rounded-3xl p-5 md:p-7">
-
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-5">
-
-                <div class="flex items-center gap-4">
-
-                    <div
-                        class="
-                            w-14 h-14
-                            rounded-2xl
-                            bg-gradient-to-tr
-                            from-purple-600
-                            to-pink-500
-                            flex
-                            items-center
-                            justify-center
-                            shadow-xl
-                            shadow-purple-600/30
-                        "
-                    >
-                        <span class="text-2xl font-black">
-                            SR
-                        </span>
-                    </div>
-
-                    <div>
-                        <h1
-                            class="
-                                text-2xl
-                                font-extrabold
-                                tracking-wide
-                                text-transparent
-                                bg-clip-text
-                                bg-gradient-to-r
-                                from-white
-                                via-slate-100
-                                to-purple-300
-                            "
-                        >
-                            Silly Rankings
-                        </h1>
-
-                        <p class="text-sm text-slate-400 font-medium">
-                            Oficjalna tablica wyników i dywizji Minecraft
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </header>
+</header>
 
 
-    <!-- =========================
-         DISCORD
-    ========================= -->
+<!-- DISCORD -->
+<section class="w-full max-w-6xl mx-auto px-6 mt-4">
 
-    <section class="w-full max-w-6xl mx-auto px-6 mt-4">
+    <div class="glass-card rounded-2xl p-6 border-indigo-500/30 text-center">
 
-        <div
+        <p class="text-sm text-indigo-100 font-medium mb-4">
+            Chcesz znaleźć się na tabeli?
+            Dołącz do Discorda i bądź sprawdzony!
+        </p>
+
+        <a
+            href="https://discord.gg/kfp7Gm8r8"
+            target="_blank"
+            rel="noopener noreferrer"
             class="
-                glass-card
-                rounded-2xl
-                p-6
-                border-indigo-500/30
-                text-center
+                inline-block px-8 py-3
+                bg-indigo-600 hover:bg-indigo-500
+                text-white text-xs font-bold
+                rounded-xl uppercase tracking-widest
+                transition-all
             "
         >
+            Dołącz do Discorda
+        </a>
 
-            <p class="text-sm text-indigo-100 font-medium mb-4">
-                Chcesz znaleźć się na tabeli?
-                Dołącz do Discorda i bądź sprawdzony!
-            </p>
+    </div>
 
-            <a
-                href="https://discord.gg/kfp7Gm8r8"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="
-                    inline-block
-                    px-8
-                    py-3
-                    bg-indigo-600
-                    hover:bg-indigo-500
-                    text-white
-                    text-xs
-                    font-bold
-                    rounded-xl
-                    uppercase
-                    tracking-widest
-                    transition-all
-                "
-            >
-                Dołącz do Discorda
-            </a>
-
-        </div>
-
-    </section>
+</section>
 
 
-    <!-- =========================
-         MAIN
-    ========================= -->
+<!-- MAIN -->
+<main class="w-full max-w-6xl mx-auto px-6 mt-8 flex-grow">
 
-    <main class="w-full max-w-6xl mx-auto px-6 mt-8">
+    <div id="viewerView" class="space-y-6">
 
-        <div class="space-y-6">
 
-            <!-- STATYSTYKI -->
+        <!-- STATISTICS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
 
-                <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
-
-                    <div
-                        class="
-                            w-12
-                            h-12
-                            rounded-xl
-                            bg-purple-500/10
-                            border
-                            border-purple-500/20
-                            flex
-                            items-center
-                            justify-center
-                            text-purple-400
-                            text-lg
-                        "
-                    >
-                        👥
-                    </div>
-
-                    <div>
-                        <p class="text-xs text-slate-400 uppercase tracking-wider">
-                            Liczba graczy
-                        </p>
-
-                        <h4
-                            id="statTotalPlayers"
-                            class="text-xl font-black text-white"
-                        >
-                            0
-                        </h4>
-                    </div>
-
+                <div
+                    class="
+                        w-12 h-12 rounded-xl
+                        bg-purple-500/10
+                        border border-purple-500/20
+                        flex items-center justify-center
+                        text-purple-400
+                        font-bold text-lg
+                    "
+                >
+                    👥
                 </div>
 
+                <div>
 
-                <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
+                        Liczba graczy
+                    </p>
 
-                    <div
-                        class="
-                            w-12
-                            h-12
-                            rounded-xl
-                            bg-pink-500/10
-                            border
-                            border-pink-500/20
-                            flex
-                            items-center
-                            justify-center
-                            text-pink-400
-                            text-lg
-                        "
+                    <h4
+                        id="statTotalPlayers"
+                        class="text-xl font-black text-white"
                     >
-                        ⚡
-                    </div>
-
-                    <div>
-                        <p class="text-xs text-slate-400 uppercase tracking-wider">
-                            Średnie ELO
-                        </p>
-
-                        <h4
-                            id="statAvgElo"
-                            class="text-xl font-black text-white"
-                        >
-                            0
-                        </h4>
-                    </div>
-
-                </div>
-
-
-                <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
-
-                    <div
-                        class="
-                            w-12
-                            h-12
-                            rounded-xl
-                            bg-cyan-500/10
-                            border
-                            border-cyan-500/20
-                            flex
-                            items-center
-                            justify-center
-                            text-cyan-400
-                            text-lg
-                        "
-                    >
-                        👑
-                    </div>
-
-                    <div>
-                        <p class="text-xs text-slate-400 uppercase tracking-wider">
-                            Top 1 Gracza
-                        </p>
-
-                        <h4
-                            id="statTopPlayer"
-                            class="text-xl font-black text-white"
-                        >
-                            -
-                        </h4>
-                    </div>
+                        0
+                    </h4>
 
                 </div>
 
             </div>
 
 
-            <!-- =========================
-                 RANKING
-            ========================= -->
-
-            <div class="glass-card rounded-3xl p-6 md:p-10">
+            <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
 
                 <div
                     class="
-                        flex
-                        flex-col
-                        md:flex-row
-                        justify-between
-                        items-center
-                        gap-6
-                        mb-8
+                        w-12 h-12 rounded-xl
+                        bg-pink-500/10
+                        border border-pink-500/20
+                        flex items-center justify-center
+                        text-pink-400
+                        font-bold text-lg
                     "
                 >
+                    ⚡
+                </div>
 
-                    <div>
+                <div>
 
-                        <h2 class="text-3xl font-extrabold tracking-tight">
-                            Ranking Graczy
-                        </h2>
+                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
+                        Średnie ELO
+                    </p>
 
-                        <p class="text-sm text-slate-400 mt-1">
-                            Kliknij gracza, aby zobaczyć jego profil.
-                        </p>
+                    <h4
+                        id="statAvgElo"
+                        class="text-xl font-black text-white"
+                    >
+                        0
+                    </h4>
 
-                    </div>
+                </div>
+
+            </div>
 
 
-                    <div class="w-full md:w-auto flex gap-2">
+            <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
 
-                        <input
-                            type="text"
-                            id="searchInput"
-                            placeholder="Szukaj gracza..."
-                            autocomplete="off"
-                            class="
-                                w-full
-                                md:w-64
-                                bg-slate-950/80
-                                border
-                                border-slate-800
-                                focus:border-purple-500
-                                focus:ring-2
-                                focus:ring-purple-500/30
-                                rounded-2xl
-                                px-5
-                                py-3.5
-                                text-sm
-                                text-slate-200
-                                outline-none
-                                transition-all
-                            "
-                        >
+                <div
+                    class="
+                        w-12 h-12 rounded-xl
+                        bg-cyan-500/10
+                        border border-cyan-500/20
+                        flex items-center justify-center
+                        text-cyan-400
+                        font-bold text-lg
+                    "
+                >
+                    👑
+                </div>
 
-                        <button
-                            id="refreshSkinsBtn"
-                            class="
-                                px-5
-                                py-3.5
-                                bg-slate-900
-                                hover:bg-purple-600
-                                border
-                                border-slate-800
-                                hover:border-purple-500
-                                rounded-2xl
-                                text-sm
-                                font-bold
-                                text-slate-300
-                                hover:text-white
-                                transition-all
-                                whitespace-nowrap
-                            "
-                        >
-                            ↻ Odśwież
-                        </button>
+                <div>
 
-                    </div>
+                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
+                        Top 1 Gracz
+                    </p>
+
+                    <h4
+                        id="statTopPlayer"
+                        class="text-xl font-black text-white"
+                    >
+                        -
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RANKING -->
+        <div class="glass-card rounded-3xl p-8 md:p-10">
+
+            <div
+                class="
+                    flex flex-col md:flex-row
+                    justify-between items-center
+                    gap-6 mb-8
+                "
+            >
+
+                <div>
+
+                    <h2 class="text-3xl font-extrabold tracking-tight">
+                        Ranking Graczy
+                    </h2>
+
+                    <p class="text-sm text-slate-400 mt-1">
+                        Kliknij gracza, aby zobaczyć profil i aktualną główkę.
+                    </p>
 
                 </div>
 
 
-                <!-- FILTRY -->
+                <div class="w-full md:w-auto flex gap-2">
 
-                <div
-                    id="tierFilters"
-                    class="
-                        flex
-                        flex-wrap
-                        gap-2
-                        mb-6
-                        pb-6
-                        border-b
-                        border-slate-800/60
-                    "
-                >
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Szukaj gracza..."
+                        autocomplete="off"
+                        class="
+                            w-full md:w-64
+                            bg-slate-950/80
+                            border border-slate-800
+                            focus:border-purple-500
+                            focus:ring-2 focus:ring-purple-500/30
+                            rounded-2xl
+                            px-5 py-3.5
+                            text-sm text-slate-200
+                            outline-none transition-all
+                        "
+                    >
 
                     <button
-                        data-tier="ALL"
-                        class="tier-filter active-filter"
+                        id="refreshButton"
+                        class="
+                            px-5 py-3.5
+                            bg-slate-900
+                            hover:bg-purple-600
+                            border border-slate-800
+                            hover:border-purple-500
+                            rounded-2xl
+                            text-sm font-bold
+                            text-slate-300 hover:text-white
+                            transition-all
+                            whitespace-nowrap
+                        "
                     >
-                        Wszystkie
+                        ↻ Odśwież skiny
                     </button>
-
-                    <button data-tier="HT1" class="tier-filter">
-                        HT1
-                    </button>
-
-                    <button data-tier="LT1" class="tier-filter">
-                        LT1
-                    </button>
-
-                    <button data-tier="HT2" class="tier-filter">
-                        HT2
-                    </button>
-
-                    <button data-tier="LT2" class="tier-filter">
-                        LT2
-                    </button>
-
-                    <button data-tier="HT3" class="tier-filter">
-                        HT3
-                    </button>
-
-                    <button data-tier="LT3" class="tier-filter">
-                        LT3
-                    </button>
-
-                    <button data-tier="HT4" class="tier-filter">
-                        HT4
-                    </button>
-
-                    <button data-tier="LT4" class="tier-filter">
-                        LT4
-                    </button>
-
-                    <button data-tier="HT5" class="tier-filter">
-                        HT5
-                    </button>
-
-                    <button data-tier="LT5" class="tier-filter">
-                        LT5
-                    </button>
-
-                </div>
-
-
-                <!-- TABELA -->
-
-                <div class="overflow-x-auto">
-
-                    <table class="w-full text-left border-collapse">
-
-                        <thead>
-
-                            <tr
-                                class="
-                                    border-b
-                                    border-slate-800
-                                    text-slate-400
-                                    text-xs
-                                    uppercase
-                                    tracking-wider
-                                    font-bold
-                                "
-                            >
-
-                                <th class="py-4 px-6">
-                                    Pozycja
-                                </th>
-
-                                <th class="py-4 px-6">
-                                    Gracz
-                                </th>
-
-                                <th class="py-4 px-6">
-                                    Dywizja
-                                </th>
-
-                                <th class="py-4 px-6 text-right">
-                                    Punkty ELO
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody
-                            id="playerTableBody"
-                            class="divide-y divide-slate-800/50"
-                        ></tbody>
-
-                    </table>
-
-                </div>
-
-                <div
-                    id="emptyState"
-                    class="hidden text-center py-16 text-slate-500"
-                >
-                    Nie znaleziono żadnego gracza.
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-
-    <!-- =========================
-         MODAL
-    ========================= -->
-
-    <div
-        id="playerModal"
-        class="
-            hidden
-            fixed
-            inset-0
-            modal-overlay
-            backdrop-blur-md
-            z-50
-            flex
-            items-center
-            justify-center
-            p-5
-        "
-    >
-
-        <div
-            class="
-                glass-card
-                rounded-3xl
-                p-7
-                md:p-10
-                w-full
-                max-w-md
-                border-purple-500/40
-                text-center
-                shadow-2xl
-                relative
-                overflow-hidden
-            "
-        >
-
-            <div
-                class="
-                    absolute
-                    -top-12
-                    -left-12
-                    w-32
-                    h-32
-                    bg-purple-600/20
-                    rounded-full
-                    blur-2xl
-                "
-            ></div>
-
-            <div
-                class="
-                    absolute
-                    -bottom-12
-                    -right-12
-                    w-32
-                    h-32
-                    bg-pink-600/20
-                    rounded-full
-                    blur-2xl
-                "
-            ></div>
-
-
-            <!-- DUŻA GŁÓWKA -->
-
-            <div class="flex justify-center mb-6">
-
-                <div
-                    class="
-                        bg-slate-950/80
-                        p-5
-                        rounded-3xl
-                        border
-                        border-slate-800
-                        shadow-inner
-                    "
-                >
-
-                    <img
-                        id="modalPlayerSkin"
-                        src="https://mc-heads.net/avatar/MHF_Steve/180"
-                        class="modal-head mx-auto"
-                        alt="Główka gracza"
-                    >
 
                 </div>
 
             </div>
 
 
-            <h3
-                id="modalPlayerName"
-                class="text-3xl font-extrabold mb-1 text-white"
-            >
-                Nazwa Gracza
-            </h3>
-
-
-            <p
-                id="modalPlayerRankPos"
-                class="
-                    text-xs
-                    font-bold
-                    text-purple-400
-                    uppercase
-                    tracking-widest
-                    mb-4
-                "
-            >
-                Pozycja w rankingu: #1
-            </p>
-
-
+            <!-- FILTERS -->
             <div
+                id="tierFilters"
                 class="
-                    flex
-                    justify-center
-                    items-center
-                    gap-2
-                    mb-7
+                    flex flex-wrap gap-2
+                    mb-6 pb-6
+                    border-b border-slate-800/60
                 "
             >
 
-                <span
-                    id="modalPlayerTier"
-                    class="
-                        px-3
-                        py-1
-                        rounded-xl
-                        text-xs
-                        font-black
-                        uppercase
-                        tracking-wider
-                    "
-                >
+                <button data-tier="ALL" class="tier-filter active">
+                    Wszystkie
+                </button>
+
+                <button data-tier="HT1" class="tier-filter">
                     HT1
-                </span>
+                </button>
 
-                <span
-                    id="modalPlayerElo"
-                    class="
-                        font-mono
-                        font-bold
-                        text-purple-300
-                        text-sm
-                    "
-                >
-                    0 ELO
-                </span>
+                <button data-tier="LT1" class="tier-filter">
+                    LT1
+                </button>
+
+                <button data-tier="HT2" class="tier-filter">
+                    HT2
+                </button>
+
+                <button data-tier="LT2" class="tier-filter">
+                    LT2
+                </button>
+
+                <button data-tier="HT3" class="tier-filter">
+                    HT3
+                </button>
+
+                <button data-tier="LT3" class="tier-filter">
+                    LT3
+                </button>
+
+                <button data-tier="HT4" class="tier-filter">
+                    HT4
+                </button>
+
+                <button data-tier="LT4" class="tier-filter">
+                    LT4
+                </button>
+
+                <button data-tier="HT5" class="tier-filter">
+                    HT5
+                </button>
+
+                <button data-tier="LT5" class="tier-filter">
+                    LT5
+                </button>
 
             </div>
 
 
-            <!-- NAMEMC -->
+            <!-- TABLE -->
+            <div class="overflow-x-auto scrollbar">
 
-            <div class="flex flex-col gap-3">
+                <table class="w-full text-left border-collapse">
 
-                <a
-                    id="modalNameMcBtn"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="
-                        w-full
-                        bg-gradient-to-r
-                        from-cyan-600
-                        to-blue-600
-                        hover:from-cyan-500
-                        hover:to-blue-500
-                        font-bold
-                        py-3.5
-                        rounded-2xl
-                        text-xs
-                        uppercase
-                        tracking-wider
-                        text-white
-                        shadow-lg
-                        shadow-cyan-600/30
-                        transition-all
-                    "
-                >
-                    Otwórz w NameMC
-                </a>
+                    <thead>
 
+                        <tr
+                            class="
+                                border-b border-slate-800
+                                text-slate-400
+                                text-xs uppercase
+                                tracking-wider font-bold
+                            "
+                        >
 
-                <button
-                    id="copyLinkBtn"
-                    class="
-                        w-full
-                        bg-slate-800/80
-                        hover:bg-slate-800
-                        border
-                        border-slate-700
-                        font-bold
-                        py-3
-                        rounded-2xl
-                        text-xs
-                        uppercase
-                        tracking-wider
-                        text-slate-200
-                        transition-all
-                    "
-                >
-                    Skopiuj link NameMC
-                </button>
+                            <th class="py-4 px-6">
+                                Pozycja
+                            </th>
 
+                            <th class="py-4 px-6">
+                                Gracz
+                            </th>
 
-                <button
-                    id="closeModalBtn"
-                    class="
-                        w-full
-                        bg-slate-900
-                        hover:bg-slate-800
-                        border
-                        border-slate-800
-                        font-bold
-                        py-3
-                        rounded-2xl
-                        text-xs
-                        uppercase
-                        tracking-wider
-                        text-slate-400
-                        transition-all
-                    "
-                >
-                    Zamknij
-                </button>
+                            <th class="py-4 px-6">
+                                Dywizja
+                            </th>
+
+                            <th class="py-4 px-6 text-right">
+                                Punkty ELO
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody
+                        id="playerTableBody"
+                        class="divide-y divide-slate-800/50 text-base"
+                    >
+                    </tbody>
+
+                </table>
 
             </div>
 
@@ -994,1070 +584,1224 @@
 
     </div>
 
+</main>
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
 
-    <footer
+<!-- MODAL -->
+<div
+    id="playerModal"
+    class="
+        hidden fixed inset-0
+        bg-black/85
+        backdrop-blur-md
+        z-50
+        flex items-center justify-center
+        p-6
+    "
+>
+
+    <div
         class="
-            w-full
-            max-w-6xl
-            mx-auto
-            px-6
-            mt-16
-            pb-8
+            glass-card
+            rounded-3xl
+            p-8 md:p-10
+            w-full max-w-md
+            border-purple-500/40
             text-center
-            text-xs
-            text-slate-500
-            font-medium
+            shadow-2xl
+            relative
+            overflow-hidden
         "
     >
-        © 2026 Silly Rankings. Wszystkie prawa zastrzeżone.
-    </footer>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
-
-    <script>
-
-        /* ==========================================
-           GRACZE
-        ========================================== */
-
-        const defaultPlayers = [
-            {
-                name: "ItzAgg",
-                tier: "HT1",
-                elo: 3200
-            },
-            {
-                name: "Carbstuk",
-                tier: "HT2",
-                elo: 2850
-            },
-            {
-                name: "Connornonor",
-                tier: "HT3",
-                elo: 2710
-            },
-            {
-                name: "Mloddy_",
-                tier: "LT1",
-                elo: 2550
-            },
-            {
-                name: "Tchomad",
-                tier: "LT2",
-                elo: 2450
-            },
-            {
-                name: "Dymoty",
-                tier: "LT3",
-                elo: 2100
-            },
-            {
-                name: "ximixemx",
-                tier: "LT4",
-                elo: 1500
-            },
-            {
-                name: "franczesco4",
-                tier: "LT5",
-                elo: 900
-            }
-        ];
-
-
-        /* ==========================================
-           LOCAL STORAGE
-        ========================================== */
-
-        const STORAGE_KEY = "silly_rankings_players_v8";
-
-        let players = [];
-
-        try {
-
-            const saved =
-                localStorage.getItem(STORAGE_KEY);
-
-            if (saved) {
-
-                players = JSON.parse(saved);
-
-            } else {
-
-                players = defaultPlayers;
-
-                localStorage.setItem(
-                    STORAGE_KEY,
-                    JSON.stringify(players)
-                );
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Błąd LocalStorage:",
-                error
-            );
-
-            players = defaultPlayers;
-
-        }
-
-
-        /* ==========================================
-           STAN
-        ========================================== */
-
-        let activeTierFilter = "ALL";
-
-        let currentModalName = "";
-
-
-        /* ==========================================
-           SORTOWANIE
-        ========================================== */
-
-        function sortPlayers() {
-
-            players.sort(
-                (a, b) => b.elo - a.elo
-            );
-
-        }
-
-
-        /* ==========================================
-           ZAPIS
-        ========================================== */
-
-        function savePlayers() {
-
-            try {
-
-                localStorage.setItem(
-                    STORAGE_KEY,
-                    JSON.stringify(players)
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "Nie można zapisać graczy:",
-                    error
-                );
-
-            }
-
-        }
-
-
-        /* ==========================================
-           URL GŁÓWKI
-        ========================================== */
-
-        function getHeadUrl(name, size = 64) {
-
-            return (
-                "https://mc-heads.net/avatar/" +
-                encodeURIComponent(name) +
-                "/" +
-                size +
-                "?v=" +
-                Date.now()
-            );
-
-        }
-
-
-        /* ==========================================
-           FALLBACK GŁÓWKI
-        ========================================== */
-
-        function handleHeadError(img) {
-
-            if (img.dataset.fallback === "true") {
-                return;
-            }
-
-            img.dataset.fallback = "true";
-
-            img.src =
-                "https://mc-heads.net/avatar/MHF_Steve/64";
-
-        }
-
-
-        /* ==========================================
-           TWORZENIE GŁÓWKI
-        ========================================== */
-
-        function createHeadImage(name) {
-
-            const img =
-                document.createElement("img");
-
-            img.className = "player-head";
-
-            img.alt =
-                "Główka Minecraft " + name;
-
-            img.loading = "lazy";
-
-            img.src =
-                getHeadUrl(name, 64);
-
-            img.onerror = function () {
-
-                handleHeadError(this);
-
-            };
-
-            return img;
-
-        }
-
-
-        /* ==========================================
-           RENDER TABELI
-        ========================================== */
-
-        function renderTables() {
-
-            const body =
-                document.getElementById(
-                    "playerTableBody"
-                );
-
-            const emptyState =
-                document.getElementById(
-                    "emptyState"
-                );
-
-            const searchInput =
-                document.getElementById(
-                    "searchInput"
-                );
-
-            const search =
-                searchInput.value
-                    .trim()
-                    .toLowerCase();
-
-
-            sortPlayers();
-
-
-            body.innerHTML = "";
-
-
-            const filteredPlayers =
-                players.filter((player) => {
-
-                    const matchesSearch =
-                        player.name
-                            .toLowerCase()
-                            .includes(search);
-
-                    const matchesTier =
-                        activeTierFilter === "ALL" ||
-                        player.tier === activeTierFilter;
-
-                    return (
-                        matchesSearch &&
-                        matchesTier
-                    );
-
-                });
-
-
-            if (filteredPlayers.length === 0) {
-
-                emptyState.classList.remove(
-                    "hidden"
-                );
-
-                return;
-
-            }
-
-
-            emptyState.classList.add(
-                "hidden"
-            );
-
-
-            filteredPlayers.forEach(
-                (player) => {
-
-                    const realRank =
-                        players.indexOf(player) + 1;
-
-
-                    const tr =
-                        document.createElement("tr");
-
-                    tr.className =
-                        "player-row border-b border-slate-800/50";
-
-
-                    /* POZYCJA */
-
-                    const rankTd =
-                        document.createElement("td");
-
-                    rankTd.className =
-                        "py-4 px-6";
-
-                    rankTd.innerHTML =
-                        `
-                            <span class="rank-number text-lg">
-                                #${realRank}
-                            </span>
-                        `;
-
-
-                    /* GRACZ */
-
-                    const playerTd =
-                        document.createElement("td");
-
-                    playerTd.className =
-                        "py-4 px-6";
-
-
-                    const playerWrapper =
-                        document.createElement("div");
-
-                    playerWrapper.className =
-                        "flex items-center gap-4";
-
-
-                    const head =
-                        createHeadImage(
-                            player.name
-                        );
-
-
-                    const name =
-                        document.createElement("span");
-
-                    name.className =
-                        `
-                            font-bold
-                            text-slate-100
-                            text-lg
-                            transition-colors
-                            group-hover:text-purple-300
-                        `;
-
-                    name.textContent =
-                        player.name;
-
-
-                    playerWrapper.appendChild(
-                        head
-                    );
-
-                    playerWrapper.appendChild(
-                        name
-                    );
-
-                    playerTd.appendChild(
-                        playerWrapper
-                    );
-
-
-                    /* TIER */
-
-                    const tierTd =
-                        document.createElement("td");
-
-                    tierTd.className =
-                        "py-4 px-6";
-
-
-                    const tier =
-                        document.createElement("span");
-
-                    tier.className =
-                        `
-                            px-3
-                            py-1.5
-                            rounded-xl
-                            text-xs
-                            font-black
-                            uppercase
-                            tracking-wider
-                            tier-${player.tier.toLowerCase()}
-                        `;
-
-                    tier.textContent =
-                        player.tier;
-
-
-                    tierTd.appendChild(
-                        tier
-                    );
-
-
-                    /* ELO */
-
-                    const eloTd =
-                        document.createElement("td");
-
-                    eloTd.className =
-                        `
-                            py-4
-                            px-6
-                            text-right
-                            font-mono
-                            font-bold
-                            text-purple-300
-                            text-lg
-                            whitespace-nowrap
-                        `;
-
-                    eloTd.textContent =
-                        player.elo + " ELO";
-
-
-                    /* ROW */
-
-                    tr.appendChild(
-                        rankTd
-                    );
-
-                    tr.appendChild(
-                        playerTd
-                    );
-
-                    tr.appendChild(
-                        tierTd
-                    );
-
-                    tr.appendChild(
-                        eloTd
-                    );
-
-
-                    tr.addEventListener(
-                        "click",
-                        () => {
-
-                            openPlayerModal(
-                                player.name,
-                                player.tier,
-                                player.elo,
-                                realRank
-                            );
-
-                        }
-                    );
-
-
-                    body.appendChild(
-                        tr
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ==========================================
-           STATYSTYKI
-        ========================================== */
-
-        function updateStats() {
-
-            const total =
-                players.length;
-
-
-            document.getElementById(
-                "statTotalPlayers"
-            ).textContent =
-                total;
-
-
-            if (total === 0) {
-
-                document.getElementById(
-                    "statAvgElo"
-                ).textContent =
-                    "0";
-
-                document.getElementById(
-                    "statTopPlayer"
-                ).textContent =
-                    "-";
-
-                return;
-
-            }
-
-
-            const totalElo =
-                players.reduce(
-                    (sum, player) =>
-                        sum + Number(player.elo),
-                    0
-                );
-
-
-            const average =
-                Math.round(
-                    totalElo / total
-                );
-
-
-            document.getElementById(
-                "statAvgElo"
-            ).textContent =
-                average;
-
-
-            sortPlayers();
-
-
-            document.getElementById(
-                "statTopPlayer"
-            ).textContent =
-                players[0].name;
-
-        }
-
-
-        /* ==========================================
-           FILTR TIERS
-        ========================================== */
-
-        function setTierFilter(tier) {
-
-            activeTierFilter =
-                tier;
-
-
-            document
-                .querySelectorAll(
-                    ".tier-filter"
-                )
-                .forEach(
-                    (button) => {
-
-                        button.classList.remove(
-                            "active-filter"
-                        );
-
-                    }
-                );
-
-
-            const activeButton =
-                document.querySelector(
-                    `.tier-filter[data-tier="${tier}"]`
-                );
-
-
-            if (activeButton) {
-
-                activeButton.classList.add(
-                    "active-filter"
-                );
-
-            }
-
-
-            renderTables();
-
-        }
-
-
-        /* ==========================================
-           MODAL
-        ========================================== */
-
-        function openPlayerModal(
-            name,
-            tier,
-            elo,
-            rank
-        ) {
-
-            currentModalName =
-                name;
-
-
-            const modal =
-                document.getElementById(
-                    "playerModal"
-                );
-
-
-            const skin =
-                document.getElementById(
-                    "modalPlayerSkin"
-                );
-
-
-            document.getElementById(
-                "modalPlayerName"
-            ).textContent =
-                name;
-
-
-            document.getElementById(
-                "modalPlayerRankPos"
-            ).textContent =
-                "Pozycja w rankingu: #" +
-                rank;
-
-
-            document.getElementById(
-                "modalPlayerElo"
-            ).textContent =
-                elo + " ELO";
-
-
-            const tierElement =
-                document.getElementById(
-                    "modalPlayerTier"
-                );
-
-
-            tierElement.textContent =
-                tier;
-
-
-            tierElement.className =
-                `
-                    px-3
-                    py-1
+        <div
+            class="
+                absolute -top-12 -left-12
+                w-32 h-32
+                bg-purple-600/20
+                rounded-full blur-2xl
+            "
+        ></div>
+
+        <div
+            class="
+                absolute -bottom-12 -right-12
+                w-32 h-32
+                bg-pink-600/20
+                rounded-full blur-2xl
+            "
+        ></div>
+
+
+        <!-- SKIN -->
+        <div class="flex justify-center mb-6">
+
+            <div
+                class="
+                    bg-slate-950/80
+                    p-4 rounded-2xl
+                    border border-slate-800
+                    shadow-inner
+                    min-h-[190px]
+                    min-w-[180px]
+                    flex items-center justify-center
+                "
+            >
+
+                <img
+                    id="modalPlayerSkin"
+                    src=""
+                    class="modal-skin h-44 w-auto object-contain mx-auto drop-shadow-2xl"
+                    alt="Skin gracza"
+                >
+
+            </div>
+
+        </div>
+
+
+        <h3
+            id="modalPlayerName"
+            class="text-3xl font-extrabold mb-1 text-white"
+        >
+            Nazwa Gracza
+        </h3>
+
+
+        <p
+            id="modalPlayerRankPos"
+            class="
+                text-xs font-bold
+                text-purple-400
+                uppercase tracking-widest
+                mb-3
+            "
+        >
+            Pozycja w rankingu: #1
+        </p>
+
+
+        <div class="flex justify-center items-center gap-2 mb-6">
+
+            <span
+                id="modalPlayerTier"
+                class="
+                    px-3 py-1
                     rounded-xl
                     text-xs
                     font-black
                     uppercase
                     tracking-wider
-                    tier-${tier.toLowerCase()}
-                `;
+                "
+            >
+                Tier
+            </span>
+
+            <span
+                id="modalPlayerElo"
+                class="
+                    font-mono
+                    font-bold
+                    text-purple-300
+                    text-sm
+                "
+            >
+                0 ELO
+            </span>
+
+        </div>
 
 
-            skin.dataset.fallback =
-                "false";
+        <div class="flex flex-col gap-3">
+
+            <a
+                id="modalNameMcBtn"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="
+                    w-full
+                    bg-gradient-to-r
+                    from-cyan-600
+                    to-blue-600
+                    hover:from-cyan-500
+                    hover:to-blue-500
+                    font-bold
+                    py-3.5
+                    rounded-2xl
+                    text-xs
+                    uppercase
+                    tracking-wider
+                    text-white
+                    shadow-lg
+                    shadow-cyan-600/30
+                    transition-all
+                    flex items-center
+                    justify-center
+                "
+            >
+                <span>Otwórz w NameMC</span>
+
+                <svg
+                    class="w-4 h-4 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                </svg>
+
+            </a>
 
 
-            skin.src =
-                getHeadUrl(
-                    name,
-                    180
-                );
+            <button
+                id="copyProfileButton"
+                class="
+                    w-full
+                    bg-slate-800/80
+                    hover:bg-slate-800
+                    border border-slate-700
+                    font-bold
+                    py-3
+                    rounded-2xl
+                    text-xs
+                    uppercase
+                    tracking-wider
+                    text-slate-200
+                    transition-all
+                "
+            >
+                Skopiuj link NameMC
+            </button>
 
 
-            skin.onerror =
-                function () {
+            <button
+                id="closeModalButton"
+                class="
+                    w-full
+                    bg-slate-900
+                    hover:bg-slate-800
+                    border border-slate-800
+                    font-bold
+                    py-3
+                    rounded-2xl
+                    text-xs
+                    uppercase
+                    tracking-wider
+                    text-slate-400
+                    transition-all
+                "
+            >
+                Zamknij
+            </button>
 
-                    if (
-                        this.dataset.fallback ===
-                        "true"
-                    ) {
+        </div>
 
-                        return;
+    </div>
 
-                    }
-
-                    this.dataset.fallback =
-                        "true";
-
-                    this.src =
-                        "https://mc-heads.net/avatar/MHF_Steve/180";
-
-                };
+</div>
 
 
-            document.getElementById(
-                "modalNameMcBtn"
-            ).href =
-                "https://namemc.com/search?q=" +
-                encodeURIComponent(name);
+<footer
+    class="
+        w-full max-w-6xl
+        mx-auto px-6
+        mt-16
+        text-center
+        text-xs
+        text-slate-500
+        font-medium
+    "
+>
+    © 2026 Silly Rankings. Wszystkie prawa zastrzeżone.
+</footer>
 
 
-            modal.classList.remove(
-                "hidden"
+<script>
+
+/* =========================================================
+   DANE GRACZY
+========================================================= */
+
+const defaultPlayers = [
+    { name: "ItzAgg",       tier: "HT1", elo: 3200 },
+    { name: "Carbstuk",     tier: "HT2", elo: 2850 },
+    { name: "Connornonor",  tier: "HT3", elo: 2710 },
+    { name: "Mloddy_",      tier: "LT1", elo: 2550 },
+    { name: "Tchomad",      tier: "LT2", elo: 2450 },
+    { name: "Dymoty",       tier: "LT3", elo: 2100 },
+    { name: "ximixemx",     tier: "LT4", elo: 1500 },
+    { name: "franczesco4",  tier: "LT5", elo: 900 }
+];
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+const STORAGE_KEY = "silly_players_v7";
+
+let players = [];
+
+try {
+    players = JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    ) || defaultPlayers;
+} catch {
+    players = defaultPlayers;
+}
+
+players = players.map(player => ({
+    name: String(player.name),
+    tier: String(player.tier),
+    elo: Number(player.elo)
+}));
+
+players.sort((a,b) => b.elo - a.elo);
+
+localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(players)
+);
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let activeTierFilter = "ALL";
+let currentModalName = "";
+let currentModalUUID = "";
+let refreshVersion = Date.now();
+
+const uuidCache = new Map();
+
+
+/* =========================================================
+   ELEMENTY
+========================================================= */
+
+const tableBody =
+    document.getElementById("playerTableBody");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const refreshButton =
+    document.getElementById("refreshButton");
+
+const playerModal =
+    document.getElementById("playerModal");
+
+const modalPlayerSkin =
+    document.getElementById("modalPlayerSkin");
+
+
+/* =========================================================
+   CSS DLA PRZYCISKÓW TIERÓW
+========================================================= */
+
+const filterBase =
+    `
+    px-3.5 py-1.5
+    rounded-xl
+    text-xs
+    font-bold
+    bg-slate-900
+    border border-slate-800
+    text-slate-300
+    transition-all
+    hover:border-purple-500
+    hover:text-white
+    `;
+
+const filterActive =
+    `
+    px-3.5 py-1.5
+    rounded-xl
+    text-xs
+    font-bold
+    bg-purple-600
+    text-white
+    transition-all
+    shadow-lg
+    `;
+
+document
+    .querySelectorAll(".tier-filter")
+    .forEach(button => {
+
+        button.className = filterBase;
+
+        if (button.dataset.tier === "ALL") {
+            button.className = filterActive;
+        }
+
+        button.addEventListener("click", () => {
+
+            activeTierFilter =
+                button.dataset.tier;
+
+            document
+                .querySelectorAll(".tier-filter")
+                .forEach(btn => {
+                    btn.className = filterBase;
+                });
+
+            button.className = filterActive;
+
+            renderTable();
+        });
+
+    });
+
+
+/* =========================================================
+   UUID + PROFIL MINECRAFT
+========================================================= */
+
+/*
+    Ashcon zwraca:
+    uuid
+    username
+    textures.skin.url
+
+    Dzięki temu nie korzystamy z przestarzałego
+    endpointu obrazka po samym nicku.
+*/
+
+async function getMinecraftProfile(username) {
+
+    if (uuidCache.has(username)) {
+        return uuidCache.get(username);
+    }
+
+    const encoded =
+        encodeURIComponent(username);
+
+    const url =
+        `https://api.ashcon.app/mojang/v2/user/${encoded}`;
+
+    try {
+
+        const response =
+            await fetch(url, {
+                method: "GET",
+                cache: "no-store"
+            });
+
+        if (!response.ok) {
+            throw new Error(
+                `API HTTP ${response.status}`
             );
+        }
+
+        const data =
+            await response.json();
+
+        if (!data.uuid) {
+            throw new Error(
+                "Nie znaleziono UUID gracza"
+            );
+        }
+
+        uuidCache.set(
+            username,
+            data
+        );
+
+        return data;
+
+    } catch (error) {
+
+        console.error(
+            `Nie udało się pobrać profilu ${username}`,
+            error
+        );
+
+        return null;
+    }
+}
 
 
-            document.body.style.overflow =
-                "hidden";
+/* =========================================================
+   AKTUALNY ADRES GŁÓWKI
+========================================================= */
+
+function getHeadUrl(uuid) {
+
+    /*
+        Crafatar działa po UUID.
+
+        /avatars/UUID
+        = główka/avatar gracza.
+
+        cache-buster pomaga przeglądarce,
+        ale aktualizacja po stronie Crafatar
+        zależy od jego własnego cache.
+    */
+
+    return (
+        `https://crafatar.com/avatars/` +
+        `${uuid}` +
+        `?size=64&overlay=true&default=MHF_Steve` +
+        `&v=${refreshVersion}`
+    );
+}
+
+
+/* =========================================================
+   AKTUALNY RENDER CIAŁA
+========================================================= */
+
+function getBodyUrl(uuid) {
+
+    return (
+        `https://crafatar.com/renders/body/` +
+        `${uuid}` +
+        `?scale=5&overlay=true&default=MHF_Steve` +
+        `&v=${refreshVersion}`
+    );
+}
+
+
+/* =========================================================
+   FALLBACK
+========================================================= */
+
+function setHeadFallback(img) {
+
+    img.src =
+        "https://crafatar.com/avatars/" +
+        "00000000-0000-0000-0000-000000000000" +
+        "?size=64&default=MHF_Steve" +
+        "&v=" + Date.now();
+
+}
+
+
+/* =========================================================
+   POBIERANIE GŁÓWKI
+========================================================= */
+
+async function loadPlayerHead(img, username) {
+
+    img.classList.add("skin-loading");
+
+    const profile =
+        await getMinecraftProfile(username);
+
+    if (!profile || !profile.uuid) {
+
+        img.classList.remove("skin-loading");
+
+        setHeadFallback(img);
+
+        return;
+    }
+
+    const uuid =
+        profile.uuid;
+
+    img.dataset.uuid =
+        uuid;
+
+    img.alt =
+        `Główka gracza ${profile.username || username}`;
+
+    const url =
+        getHeadUrl(uuid);
+
+    img.onload = () => {
+        img.classList.remove("skin-loading");
+    };
+
+    img.onerror = () => {
+
+        console.warn(
+            "Błąd ładowania główki:",
+            username,
+            uuid
+        );
+
+        img.classList.remove("skin-loading");
+
+        setHeadFallback(img);
+    };
+
+    img.src = url;
+}
+
+
+/* =========================================================
+   LOAD WSZYSTKICH GŁÓWEK
+========================================================= */
+
+async function loadAllHeads() {
+
+    const images =
+        document.querySelectorAll(
+            ".player-head"
+        );
+
+    for (const img of images) {
+
+        const username =
+            img.dataset.username;
+
+        if (!username) continue;
+
+        loadPlayerHead(
+            img,
+            username
+        );
+    }
+}
+
+
+/* =========================================================
+   RENDER TABELI
+========================================================= */
+
+function renderTable() {
+
+    tableBody.innerHTML = "";
+
+    const query =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+    let visiblePlayers = [];
+
+    players.forEach((player, index) => {
+
+        const matchesSearch =
+            player.name
+                .toLowerCase()
+                .includes(query);
+
+        const matchesTier =
+            activeTierFilter === "ALL" ||
+            player.tier === activeTierFilter;
+
+        if (
+            matchesSearch &&
+            matchesTier
+        ) {
+
+            visiblePlayers.push({
+                player,
+                index
+            });
 
         }
 
-
-        /* ==========================================
-           ZAMKNIĘCIE MODALA
-        ========================================== */
-
-        function closePlayerModal() {
-
-            document.getElementById(
-                "playerModal"
-            ).classList.add(
-                "hidden"
-            );
+    });
 
 
-            document.body.style.overflow =
-                "";
+    if (visiblePlayers.length === 0) {
 
-        }
+        tableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="4"
+                    class="py-12 text-center text-slate-500"
+                >
+                    Nie znaleziono gracza.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
 
 
-        /* ==========================================
-           KOPIOWANIE NAMEMC
-        ========================================== */
+    visiblePlayers.forEach(({ player, index }) => {
 
-        async function copyProfileLink() {
-
-            if (!currentModalName) {
-                return;
-            }
+        const tierClass =
+            "tier-" +
+            player.tier.toLowerCase();
 
 
-            const url =
-                "https://namemc.com/search?q=" +
-                encodeURIComponent(
-                    currentModalName
+        const row =
+            document.createElement("tr");
+
+        row.className =
+            "table-row cursor-pointer group";
+
+
+        row.innerHTML = `
+
+            <td
+                class="
+                    py-4 px-6
+                    font-extrabold
+                    text-purple-400
+                "
+            >
+                #${index + 1}
+            </td>
+
+
+            <td class="py-4 px-6">
+
+                <div class="flex items-center space-x-4">
+
+                    <div
+                        class="
+                            w-10 h-10
+                            rounded-xl
+                            overflow-hidden
+                            border border-slate-700
+                            bg-slate-950
+                            flex items-center justify-center
+                        "
+                    >
+
+                        <img
+                            class="
+                                player-head
+                                w-10 h-10
+                                object-contain
+                                skin-loading
+                            "
+                            data-username="${escapeHTML(player.name)}"
+                            alt=""
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23020617'/%3E%3C/svg%3E"
+                        >
+
+                    </div>
+
+
+                    <span
+                        class="
+                            font-bold
+                            text-slate-100
+                            text-lg
+                            group-hover:text-purple-300
+                            transition-colors
+                        "
+                    >
+                        ${escapeHTML(player.name)}
+                    </span>
+
+                </div>
+
+            </td>
+
+
+            <td class="py-4 px-6">
+
+                <span
+                    class="
+                        px-3 py-1.5
+                        rounded-xl
+                        text-xs
+                        font-black
+                        uppercase
+                        tracking-wider
+                        ${tierClass}
+                    "
+                >
+                    ${escapeHTML(player.tier)}
+                </span>
+
+            </td>
+
+
+            <td
+                class="
+                    py-4 px-6
+                    text-right
+                    font-mono
+                    font-bold
+                    text-purple-300
+                    text-lg
+                "
+            >
+                ${Number(player.elo).toLocaleString("pl-PL")} ELO
+            </td>
+
+        `;
+
+
+        row.addEventListener(
+            "click",
+            () => {
+                openPlayerModal(
+                    player,
+                    index + 1
                 );
-
-
-            try {
-
-                await navigator.clipboard.writeText(
-                    url
-                );
-
-
-                const button =
-                    document.getElementById(
-                        "copyLinkBtn"
-                    );
-
-
-                const oldText =
-                    button.textContent;
-
-
-                button.textContent =
-                    "✓ SKOPIOWANO";
-
-
-                setTimeout(
-                    () => {
-
-                        button.textContent =
-                            oldText;
-
-                    },
-                    1500
-                );
-
-
-            } catch (error) {
-
-                prompt(
-                    "Skopiuj link:",
-                    url
-                );
-
-            }
-
-        }
-
-
-        /* ==========================================
-           ODŚWIEŻANIE SKINÓW
-        ========================================== */
-
-        function refreshPlayerSkins() {
-
-            renderTables();
-
-
-            if (
-                currentModalName &&
-                !document
-                    .getElementById(
-                        "playerModal"
-                    )
-                    .classList
-                    .contains("hidden")
-            ) {
-
-                const skin =
-                    document.getElementById(
-                        "modalPlayerSkin"
-                    );
-
-
-                skin.dataset.fallback =
-                    "false";
-
-
-                skin.src =
-                    getHeadUrl(
-                        currentModalName,
-                        180
-                    );
-
-            }
-
-        }
-
-
-        /* ==========================================
-           GWIAZDY
-        ========================================== */
-
-        function createStars() {
-
-            const container =
-                document.getElementById(
-                    "spaceBackground"
-                );
-
-
-            for (
-                let i = 0;
-                i < 40;
-                i++
-            ) {
-
-                const star =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                star.className =
-                    "star";
-
-
-                const size =
-                    Math.random() * 2.5 + 1;
-
-
-                star.style.width =
-                    size + "px";
-
-
-                star.style.height =
-                    size + "px";
-
-
-                star.style.left =
-                    Math.random() * 100 + "vw";
-
-
-                star.style.top =
-                    Math.random() * -50 + "vh";
-
-
-                star.style.animationDuration =
-                    Math.random() * 6 + 4 + "s";
-
-
-                star.style.animationDelay =
-                    Math.random() * 6 + "s";
-
-
-                container.appendChild(
-                    star
-                );
-
-            }
-
-        }
-
-
-        /* ==========================================
-           EVENTY
-        ========================================== */
-
-        document
-            .getElementById(
-                "searchInput"
-            )
-            .addEventListener(
-                "input",
-                renderTables
-            );
-
-
-        document
-            .getElementById(
-                "refreshSkinsBtn"
-            )
-            .addEventListener(
-                "click",
-                refreshPlayerSkins
-            );
-
-
-        document
-            .querySelectorAll(
-                ".tier-filter"
-            )
-            .forEach(
-                (button) => {
-
-                    button.addEventListener(
-                        "click",
-                        () => {
-
-                            setTierFilter(
-                                button.dataset.tier
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-
-        document
-            .getElementById(
-                "closeModalBtn"
-            )
-            .addEventListener(
-                "click",
-                closePlayerModal
-            );
-
-
-        document
-            .getElementById(
-                "copyLinkBtn"
-            )
-            .addEventListener(
-                "click",
-                copyProfileLink
-            );
-
-
-        /* Kliknięcie poza modal */
-
-        document
-            .getElementById(
-                "playerModal"
-            )
-            .addEventListener(
-                "click",
-                (event) => {
-
-                    if (
-                        event.target.id ===
-                        "playerModal"
-                    ) {
-
-                        closePlayerModal();
-
-                    }
-
-                }
-            );
-
-
-        /* ESC */
-
-        document.addEventListener(
-            "keydown",
-            (event) => {
-
-                if (
-                    event.key === "Escape"
-                ) {
-
-                    closePlayerModal();
-
-                }
-
             }
         );
 
 
-        /* ==========================================
-           START
-        ========================================== */
+        tableBody.appendChild(row);
 
-        sortPlayers();
-
-        savePlayers();
-
-        createStars();
-
-        updateStats();
-
-        renderTables();
+    });
 
 
-        /* ==========================================
-           AUTOMATYCZNE ODŚWIEŻANIE
-        ========================================== */
+    loadAllHeads();
+}
 
-        setInterval(
-            refreshPlayerSkins,
-            60000
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+/* =========================================================
+   STATYSTYKI
+========================================================= */
+
+function updateStats() {
+
+    document
+        .getElementById("statTotalPlayers")
+        .innerText =
+        players.length;
+
+
+    if (players.length === 0) {
+
+        document
+            .getElementById("statAvgElo")
+            .innerText = "0";
+
+        document
+            .getElementById("statTopPlayer")
+            .innerText = "-";
+
+        return;
+    }
+
+
+    const total =
+        players.reduce(
+            (sum, player) =>
+                sum + Number(player.elo),
+            0
         );
 
-    </script>
+
+    const average =
+        Math.round(
+            total / players.length
+        );
 
 
-    <!-- STYLE DLA PRZYCISKÓW FILTRA -->
-    <style>
+    document
+        .getElementById("statAvgElo")
+        .innerText =
+        average.toLocaleString("pl-PL");
 
-        .tier-filter {
-            padding: 6px 14px;
-            border-radius: 12px;
 
-            font-size: 12px;
-            font-weight: 700;
+    document
+        .getElementById("statTopPlayer")
+        .innerText =
+        players[0].name;
+}
 
-            background: #0f172a;
-            border: 1px solid #1e293b;
 
-            color: #cbd5e1;
+/* =========================================================
+   MODAL GRACZA
+========================================================= */
 
-            transition:
-                all .2s ease;
+async function openPlayerModal(player, rankPos) {
 
-            cursor: pointer;
+    currentModalName =
+        player.name;
+
+    currentModalUUID =
+        "";
+
+
+    document
+        .getElementById("modalPlayerName")
+        .innerText =
+        player.name;
+
+
+    document
+        .getElementById("modalPlayerRankPos")
+        .innerText =
+        `Pozycja w rankingu: #${rankPos}`;
+
+
+    const tierElement =
+        document.getElementById(
+            "modalPlayerTier"
+        );
+
+    tierElement.innerText =
+        player.tier;
+
+    tierElement.className =
+        `
+        px-3 py-1
+        rounded-xl
+        text-xs
+        font-black
+        uppercase
+        tracking-wider
+        tier-${player.tier.toLowerCase()}
+        `;
+
+
+    document
+        .getElementById("modalPlayerElo")
+        .innerText =
+        `${player.elo} ELO`;
+
+
+    document
+        .getElementById("modalNameMcBtn")
+        .href =
+        `https://namemc.com/search?q=${encodeURIComponent(player.name)}`;
+
+
+    modalPlayerSkin.src =
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='220'%3E%3Crect width='150' height='220' fill='%23020617'/%3E%3C/svg%3E";
+
+
+    playerModal.classList.remove("hidden");
+
+
+    const profile =
+        await getMinecraftProfile(
+            player.name
+        );
+
+
+    if (
+        !profile ||
+        !profile.uuid
+    ) {
+
+        return;
+    }
+
+
+    currentModalUUID =
+        profile.uuid;
+
+
+    modalPlayerSkin.onload = () => {
+        modalPlayerSkin.classList.remove(
+            "skin-loading"
+        );
+    };
+
+
+    modalPlayerSkin.onerror = () => {
+
+        modalPlayerSkin.src =
+            "https://crafatar.com/renders/body/" +
+            profile.uuid +
+            "?scale=5&overlay=true&default=MHF_Steve&v=" +
+            Date.now();
+
+    };
+
+
+    modalPlayerSkin.src =
+        getBodyUrl(profile.uuid);
+}
+
+
+/* =========================================================
+   ZAMYKANIE MODALA
+========================================================= */
+
+function closePlayerModal() {
+
+    playerModal.classList.add("hidden");
+
+}
+
+
+/* =========================================================
+   KOPIOWANIE NAMEMC
+========================================================= */
+
+async function copyProfileLink() {
+
+    const url =
+        `https://namemc.com/search?q=${encodeURIComponent(
+            currentModalName
+        )}`;
+
+
+    try {
+
+        await navigator.clipboard.writeText(url);
+
+        alert(
+            `Skopiowano link do profilu gracza ${currentModalName}!`
+        );
+
+    } catch {
+
+        prompt(
+            "Skopiuj link:",
+            url
+        );
+
+    }
+}
+
+
+/* =========================================================
+   ODŚWIEŻANIE SKINÓW
+========================================================= */
+
+async function refreshPlayerSkins() {
+
+    refreshVersion =
+        Date.now();
+
+
+    /*
+        Czyścimy lokalny cache UUID.
+        Dzięki temu przy odświeżeniu
+        ponownie sprawdzamy aktualny profil.
+    */
+
+    uuidCache.clear();
+
+
+    refreshButton.innerText =
+        "⟳ Odświeżanie...";
+
+    refreshButton.disabled =
+        true;
+
+
+    /*
+        Wymuszamy nowe rendery.
+    */
+
+    renderTable();
+
+
+    /*
+        Jeżeli modal jest otwarty,
+        pobierz ponownie aktualny profil.
+    */
+
+    if (
+        currentModalName &&
+        !playerModal.classList.contains("hidden")
+    ) {
+
+        const profile =
+            await getMinecraftProfile(
+                currentModalName
+            );
+
+
+        if (
+            profile &&
+            profile.uuid
+        ) {
+
+            currentModalUUID =
+                profile.uuid;
+
+
+            modalPlayerSkin.src =
+                getBodyUrl(
+                    profile.uuid
+                );
+
         }
 
-        .tier-filter:hover {
-            background: #172033;
-            border-color: #7c3aed;
-            color: white;
+    }
+
+
+    setTimeout(() => {
+
+        refreshButton.innerText =
+            "↻ Odśwież skiny";
+
+        refreshButton.disabled =
+            false;
+
+    }, 1000);
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    renderTable
+);
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+refreshButton.addEventListener(
+    "click",
+    refreshPlayerSkins
+);
+
+
+document
+    .getElementById("closeModalButton")
+    .addEventListener(
+        "click",
+        closePlayerModal
+    );
+
+
+document
+    .getElementById("copyProfileButton")
+    .addEventListener(
+        "click",
+        copyProfileLink
+    );
+
+
+/* =========================================================
+   KLIK POZA MODALEM
+========================================================= */
+
+playerModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === playerModal
+        ) {
+            closePlayerModal();
         }
 
-        .active-filter {
-            background: #7c3aed !important;
-            border-color: #8b5cf6 !important;
-            color: white !important;
+    }
+);
 
-            box-shadow:
-                0 8px 25px
-                rgba(124,58,237,.25);
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape" &&
+            !playerModal.classList.contains("hidden")
+        ) {
+            closePlayerModal();
         }
 
-    </style>
+    }
+);
+
+
+/* =========================================================
+   GWIAZDY
+========================================================= */
+
+function createStars() {
+
+    const container =
+        document.getElementById(
+            "spaceBackground"
+        );
+
+
+    for (
+        let i = 0;
+        i < 35;
+        i++
+    ) {
+
+        const star =
+            document.createElement("div");
+
+
+        star.className =
+            "star";
+
+
+        const size =
+            Math.random() * 3 + 1;
+
+
+        star.style.width =
+            `${size}px`;
+
+        star.style.height =
+            `${size}px`;
+
+
+        star.style.left =
+            `${Math.random() * 100}vw`;
+
+
+        star.style.top =
+            `${Math.random() * -50}vh`;
+
+
+        star.style.animationDuration =
+            `${Math.random() * 5 + 3}s`;
+
+
+        star.style.animationDelay =
+            `${Math.random() * 5}s`;
+
+
+        container.appendChild(star);
+
+    }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+createStars();
+
+updateStats();
+
+renderTable();
+
+
+/*
+    Co 5 minut sprawdzamy skiny ponownie.
+    Nie co minutę, żeby nie spamować API.
+*/
+
+setInterval(
+    refreshPlayerSkins,
+    5 * 60 * 1000
+);
+
+</script>
 
 </body>
 </html>
