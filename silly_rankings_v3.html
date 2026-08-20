@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silly Rankings - Admin & Viewer Live System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #090d16 0%, #111827 50%, #1e1b4b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .top-nav {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #a855f7, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .view-tabs {
+            display: flex;
+            gap: 8px;
+            background: #0f172a;
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .view-panel {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .view-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #a855f7, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .sync-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .login-box {
+            max-width: 420px;
+            margin: 40px auto;
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .login-box h2 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #f8fafc;
+        }
+
+        .login-box p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .login-box input {
+            width: 100%;
+            text-align: center;
+            font-size: 1rem;
+            padding-right: 45px;
+        }
+
+        .toggle-password-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .toggle-password-btn:hover {
+            color: #f8fafc;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .admin-box {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            margin-bottom: 25px;
+        }
+
+        .admin-box h2 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #38bdf8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            padding: 12px 14px;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #f8fafc;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            width: 100%;
+            padding: 12px;
+        }
+
+        .btn-add:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-clear {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 6px 12px;
+        }
+
+        .btn-logout {
+            background: #334155;
+            color: #f8fafc;
+            font-size: 0.75rem;
+            padding: 6px 12px;
+        }
+
+        .btn-logout:hover {
+            background: #475569;
+        }
+
+        .btn-edit {
+            background-color: #3b82f6;
+            color: #fff;
+        }
+
+        .btn-edit:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-delete {
+            background-color: #ef4444;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+        }
+
+        .search-box input {
+            width: 100%;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .leaderboard {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .leaderboard th {
+            background-color: #1e293b;
+            color: #cbd5e1;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            padding: 16px 20px;
+            border-bottom: 2px solid #334155;
+        }
+
+        .leaderboard td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .leaderboard tbody tr {
+            background-color: rgba(15, 23, 42, 0.4);
+            transition: background 0.2s;
+        }
+
+        .leaderboard tbody tr:hover {
+            background-color: rgba(51, 65, 85, 0.6);
+        }
+
+        .rank {
+            font-weight: 800;
+            font-size: 1.1rem;
+            width: 60px;
+        }
+
+        .rank-1 { color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+        .rank-2 { color: #c0c0c0; text-shadow: 0 0 10px rgba(192, 192, 192, 0.3); }
+        .rank-3 { color: #cd7f32; text-shadow: 0 0 10px rgba(205, 127, 50, 0.3); }
+
+        .player {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .player img {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            background-color: #334155;
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tier-ht1 { background: linear-gradient(135deg, #ef4444, #991b1b); color: #fff; }
+        .tier-lt1 { background: linear-gradient(135deg, #f97316, #c2410c); color: #fff; }
+        .tier-ht2 { background: linear-gradient(135deg, #f59e0b, #b45309); color: #fff; }
+        .tier-lt2 { background: linear-gradient(135deg, #eab308, #854d0e); color: #fff; }
+        .tier-ht3 { background: linear-gradient(135deg, #84cc16, #4d7c0f); color: #fff; }
+        .tier-lt3 { background: linear-gradient(135deg, #10b981, #047857); color: #fff; }
+        .tier-ht4 { background: linear-gradient(135deg, #06b6d4, #0e7490); color: #fff; }
+        .tier-lt4 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; }
+        .tier-ht5 { background: linear-gradient(135deg, #6366f1, #4338ca); color: #fff; }
+        .tier-lt5 { background: linear-gradient(135deg, #a855f7, #6b21a8); color: #fff; }
+
+        .score {
+            font-family: 'Consolas', monospace;
+            font-weight: 700;
+            color: #38bdf8;
+            font-size: 1.05rem;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 480px;
+            padding: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: #f8fafc;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-body label {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            margin-bottom: 4px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .modal-footer {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn-cancel {
+            background: #334155;
+            color: #cbd5e1;
+        }
+
+        .btn-cancel:hover {
+            background: #475569;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+        }
+
+        .btn-save:hover {
+            opacity: 0.95;
+        }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <div class="brand">
+            ⚡ Silly Rankings
+            <span class="sync-badge"><div class="sync-dot"></div> Live Sync</span>
+        </div>
+        <div class="view-tabs">
+            <button class="tab-btn active" onclick="switchView('adminView', this)">
+                🛠️ Panel Admina
+            </button>
+            <button class="tab-btn" onclick="switchView('viewerView', this)">
+                👁️ Strona Viewera
+            </button>
+        </div>
+    </div>
+
+    <div class="app-container">
+
+        <!-- ADMIN PANEL -->
+        <div id="adminView" class="view-panel card active">
+            
+            <div id="adminLoginArea" class="login-box">
+                <h2>🔐 Logowanie Admina</h2>
+                <p>Wpisz hasło administratora, aby uzyskać dostęp do edycji rankingu.</p>
+                <div class="password-container">
+                    <input type="password" id="adminPasswordInput" placeholder="Wpisz hasło..." onkeydown="if(event.key==='Enter') checkAdminPassword()">
+                    <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility()" title="Pokaż/Ukryj hasło">👁️</button>
+                </div>
+                <button class="btn btn-add" onclick="checkAdminPassword()">Zaloguj się</button>
+                <div id="loginError" class="error-msg">⚠️ Nieprawidłowe hasło! Spróbuj ponownie.</div>
+            </div>
+
+            <div id="adminContentArea" style="display: none;">
+                <div class="header">
+                    <h1>Panel Zarządzania (Admin)</h1>
+                    <p>Dodawaj, edytuj oraz usuwaj graczy. Wszystkie zmiany synchronizują się natychmiastowo z widokiem Viewera.</p>
+                </div>
+
+                <div class="admin-box">
+                    <h2>
+                        <span>Dodaj Nowego Gracza</span>
+                        <div class="admin-header-actions">
+                            <button class="btn btn-clear" onclick="clearAllPlayers()">Wyczyść Wszystkich</button>
+                            <button class="btn btn-logout" onclick="adminLogout()">🔒 Wyloguj</button>
+                        </div>
+                    </h2>
+                    <div class="form-grid">
+                        <div>
+                            <input type="text" id="newNick" placeholder="Nick (np. Technoblade)" style="width: 100%;">
+                        </div>
+                        <div>
+                            <select id="newTier" style="width: 100%;">
+                                <option value="tier-ht1|HT1 (High Tier 1)">Tier 1 (HT1 - High Tier 1)</option>
+                                <option value="tier-lt1|LT1 (Low Tier 1)">Tier 1 (LT1 - Low Tier 1)</option>
+                                <option value="tier-ht2|HT2 (High Tier 2)">Tier 2 (HT2 - High Tier 2)</option>
+                                <option value="tier-lt2|LT2 (Low Tier 2)">Tier 2 (LT2 - Low Tier 2)</option>
+                                <option value="tier-ht3|HT3 (High Tier 3)">Tier 3 (HT3 - High Tier 3)</option>
+                                <option value="tier-lt3|LT3 (Low Tier 3)">Tier 3 (LT3 - Low Tier 3)</option>
+                                <option value="tier-ht4|HT4 (High Tier 4)">Tier 4 (HT4 - High Tier 4)</option>
+                                <option value="tier-lt4|LT4 (Low Tier 4)">Tier 4 (LT4 - Low Tier 4)</option>
+                                <option value="tier-ht5|HT5 (High Tier 5)">Tier 5 (HT5 - High Tier 5)</option>
+                                <option value="tier-lt5|LT5 (Low Tier 5)">Tier 5 (LT5 - Low Tier 5)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="number" id="newElo" placeholder="Punkty ELO (np. 2500)" style="width: 100%;">
+                        </div>
+                    </div>
+                    <button class="btn btn-add" onclick="addPlayer()">+ Dodaj do Rankingu</button>
+                </div>
+
+                <div class="controls">
+                    <div class="search-box">
+                        <input type="text" id="adminSearchInput" onkeyup="renderAdminTable()" placeholder="Szukaj gracza w panelu admina...">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="leaderboard">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Gracz</th>
+                                <th>Dywizja</th>
+                                <th>Punkty ELO</th>
+                                <th>Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2026 Silly Rankings Admin. Zmiany na żywo są przesyłane automatycznie.</p>
+            </div>
+        </div>
+
+        <!-- VIEWER PAGE -->
+        <div id="viewerView" class="view-panel card">
+            <div class="header">
+                <h1>Oficjalny Ranking Graczy</h1>
+                <p>Oficjalna tablica wyników i dywizji. Aktualizowana na żywo w czasie rzeczywistym.</p>
+            </div>
+
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="viewerSearchInput" onkeyup="renderViewerTable()" placeholder="Wyszukaj gracza...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="leaderboard">
+                    <thead>
+                        <tr>
+                            <th>Pozycja</th>
+                            <th>Gracz</th>
+                            <th>Dywizja</th>
+                            <th>Punkty ELO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="viewerTableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2026 Silly Rankings Viewer Mode. Tryb tylko do odczytu.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edytuj Gracza</h3>
+                <button class="modal-close" onclick="closeEditModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editIndex">
+                <div>
+                    <label>Nick Minecraft:</label>
+                    <input type="text" id="editNick" style="width: 100%;">
+                </div>
+                <div>
+                    <label>Dywizja / Tier:</label>
+                    <select id="editTier" style="width: 100%;">
+                        <option value="tier-ht1|HT1 (High Tier 1)">Tier 1 (HT1 - High Tier 1)</option>
+                        <option value="tier-lt1|LT1 (Low Tier 1)">Tier 1 (LT1 - Low Tier 1)</option>
+                        <option value="tier-ht2|HT2 (High Tier 2)">Tier 2 (HT2 - High Tier 2)</option>
+                        <option value="tier-lt2|LT2 (Low Tier 2)">Tier 2 (LT2 - Low Tier 2)</option>
+                        <option value="tier-ht3|HT3 (High Tier 3)">Tier 3 (HT3 - High Tier 3)</option>
+                        <option value="tier-lt3|LT3 (Low Tier 3)">Tier 3 (LT3 - Low Tier 3)</option>
+                        <option value="tier-ht4|HT4 (High Tier 4)">Tier 4 (HT4 - High Tier 4)</option>
+                        <option value="tier-lt4|LT4 (Low Tier 4)">Tier 4 (LT4 - Low Tier 4)</option>
+                        <option value="tier-ht5|HT5 (High Tier 5)">Tier 5 (HT5 - High Tier 5)</option>
+                        <option value="tier-lt5|LT5 (Low Tier 5)">Tier 5 (LT5 - Low Tier 5)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Punkty ELO:</label>
+                    <input type="number" id="editElo" style="width: 100%;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeEditModal()">Anuluj</button>
+                <button class="btn btn-save" onclick="savePlayerEdit()">Zapisz Zmiany</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // HASŁO ADMINA:
+        const CORRECT_PASSWORD = "Minecraft2020!?!";
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById("adminPasswordInput");
+            const btn = document.querySelector(".toggle-password-btn");
+            if (input.type === "password") {
+                input.type = "text";
+                btn.textContent = "🙈";
+            } else {
+                input.type = "password";
+                btn.textContent = "👁️";
+            }
+        }
+
+        function checkAuthState() {
+            const isAuthenticated = sessionStorage.getItem("silly_admin_auth") === "true";
+            if (isAuthenticated) {
+                document.getElementById("adminLoginArea").style.display = "none";
+                document.getElementById("adminContentArea").style.display = "block";
+            } else {
+                document.getElementById("adminLoginArea").style.display = "block";
+                document.getElementById("adminContentArea").style.display = "none";
+            }
+        }
+
+        function checkAdminPassword() {
+            const inputVal = document.getElementById("adminPasswordInput").value;
+            const errorDiv = document.getElementById("loginError");
+
+            if (inputVal === CORRECT_PASSWORD) {
+                sessionStorage.setItem("silly_admin_auth", "true");
+                errorDiv.style.display = "none";
+                document.getElementById("adminPasswordInput").value = "";
+                checkAuthState();
+                renderAdminTable();
+            } else {
+                errorDiv.style.display = "block";
+            }
+        }
+
+        function adminLogout() {
+            sessionStorage.removeItem("silly_admin_auth");
+            checkAuthState();
+        }
+
+        const defaultPlayers = [
+            { id: "p1", nick: "Technoblade", tierClass: "tier-ht1", tierName: "HT1 (High Tier 1)", elo: 3200 },
+            { id: "p2", nick: "Steve", tierClass: "tier-lt1", tierName: "LT1 (Low Tier 1)", elo: 2850 },
+            { id: "p3", nick: "Alex", tierClass: "tier-ht2", tierName: "HT2 (High Tier 2)", elo: 2710 },
+            { id: "p4", nick: "Notch", tierClass: "tier-lt3", tierName: "LT3 (Low Tier 3)", elo: 2450 },
+            { id: "p5", nick: "Dream", tierClass: "tier-lt4", tierName: "LT4 (Low Tier 4)", elo: 2100 }
+        ];
+
+        const STORAGE_KEY = 'silly_rankings_players_v4';
+        const syncChannel = new BroadcastChannel('silly_rankings_channel');
+
+        let players = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultPlayers;
+
+        function saveAndSync() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(players));
+            syncChannel.postMessage({ type: 'UPDATE', data: players });
+            renderAllViews();
+        }
+
+        syncChannel.onmessage = (event) => {
+            if (event.data && event.data.type === 'UPDATE') {
+                players = event.data.data;
+                renderAllViews();
+            }
+        };
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === STORAGE_KEY) {
+                players = JSON.parse(e.newValue) || [];
+                renderAllViews();
+            }
+        });
+
+        function switchView(viewId, btnElement) {
+            document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(viewId).classList.add('active');
+            btnElement.classList.add('active');
+
+            renderAllViews();
+        }
+
+        function renderAllViews() {
+            renderAdminTable();
+            renderViewerTable();
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById("adminTableBody");
+            if (!tbody) return;
+
+            const filter = document.getElementById("adminSearchInput") ? document.getElementById("adminSearchInput").value.toUpperCase() : "";
+            tbody.innerHTML = "";
+
+            const sortedPlayers = [...players].sort((a, b) => b.elo - a.elo);
+
+            let visibleIndex = 1;
+            sortedPlayers.forEach((player) => {
+                if (player.nick.toUpperCase().includes(filter)) {
+                    const tr = document.createElement("tr");
+
+                    let rankClass = "";
+                    if (visibleIndex === 1) rankClass = "rank-1";
+                    else if (visibleIndex === 2) rankClass = "rank-2";
+                    else if (visibleIndex === 3) rankClass = "rank-3";
+
+                    tr.innerHTML = `
+                        <td class="rank ${rankClass}">#${visibleIndex}</td>
+                        <td class="player">
+                            <img src="https://minotar.net/helm/${player.nick}/36.png" onerror="this.src='https://minotar.net/helm/Steve/36.png'" alt="${player.nick}">
+                            ${player.nick}
+                        </td>
+                        <td><span class="badge ${player.tierClass}">${player.tierName}</span></td>
+                        <td class="score">${player.elo} ELO</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn btn-edit" onclick="openEditModal('${player.id}')">✏️ Edytuj</button>
+                                <button class="btn btn-delete" onclick="deletePlayer('${player.id}')">🗑️ Usuń</button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                    visibleIndex++;
+                }
+            });
+
+            if (tbody.children.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">Brak graczy w bazie.</td></tr>`;
+            }
+        }
+
+        function renderViewerTable() {
+            const tbody = document.getElementById("viewerTableBody");
+            const filter = document.getElementById("viewerSearchInput") ? document.getElementById("viewerSearchInput").value.toUpperCase() : "";
+            tbody.innerHTML = "";
+
+            const sortedPlayers = [...players].sort((a, b) => b.elo - a.elo);
+
+            let visibleIndex = 1;
+            sortedPlayers.forEach((player) => {
+                if (player.nick.toUpperCase().includes(filter)) {
+                    const tr = document.createElement("tr");
+
+                    let rankClass = "";
+                    if (visibleIndex === 1) rankClass = "rank-1";
+                    else if (visibleIndex === 2) rankClass = "rank-2";
+                    else if (visibleIndex === 3) rankClass = "rank-3";
+
+                    tr.innerHTML = `
+                        <td class="rank ${rankClass}">#${visibleIndex}</td>
+                        <td class="player">
+                            <img src="https://minotar.net/helm/${player.nick}/36.png" onerror="this.src='https://minotar.net/helm/Steve/36.png'" alt="${player.nick}">
+                            ${player.nick}
+                        </td>
+                        <td><span class="badge ${player.tierClass}">${player.tierName}</span></td>
+                        <td class="score">${player.elo} ELO</td>
+                    `;
+                    tbody.appendChild(tr);
+                    visibleIndex++;
+                }
+            });
+
+            if (tbody.children.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#94a3b8;">Brak graczy w rankingu.</td></tr>`;
+            }
+        }
+
+        function addPlayer() {
+            const nickInput = document.getElementById("newNick");
+            const tierSelect = document.getElementById("newTier");
+            const eloInput = document.getElementById("newElo");
+
+            const nick = nickInput.value.trim();
+            const [tierClass, tierName] = tierSelect.value.split("|");
+            const elo = parseInt(eloInput.value);
+
+            if (!nick) {
+                alert("Wprowadź nick gracza!");
+                return;
+            }
+
+            if (isNaN(elo)) {
+                alert("Wprowadź poprawną liczbę punktów ELO!");
+                return;
+            }
+
+            const newPlayer = {
+                id: 'p_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+                nick,
+                tierClass,
+                tierName,
+                elo
+            };
+
+            players.push(newPlayer);
+            saveAndSync();
+
+            nickInput.value = "";
+            eloInput.value = "";
+        }
+
+        function openEditModal(playerId) {
+            const player = players.find(p => p.id === playerId);
+            if (!player) return;
+
+            document.getElementById("editIndex").value = player.id;
+            document.getElementById("editNick").value = player.nick;
+            document.getElementById("editTier").value = `${player.tierClass}|${player.tierName}`;
+            document.getElementById("editElo").value = player.elo;
+
+            document.getElementById("editModal").classList.add("active");
+        }
+
+        function closeEditModal() {
+            document.getElementById("editModal").classList.remove("active");
+        }
+
+        function savePlayerEdit() {
+            const id = document.getElementById("editIndex").value;
+            const nick = document.getElementById("editNick").value.trim();
+            const [tierClass, tierName] = document.getElementById("editTier").value.split("|");
+            const elo = parseInt(document.getElementById("editElo").value);
+
+            if (!nick || isNaN(elo)) {
+                alert("Proszę podać prawidłowy Nick oraz punkty ELO!");
+                return;
+            }
+
+            const index = players.findIndex(p => p.id === id);
+            if (index !== -1) {
+                players[index] = { id, nick, tierClass, tierName, elo };
+                saveAndSync();
+                closeEditModal();
+            }
+        }
+
+        function deletePlayer(playerId) {
+            const player = players.find(p => p.id === playerId);
+            if (player && confirm(`Czy na pewno chcesz usunąć gracza "${player.nick}"?`)) {
+                players = players.filter(p => p.id !== playerId);
+                saveAndSync();
+            }
+        }
+
+        function clearAllPlayers() {
+            if (confirm("Czy na pewno chcesz usunąć WSZYSTKICH graczy z listy?")) {
+                players = [];
+                saveAndSync();
+            }
+        }
+
+        checkAuthState();
+        renderAllViews();
+    </script>
+</body>
+</html>
