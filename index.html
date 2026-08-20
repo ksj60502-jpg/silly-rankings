@@ -2,71 +2,55 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Silly Rankings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silly Rankings | System Graczy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #030407; color: white; font-family: sans-serif; }
-        .bg-card { background-color: #0d111c; border: 1px solid #1e293b; }
-        .tier-ht1 { background-color: #b91c1c; }
-        .tier-ht2 { background-color: #d97706; }
-        .tier-ht3 { background-color: #15803d; }
-        .tier-lt1 { background-color: #ea580c; }
-        .tier-lt2 { background-color: #4b5563; }
-        .tier-lt3 { background-color: #059669; }
-        .tier-lt4 { background-color: #3b82f6; }
-        .tier-lt5 { background-color: #7c3aed; }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        body { background: #030407; color: #fff; font-family: 'Outfit', sans-serif; }
+        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+        .tier-ht1 { background: #991b1b; color: #fca5a5; } .tier-lt1 { background: #c2410c; color: #fdba74; }
+        .tier-ht2 { background: #b45309; color: #fde047; } .tier-lt2 { background: #52525b; color: #e4e4e7; }
+        .tier-ht3 { background: #166534; color: #86efac; } .tier-lt3 { background: #047857; color: #6ee7b7; }
+        .tier-ht4 { background: #1d4ed8; color: #93c5fd; } .tier-lt4 { background: #1e40af; color: #bfdbfe; }
+        .tier-ht5 { background: #581c87; color: #d8b4fe; } .tier-lt5 { background: #6d28d9; color: #c4b5fd; }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-6 md:p-12">
 
-    <!-- BANER DISCORD -->
-    <div class="max-w-5xl mx-auto mb-6 bg-card rounded-xl p-4 flex items-center justify-center gap-4">
-        <span class="bg-[#5865F2] text-xs font-bold px-2 py-1 rounded">DISCORD</span>
-        <span class="text-sm">Chcesz się znaleźć na tabeli? Wbijaj na serwer DC i bądź sprawdzony!</span>
-        <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-white text-black text-xs font-bold px-4 py-1.5 rounded-full hover:bg-gray-200">Dołącz teraz</a>
+    <!-- Baner Discord -->
+    <div class="max-w-4xl mx-auto mb-8 glass rounded-2xl p-4 flex items-center justify-center gap-4 text-center border-purple-500/20">
+        <span class="bg-purple-600 text-[10px] px-2 py-1 rounded font-black uppercase tracking-widest">Discord</span>
+        <p class="text-xs font-medium text-slate-300">Oficjalna społeczność Silly Rankings. Dołącz, aby być na bieżąco!</p>
+        <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-[10px] font-bold px-4 py-1.5 rounded-lg transition-all">WEJDŹ</a>
     </div>
 
-    <div class="max-w-5xl mx-auto bg-card rounded-2xl p-8">
-        <!-- HEADER -->
-        <div class="flex justify-between items-center mb-10">
-            <div class="flex items-center gap-4">
-                <div class="bg-purple-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl">SR</div>
-                <div>
-                    <h1 class="text-2xl font-bold">Silly Rankings</h1>
-                    <p class="text-gray-400 text-sm">Oficjalna tablica wyników i dywizji</p>
-                </div>
-            </div>
-            <div class="bg-[#030407] p-1 rounded-xl border border-gray-800">
-                <button onclick="showView('rank')" id="btnRank" class="px-6 py-2 rounded-lg bg-purple-600 text-sm font-bold">Widok Gracza</button>
-                <button onclick="showView('admin')" id="btnAdmin" class="px-6 py-2 rounded-lg text-gray-400 text-sm font-bold">Panel Admina</button>
-            </div>
-        </div>
+    <!-- Główna karta -->
+    <div class="max-w-4xl mx-auto glass rounded-3xl p-8 md:p-10 shadow-2xl">
+        <h1 class="text-4xl font-black mb-2 tracking-tight">Silly Rankings</h1>
+        <p class="text-slate-400 text-sm mb-10">Kliknij w gracza, aby zobaczyć szczegółowy profil.</p>
 
-        <!-- WIDOK RANKINGU -->
-        <div id="viewRank">
-            <input type="text" id="search" onkeyup="render()" placeholder="Szukaj gracza..." class="w-full bg-[#030407] border border-gray-800 rounded-xl px-5 py-3 mb-6 outline-none focus:border-purple-500">
-            <div class="grid grid-cols-4 text-gray-500 text-xs uppercase font-bold px-4 mb-4">
-                <div>Pozycja</div><div>Gracz</div><div>Dywizja</div><div class="text-right">ELO</div>
-            </div>
-            <div id="tableBody" class="space-y-2"></div>
-        </div>
+        <input type="text" id="search" onkeyup="render()" placeholder="Wyszukaj zawodnika..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-5 py-4 mb-8 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all">
+        
+        <div id="tableBody" class="space-y-3"></div>
+    </div>
 
-        <!-- WIDOK ADMINA -->
-        <div id="viewAdmin" class="hidden">
-            <div class="grid grid-cols-3 gap-4 mb-8">
-                <input id="inN" placeholder="Nick" class="bg-[#030407] p-3 rounded-xl border border-gray-800">
-                <select id="inT" class="bg-[#030407] p-3 rounded-xl border border-gray-800">
-                    <option>HT1</option><option>HT2</option><option>HT3</option>
-                    <option>LT1</option><option>LT2</option><option>LT3</option><option>LT4</option><option>LT5</option>
-                </select>
-                <input id="inE" type="number" placeholder="ELO" class="bg-[#030407] p-3 rounded-xl border border-gray-800">
-                <button onclick="add()" class="col-span-3 bg-purple-600 py-3 rounded-xl font-bold">Dodaj gracza</button>
+    <!-- Modal profilu -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center p-6 z-50">
+        <div class="glass p-8 rounded-3xl w-full max-w-sm text-center border border-purple-500/30">
+            <img id="mAvatar" src="" class="mx-auto mb-6 drop-shadow-2xl h-40">
+            <h2 id="mName" class="text-3xl font-black mb-1"></h2>
+            <p id="mTier" class="text-xs font-bold uppercase tracking-widest mb-6"></p>
+            <div class="bg-slate-950 p-4 rounded-xl mb-6">
+                <span class="text-slate-500 text-[10px] uppercase font-bold">Punkty ELO</span>
+                <div id="mElo" class="text-2xl font-black"></div>
             </div>
+            <button onclick="closeModal()" class="w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-xs uppercase">Zamknij profil</button>
         </div>
     </div>
 
     <script>
-        let players = JSON.parse(localStorage.getItem('data')) || [
+        let p = [
             {n: "ItzAgg", t: "HT1", e: 3200}, {n: "Carbstuk", t: "HT2", e: 2850},
             {n: "Connornonor", t: "HT3", e: 2710}, {n: "Mloddy_", t: "LT1", e: 2550},
             {n: "Tchomad", t: "LT2", e: 2450}, {n: "Dymoty", t: "LT3", e: 2100},
@@ -77,35 +61,31 @@
             let q = document.getElementById('search').value.toLowerCase();
             let b = document.getElementById('tableBody');
             b.innerHTML = '';
-            players.sort((a,b) => b.e - a.e);
-            players.forEach((p, i) => {
-                if(p.n.toLowerCase().includes(q)) {
+            
+            p.sort((a,b) => b.e - a.e).forEach((x, i) => {
+                if(x.n.toLowerCase().includes(q)) {
                     b.innerHTML += `
-                    <div class="bg-[#030407] p-4 rounded-xl grid grid-cols-4 items-center">
-                        <div class="text-purple-500 font-bold">#${i+1}</div>
-                        <div class="font-bold flex items-center gap-3">
-                            <img src="https://minotar.net/avatar/${p.n}/30.png" class="rounded"> ${p.n}
+                    <div onclick="openModal('${x.n}', '${x.t}', ${x.e})" class="glass p-4 rounded-2xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition-all">
+                        <div class="flex items-center gap-4">
+                            <span class="text-purple-500 font-black w-8">#${i+1}</span>
+                            <img src="https://minotar.net/avatar/${x.n}/32.png" class="rounded-lg">
+                            <span class="font-bold">${x.n}</span>
                         </div>
-                        <div><span class="tier-${p.t.toLowerCase()} text-[10px] font-bold px-2 py-1 rounded">${p.t}</span></div>
-                        <div class="text-right">${p.e}</div>
+                        <span class="tier-${x.t.toLowerCase()} px-3 py-1 rounded-lg text-[10px] font-black uppercase">${x.t}</span>
                     </div>`;
                 }
             });
-            localStorage.setItem('data', JSON.stringify(players));
         }
 
-        function add() {
-            players.push({n: document.getElementById('inN').value, t: document.getElementById('inT').value, e: parseInt(document.getElementById('inE').value)});
-            render();
+        function openModal(n, t, e) {
+            document.getElementById('mName').innerText = n;
+            document.getElementById('mTier').innerText = "Dywizja " + t;
+            document.getElementById('mElo').innerText = e + " ELO";
+            document.getElementById('mAvatar').src = `https://minotar.net/body/${n}/150.png`;
+            document.getElementById('modal').classList.remove('hidden');
         }
 
-        function showView(v) {
-            document.getElementById('viewRank').classList.toggle('hidden', v !== 'rank');
-            document.getElementById('viewAdmin').classList.toggle('hidden', v !== 'admin');
-            document.getElementById('btnRank').classList.toggle('bg-purple-600', v === 'rank');
-            document.getElementById('btnAdmin').classList.toggle('bg-purple-600', v === 'admin');
-        }
-
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
         render();
     </script>
 </body>
