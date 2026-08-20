@@ -3,51 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silly Rankings | Pro System</title>
+    <title>Silly Rankings | System Graczy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #030407; color: #fff; font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(12px); border: 1px solid #1e293b; }
-        .glow { box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
-        .tier-ht1 { background: #b91c1c; } .tier-ht2 { background: #d97706; }
-        .tier-ht3 { background: #15803d; } .tier-lt1 { background: #ea580c; }
-        .tier-lt2 { background: #4b5563; } .tier-lt3 { background: #059669; }
-        .tier-lt4 { background: #3b82f6; } .tier-lt5 { background: #7c3aed; }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        body { background: #030407; color: #fff; font-family: 'Outfit', sans-serif; }
+        .glass { background: rgba(13, 17, 28, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+        .tier-ht1 { background: #991b1b; color: #fca5a5; } .tier-lt1 { background: #c2410c; color: #fdba74; }
+        .tier-ht2 { background: #b45309; color: #fde047; } .tier-lt2 { background: #52525b; color: #e4e4e7; }
+        .tier-ht3 { background: #166534; color: #86efac; } .tier-lt3 { background: #047857; color: #6ee7b7; }
+        .tier-ht4 { background: #1d4ed8; color: #93c5fd; } .tier-lt4 { background: #1e40af; color: #bfdbfe; }
+        .tier-ht5 { background: #581c87; color: #d8b4fe; } .tier-lt5 { background: #6d28d9; color: #c4b5fd; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-6 md:p-12">
 
-    <div class="max-w-4xl mx-auto space-y-6">
+    <!-- Baner Discord -->
+    <div class="max-w-4xl mx-auto mb-8 glass rounded-2xl p-4 flex items-center justify-center gap-4 text-center border-purple-500/20">
+        <span class="bg-purple-600 text-[10px] px-2 py-1 rounded font-black uppercase tracking-widest">Discord</span>
+        <p class="text-xs font-medium text-slate-300">Oficjalna społeczność Silly Rankings. Dołącz, aby być na bieżąco!</p>
+        <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-[10px] font-bold px-4 py-1.5 rounded-lg transition-all">WEJDŹ</a>
+    </div>
 
-        <!-- BANER DISCORD -->
-        <div class="glass p-4 rounded-xl flex items-center justify-between border-purple-900/30">
-            <div class="flex items-center gap-3">
-                <div class="bg-indigo-600 p-1.5 rounded-lg"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.972.074.074 0 0 0-.041-.104 13.2 13.2 0 0 1-1.872-.897.075.075 0 0 1-.008-.126c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.79 8.18 1.79 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.194.372.288a.075.075 0 0 1-.006.127 12.23 12.23 0 0 1-1.873.896.074.074 0 0 0-.04.105c.36.69.772 1.353 1.226 1.972a.077.077 0 0 0 .084.027 19.84 19.84 0 0 0 5.993-3.03.077.077 0 0 0 .032-.057c.502-5.327-.852-9.824-3.567-13.66a.073.073 0 0 0-.033-.028zM8.02 15.33c-1.18 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.18 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></div>
-                <p class="text-xs font-medium text-gray-200">Chcesz się znaleźć na tabeli? Wbijaj na serwer DC!</p>
+    <!-- Główna karta -->
+    <div class="max-w-4xl mx-auto glass rounded-3xl p-8 md:p-10 shadow-2xl">
+        <h1 class="text-4xl font-black mb-2 tracking-tight">Silly Rankings</h1>
+        <p class="text-slate-400 text-sm mb-10">Kliknij w gracza, aby zobaczyć szczegółowy profil.</p>
+
+        <input type="text" id="search" onkeyup="render()" placeholder="Wyszukaj zawodnika..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-5 py-4 mb-8 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all">
+        
+        <div id="tableBody" class="space-y-3"></div>
+    </div>
+
+    <!-- Modal profilu -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center p-6 z-50">
+        <div class="glass p-8 rounded-3xl w-full max-w-sm text-center border border-purple-500/30">
+            <img id="mAvatar" src="" class="mx-auto mb-6 drop-shadow-2xl h-40">
+            <h2 id="mName" class="text-3xl font-black mb-1"></h2>
+            <p id="mTier" class="text-xs font-bold uppercase tracking-widest mb-6"></p>
+            <div class="bg-slate-950 p-4 rounded-xl mb-6">
+                <span class="text-slate-500 text-[10px] uppercase font-bold">Punkty ELO</span>
+                <div id="mElo" class="text-2xl font-black"></div>
             </div>
-            <a href="https://discord.gg/ShcxZ4Cv9" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-[10px] font-bold px-4 py-1.5 rounded-lg transition-all">DOŁĄCZ</a>
+            <button onclick="closeModal()" class="w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-xs uppercase">Zamknij profil</button>
         </div>
-
-        <!-- HEADER & STATS -->
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="md:col-span-2 glass p-8 rounded-2xl glow">
-                <h1 class="text-3xl font-black mb-2">Silly Rankings</h1>
-                <p class="text-gray-400 text-sm">Oficjalny system dywizji i ranking graczy.</p>
-            </div>
-            <div class="glass p-6 rounded-2xl flex flex-col justify-center">
-                <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">Aktywnych graczy</div>
-                <div id="pCount" class="text-2xl font-bold mb-4">0</div>
-                <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">Top lider</div>
-                <div id="pTop" class="text-purple-400 font-bold">-</div>
-            </div>
-        </div>
-
-        <!-- TABELA -->
-        <div class="glass p-6 rounded-2xl">
-            <input type="text" id="search" onkeyup="render()" placeholder="Wyszukaj gracza..." class="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 mb-6 outline-none focus:border-purple-500 transition-all">
-            <div id="tableBody" class="space-y-2"></div>
-        </div>
-
     </div>
 
     <script>
@@ -63,27 +62,30 @@
             let b = document.getElementById('tableBody');
             b.innerHTML = '';
             
-            p.sort((a,b) => b.e - a.e);
-            document.getElementById('pCount').innerText = p.length;
-            document.getElementById('pTop').innerText = p[0].n;
-
-            p.forEach((x, i) => {
+            p.sort((a,b) => b.e - a.e).forEach((x, i) => {
                 if(x.n.toLowerCase().includes(q)) {
                     b.innerHTML += `
-                    <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950/30 border border-slate-800/50 hover:border-purple-500/30 transition-all">
+                    <div onclick="openModal('${x.n}', '${x.t}', ${x.e})" class="glass p-4 rounded-2xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition-all">
                         <div class="flex items-center gap-4">
-                            <span class="w-8 font-bold text-purple-500">#${i+1}</span>
-                            <img src="https://minotar.net/avatar/${x.n}/32.png" class="rounded shadow-lg">
+                            <span class="text-purple-500 font-black w-8">#${i+1}</span>
+                            <img src="https://minotar.net/avatar/${x.n}/32.png" class="rounded-lg">
                             <span class="font-bold">${x.n}</span>
                         </div>
-                        <div class="flex items-center gap-6">
-                            <span class="tier-${x.t.toLowerCase()} text-[9px] font-black px-2.5 py-1 rounded-full">${x.t}</span>
-                            <span class="w-20 text-right font-mono text-sm">${x.e}</span>
-                        </div>
+                        <span class="tier-${x.t.toLowerCase()} px-3 py-1 rounded-lg text-[10px] font-black uppercase">${x.t}</span>
                     </div>`;
                 }
             });
         }
+
+        function openModal(n, t, e) {
+            document.getElementById('mName').innerText = n;
+            document.getElementById('mTier').innerText = "Dywizja " + t;
+            document.getElementById('mElo').innerText = e + " ELO";
+            document.getElementById('mAvatar').src = `https://minotar.net/body/${n}/150.png`;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
         render();
     </script>
 </body>
