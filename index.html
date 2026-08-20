@@ -3,505 +3,745 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silly Rankings — Oficjalny System Dywizji</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Silly Rankings - Advanced System</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
-        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            background-color: #030407;
+            background: linear-gradient(135deg, #090d16 0%, #111827 50%, #1e1b4b 100%);
             color: #f8fafc;
-            font-family: 'Outfit', sans-serif;
-            font-size: 16px;
-            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .top-nav {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #a855f7, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .view-tabs {
+            display: flex;
+            gap: 8px;
+            background: #0f172a;
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .view-panel {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .view-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #a855f7, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header p { color: #94a3b8; font-size: 0.95rem; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card .val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #38bdf8;
+            margin-top: 5px;
+        }
+
+        .stat-card .lbl { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
+
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .podium-card {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 15px;
+            border-radius: 12px;
+            width: 180px;
+            text-align: center;
             position: relative;
         }
 
-        .space-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            background: radial-gradient(circle at 50% 20%, #0a0b14 0%, #030407 100%);
-        }
+        .podium-card.p1 { border-color: #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.2); }
+        .podium-card.p2 { border-color: #c0c0c0; }
+        .podium-card.p3 { border-color: #cd7f32; }
 
-        .star {
+        .podium-badge {
             position: absolute;
-            background: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #fff, 0 0 20px #8b5cf6;
-            animation: fall linear infinite;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 800;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(-100px) translateX(0); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(105vh) translateX(-100px); opacity: 0; }
+        .p1 .podium-badge { background: #ffd700; color: #000; }
+        .p2 .podium-badge { background: #c0c0c0; color: #000; }
+        .p3 .podium-badge { background: #cd7f32; color: #fff; }
+
+        .login-box {
+            max-width: 420px;
+            margin: 40px auto;
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
-        .glass-card {
-            background: rgba(13, 17, 28, 0.75);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        .password-container { position: relative; width: 100%; margin-bottom: 15px; }
+
+        .login-box input { width: 100%; text-align: center; font-size: 1rem; padding-right: 45px; }
+
+        .toggle-password-btn {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.2rem;
         }
 
-        .tier-ht1 { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.4); }
-        .tier-lt1 { background: linear-gradient(135deg, #7c2d12, #c2410c); color: #fdba74; border: 1px solid rgba(251, 146, 60, 0.4); }
-        .tier-ht2 { background: linear-gradient(135deg, #78350f, #b45309); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.4); }
-        .tier-lt2 { background: linear-gradient(135deg, #3f3f46, #52525b); color: #e4e4e7; border: 1px solid rgba(161, 161, 170, 0.4); }
-        .tier-ht3 { background: linear-gradient(135deg, #14532d, #166534); color: #86efac; border: 1px solid rgba(74, 222, 128, 0.4); }
-        .tier-lt3 { background: linear-gradient(135deg, #064e3b, #047857); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.4); }
-        .tier-ht4 { background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.4); }
-        .tier-lt4 { background: linear-gradient(135deg, #172554, #1e40af); color: #bfdbfe; border: 1px solid rgba(147, 197, 253, 0.4); }
-        .tier-ht5 { background: linear-gradient(135deg, #3b0764, #581c87); color: #d8b4fe; border: 1px solid rgba(192, 132, 252, 0.4); }
-        .tier-lt5 { background: linear-gradient(135deg, #4c1d95, #6d28d9); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.4); }
+        .error-msg { color: #ef4444; font-size: 0.85rem; font-weight: 600; margin-top: 10px; display: none; }
+
+        .admin-box {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            margin-bottom: 25px;
+        }
+
+        .admin-box h2 {
+            font-size: 1.1rem; margin-bottom: 15px; color: #38bdf8;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            padding: 12px 14px;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #f8fafc;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .btn {
+            padding: 10px 18px; border-radius: 8px; border: none; font-weight: 700;
+            cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+            gap: 6px; font-size: 0.85rem; transition: all 0.2s;
+        }
+
+        .btn-add { background: linear-gradient(135deg, #10b981, #059669); color: #fff; width: 100%; padding: 12px; }
+        .btn-clear { background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; font-size: 0.75rem; padding: 6px 12px; }
+        .btn-reset { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; font-size: 0.75rem; padding: 6px 12px; }
+        .btn-logout { background: #334155; color: #f8fafc; font-size: 0.75rem; padding: 6px 12px; }
+        .btn-edit { background-color: #3b82f6; color: #fff; }
+        .btn-delete { background-color: #ef4444; color: #fff; }
+
+        .btn-quick-elo {
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            background: #334155;
+            color: #38bdf8;
+            border: 1px solid #475569;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-quick-elo:hover { background: #475569; }
+
+        .filter-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tag-btn.active {
+            background: #38bdf8;
+            color: #0f172a;
+            border-color: #38bdf8;
+        }
+
+        .action-btns { display: flex; gap: 6px; }
+        .controls { display: flex; gap: 15px; margin-bottom: 20px; }
+        .search-box { flex: 1; }
+        .search-box input { width: 100%; }
+
+        .table-responsive { overflow-x: auto; border-radius: 12px; border: 1px solid #334155; }
+        .leaderboard { width: 100%; border-collapse: collapse; text-align: left; }
+        .leaderboard th { background-color: #1e293b; color: #cbd5e1; padding: 16px 20px; border-bottom: 2px solid #334155; font-size: 0.8rem; text-transform: uppercase; }
+        .leaderboard td { padding: 14px 20px; border-bottom: 1px solid #334155; }
+        .leaderboard tbody tr { background-color: rgba(15, 23, 42, 0.4); }
+        .leaderboard tbody tr:hover { background-color: rgba(51, 65, 85, 0.6); }
+
+        .rank { font-weight: 800; font-size: 1.1rem; width: 60px; }
+        .rank-1 { color: #ffd700; } .rank-2 { color: #c0c0c0; } .rank-3 { color: #cd7f32; }
+
+        .player { display: flex; align-items: center; gap: 14px; font-weight: 600; }
+        .player img { width: 36px; height: 36px; border-radius: 6px; background-color: #334155; }
+
+        .badge { padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .tier-ht1 { background: linear-gradient(135deg, #ef4444, #991b1b); }
+        .tier-lt1 { background: linear-gradient(135deg, #f97316, #c2410c); }
+        .tier-ht2 { background: linear-gradient(135deg, #f59e0b, #b45309); }
+        .tier-lt2 { background: linear-gradient(135deg, #eab308, #854d0e); }
+        .tier-ht3 { background: linear-gradient(135deg, #84cc16, #4d7c0f); }
+        .tier-lt3 { background: linear-gradient(135deg, #10b981, #047857); }
+        .tier-ht4 { background: linear-gradient(135deg, #06b6d4, #0e7490); }
+        .tier-lt4 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .tier-ht5 { background: linear-gradient(135deg, #6366f1, #4338ca); }
+        .tier-lt5 { background: linear-gradient(135deg, #a855f7, #6b21a8); }
+
+        .score { font-family: 'Consolas', monospace; font-weight: 700; color: #38bdf8; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); display: none;
+            justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal { background: #1e293b; border-radius: 16px; width: 90%; max-width: 480px; padding: 25px; border: 1px solid #475569; }
+        .modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .modal-body { display: flex; flex-direction: column; gap: 15px; }
+        .modal-footer { margin-top: 25px; display: flex; justify-content: flex-end; gap: 10px; }
+
+        .footer { margin-top: 25px; text-align: center; font-size: 0.85rem; color: #64748b; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white pb-16">
+<body>
 
-    <div class="space-bg" id="spaceBackground"></div>
-
-    <!-- Górna nawigacja -->
-    <header class="w-full max-w-6xl mx-auto px-6 pt-10">
-        <div class="glass-card rounded-3xl p-6 md:px-10 flex flex-col sm:flex-row justify-between items-center gap-6">
-            <div class="flex items-center space-x-4">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-xl shadow-purple-600/40">
-                    <span class="text-2xl font-black">SR</span>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-purple-300">Silly Rankings</h1>
-                    <p class="text-sm text-slate-400 font-medium">Oficjalna tablica wyników i dywizji Minecraft</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-3 bg-slate-950/80 p-2 rounded-2xl border border-slate-800">
-                <button onclick="switchView('viewer')" id="btnViewer" class="px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all">Widok Gracza</button>
-                <button onclick="showLoginModal()" id="btnAdmin" class="px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all">Panel Admina</button>
-            </div>
+    <div class="top-nav">
+        <div class="brand">⚡ Silly Rankings</div>
+        <div class="view-tabs">
+            <button class="tab-btn active" onclick="switchView('adminView', this)">🛠️ Panel Admina</button>
+            <button class="tab-btn" onclick="switchView('viewerView', this)">👁️ Strona Viewera</button>
         </div>
-    </header>
+    </div>
 
-    <!-- Główna zawartość -->
-    <main class="w-full max-w-6xl mx-auto px-6 mt-8 flex-grow">
-        
-        <!-- WIDOK: VIEWER -->
-        <div id="viewerView" class="space-y-6">
+    <div class="app-container">
+
+        <!-- ADMIN PANEL -->
+        <div id="adminView" class="view-panel card active">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-lg">👥</div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Liczba graczy</p>
-                        <h4 id="statTotalPlayers" class="text-xl font-black text-white">0</h4>
-                    </div>
+            <div id="adminLoginArea" class="login-box">
+                <h2>🔐 Logowanie Admina</h2>
+                <p>Wpisz hasło administratora, aby edytować ranking.</p>
+                <div class="password-container">
+                    <input type="password" id="adminPasswordInput" placeholder="Wpisz hasło..." onkeydown="if(event.key==='Enter') checkAdminPassword()">
+                    <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility()">👁️</button>
                 </div>
-                <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-lg">⚡</div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Średnie ELO</p>
-                        <h4 id="statAvgElo" class="text-xl font-black text-white">0</h4>
-                    </div>
-                </div>
-                <div class="glass-card rounded-2xl p-5 flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold text-lg">👑</div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Top 1 Gracza</p>
-                        <h4 id="statTopPlayer" class="text-xl font-black text-white">-</h4>
-                    </div>
-                </div>
+                <button class="btn btn-add" onclick="checkAdminPassword()">Zaloguj się</button>
+                <div id="loginError" class="error-msg">⚠️ Nieprawidłowe hasło! Spróbuj ponownie.</div>
             </div>
 
-            <div class="glass-card rounded-3xl p-8 md:p-10">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-                    <div>
-                        <h2 class="text-3xl font-extrabold tracking-tight">Ranking Graczy</h2>
-                        <p class="text-sm text-slate-400 mt-1">Kliknij w wiersz gracza, aby zobaczyć jego profil, pozycję i skin.</p>
+            <div id="adminContentArea" style="display: none;">
+                <div class="header">
+                    <h1>Panel Zarządzania (Admin)</h1>
+                    <p>Zarządzaj graczami oraz statystykami serwera.</p>
+                </div>
+
+                <!-- ADMIN STATS -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="lbl">Suma Graczy</div>
+                        <div class="val" id="statTotalPlayers">0</div>
                     </div>
-                    <div class="w-full md:w-80">
-                        <input type="text" id="searchInput" onkeyup="filterPlayers()" placeholder="Szukaj gracza..." class="w-full bg-slate-950/80 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-slate-200 outline-none transition-all">
+                    <div class="stat-card">
+                        <div class="lbl">Średnie ELO</div>
+                        <div class="val" id="statAvgElo">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="lbl">Lider Rankingu</div>
+                        <div class="val" id="statTopPlayer" style="font-size:1.1rem; color:#ffd700;">-</div>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap gap-2 mb-6 pb-6 border-b border-slate-800/60">
-                    <button onclick="filterTier('ALL')" id="filterAll" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg">Wszystkie</button>
-                    <button onclick="filterTier('HT1')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">HT1</button>
-                    <button onclick="filterTier('LT1')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">LT1</button>
-                    <button onclick="filterTier('HT2')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">HT2</button>
-                    <button onclick="filterTier('LT2')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">LT2</button>
-                    <button onclick="filterTier('HT3')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">HT3</button>
-                    <button onclick="filterTier('LT3')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">LT3</button>
-                    <button onclick="filterTier('HT4')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">HT4</button>
-                    <button onclick="filterTier('LT4')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">LT4</button>
-                    <button onclick="filterTier('HT5')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">HT5</button>
-                    <button onclick="filterTier('LT5')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">LT5</button>
+                <div class="admin-box">
+                    <h2>
+                        <span>Dodaj Nowego Gracza</span>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn btn-reset" onclick="resetToDefaultPlayers()">🔄 Domyślni Gracze</button>
+                            <button class="btn btn-clear" onclick="clearAllPlayers()">Wyczyść Wszystkich</button>
+                            <button class="btn btn-logout" onclick="adminLogout()">🔒 Wyloguj</button>
+                        </div>
+                    </h2>
+                    <div class="form-grid">
+                        <input type="text" id="newNick" placeholder="Nick (np. Technoblade)">
+                        <select id="newTier">
+                            <option value="tier-ht1|HT1 (High Tier 1)">Tier 1 (HT1)</option>
+                            <option value="tier-lt1|LT1 (Low Tier 1)">Tier 1 (LT1)</option>
+                            <option value="tier-ht2|HT2 (High Tier 2)">Tier 2 (HT2)</option>
+                            <option value="tier-lt2|LT2 (Low Tier 2)">Tier 2 (LT2)</option>
+                            <option value="tier-ht3|HT3 (High Tier 3)">Tier 3 (HT3)</option>
+                            <option value="tier-lt3|LT3 (Low Tier 3)">Tier 3 (LT3)</option>
+                        </select>
+                        <input type="number" id="newElo" placeholder="Punkty ELO (np. 2500)">
+                    </div>
+                    <button class="btn btn-add" onclick="addPlayer()">+ Dodaj do Rankingu</button>
                 </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                <div class="controls">
+                    <div class="search-box">
+                        <input type="text" id="adminSearchInput" onkeyup="renderAdminTable()" placeholder="Szukaj gracza...">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="leaderboard">
                         <thead>
-                            <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider font-bold">
-                                <th class="py-4 px-6">Pozycja</th>
-                                <th class="py-4 px-6">Gracz</th>
-                                <th class="py-4 px-6">Dywizja</th>
-                                <th class="py-4 px-6 text-right">Punkty ELO</th>
+                            <tr>
+                                <th>#</th>
+                                <th>Gracz</th>
+                                <th>Dywizja</th>
+                                <th>Szybkie ELO</th>
+                                <th>Punkty ELO</th>
+                                <th>Akcje</th>
                             </tr>
                         </thead>
-                        <tbody id="playerTableBody" class="divide-y divide-slate-800/50 text-base">
-                            <!-- Generowane dynamicznie -->
-                        </tbody>
+                        <tbody id="adminTableBody"></tbody>
                     </table>
                 </div>
             </div>
+
+            <div class="footer"><p>&copy; 2026 Silly Rankings Admin System</p></div>
         </div>
 
-        <!-- WIDOK: ADMIN -->
-        <div id="adminView" class="hidden glass-card rounded-3xl p-8 md:p-10 border-purple-500/30 space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                    <h2 class="text-3xl font-extrabold tracking-tight text-purple-300">Panel Zarządzania</h2>
-                    <p class="text-sm text-slate-400 mt-1">Dodawaj, edytuj oraz usuwaj graczy z bazy.</p>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <button onclick="clearAllData()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-4 py-2.5 rounded-xl font-bold transition-all">Resetuj Ranking</button>
-                    <button onclick="logoutAdmin()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded-xl font-bold transition-all">Wyloguj</button>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-950/60 p-6 rounded-2xl border border-slate-800">
-                <input type="text" id="adminName" placeholder="Nick w grze (np. ItzAgg)" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
-                <select id="adminTier" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
-                    <option value="HT1">HT1 (High Tier 1)</option>
-                    <option value="LT1">LT1 (Low Tier 1)</option>
-                    <option value="HT2">HT2 (High Tier 2)</option>
-                    <option value="LT2">LT2 (Low Tier 2)</option>
-                    <option value="HT3">HT3 (High Tier 3)</option>
-                    <option value="LT3">LT3 (Low Tier 3)</option>
-                    <option value="HT4">HT4 (High Tier 4)</option>
-                    <option value="LT4">LT4 (Low Tier 4)</option>
-                    <option value="HT5">HT5 (High Tier 5)</option>
-                    <option value="LT5">LT5 (Low Tier 5)</option>
-                </select>
-                <input type="number" id="adminElo" placeholder="Punkty ELO (np. 2500)" class="bg-slate-900 border border-slate-800 focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
-                <button onclick="addOrUpdatePlayer()" id="saveBtn" class="md:col-span-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-bold py-3.5 rounded-xl text-sm text-white shadow-xl shadow-purple-600/30 transition-all">Dodaj do Rankingu</button>
+        <!-- VIEWER PAGE -->
+        <div id="viewerView" class="view-panel card">
+            <div class="header">
+                <h1>Oficjalny Ranking Graczy</h1>
+                <p>Zobacz aktualną listę graczy oraz liderów podium.</p>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+            <!-- VIEWER PODIUM -->
+            <div class="podium-container" id="podiumBox"></div>
+
+            <!-- VIEWER TIER FILTER -->
+            <div class="filter-tags" id="tierFilters">
+                <button class="tag-btn active" onclick="filterByTier('ALL', this)">Wszystkie Tieri</button>
+                <button class="tag-btn" onclick="filterByTier('tier-ht1', this)">HT1</button>
+                <button class="tag-btn" onclick="filterByTier('tier-lt1', this)">LT1</button>
+                <button class="tag-btn" onclick="filterByTier('tier-ht2', this)">HT2</button>
+                <button class="tag-btn" onclick="filterByTier('tier-lt2', this)">LT2</button>
+            </div>
+
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="viewerSearchInput" onkeyup="renderViewerTable()" placeholder="Wyszukaj gracza...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="leaderboard">
                     <thead>
-                        <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider font-bold">
-                            <th class="py-4 px-6">#</th>
-                            <th class="py-4 px-6">Gracz</th>
-                            <th class="py-4 px-6">Dywizja</th>
-                            <th class="py-4 px-6">Punkty ELO</th>
-                            <th class="py-4 px-6 text-right">Akcje</th>
+                        <tr>
+                            <th>Pozycja</th>
+                            <th>Gracz</th>
+                            <th>Dywizja</th>
+                            <th>Forma</th>
+                            <th>Punkty ELO</th>
                         </tr>
                     </thead>
-                    <tbody id="adminTableBody" class="divide-y divide-slate-800/50 text-base">
-                        <!-- Generowane dynamicznie -->
-                    </tbody>
+                    <tbody id="viewerTableBody"></tbody>
                 </table>
             </div>
-        </div>
-    </main>
 
-    <!-- OKIENKO MODAL PROFILU GRACZA (Dla Viewerów) -->
-    <div id="playerModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
-        <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
-            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
-            
-            <div class="flex justify-center mb-6">
-                <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 shadow-inner">
-                    <img id="modalPlayerSkin" src="" class="h-44 object-contain mx-auto drop-shadow-2xl" alt="Skin gracza">
+            <div class="footer"><p>&copy; 2026 Silly Rankings Viewer Mode</p></div>
+        </div>
+
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edytuj Gracza</h3>
+                <button style="background:none; border:none; color:#fff; cursor:pointer;" onclick="closeEditModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editIndex">
+                <div><label>Nick Minecraft:</label><input type="text" id="editNick" style="width: 100%;"></div>
+                <div>
+                    <label>Dywizja / Tier:</label>
+                    <select id="editTier" style="width: 100%;">
+                        <option value="tier-ht1|HT1 (High Tier 1)">Tier 1 (HT1)</option>
+                        <option value="tier-lt1|LT1 (Low Tier 1)">Tier 1 (LT1)</option>
+                        <option value="tier-ht2|HT2 (High Tier 2)">Tier 2 (HT2)</option>
+                        <option value="tier-lt2|LT2 (Low Tier 2)">Tier 2 (LT2)</option>
+                        <option value="tier-ht3|HT3 (High Tier 3)">Tier 3 (HT3)</option>
+                        <option value="tier-lt3|LT3 (Low Tier 3)">Tier 3 (LT3)</option>
+                    </select>
                 </div>
+                <div><label>Punkty ELO:</label><input type="number" id="editElo" style="width: 100%;"></div>
             </div>
-
-            <h3 id="modalPlayerName" class="text-3xl font-extrabold mb-1 text-white">Nazwa Gracza</h3>
-            <p id="modalPlayerRankPos" class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-3">Pozycja: #1</p>
-            
-            <div class="flex justify-center items-center gap-2 mb-6">
-                <span id="modalPlayerTier" class="px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider">Tier</span>
-                <span id="modalPlayerElo" class="font-mono font-bold text-purple-300 text-sm">0 ELO</span>
-            </div>
-
-            <div class="flex flex-col gap-3">
-                <a id="modalNameMcBtn" href="" target="_blank" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-white shadow-lg shadow-cyan-600/30 transition-all flex items-center justify-center space-x-2">
-                    <span>Otwórz w NameMC</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
-                <button onclick="copyProfileLink()" class="w-full bg-slate-800/80 hover:bg-slate-800 border border-slate-700 font-bold py-3 rounded-2xl text-xs uppercase tracking-wider text-slate-200 transition-all">Skopiuj link NameMC</button>
-                <button onclick="closePlayerModal()" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold py-3 rounded-2xl text-xs uppercase tracking-wider text-slate-400 transition-all">Zamknij</button>
+            <div class="modal-footer">
+                <button class="btn" style="background:#334155; color:#fff;" onclick="closeEditModal()">Anuluj</button>
+                <button class="btn btn-edit" onclick="savePlayerEdit()">Zapisz Zmiany</button>
             </div>
         </div>
     </div>
-
-    <!-- SPECJALNE GUI DO HASŁA (MODAL) -->
-    <div id="loginModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
-        <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
-            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-pink-600/20 rounded-full blur-2xl"></div>
-            
-            <div class="w-16 h-16 bg-gradient-to-tr from-purple-600 to-pink-600 rounded-2xl mx-auto flex items-center justify-center shadow-lg shadow-purple-500/40 mb-6">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            </div>
-
-            <h3 class="text-2xl font-extrabold mb-2 text-white">Strefa Administratora</h3>
-            <p class="text-xs text-slate-400 mb-8 font-medium">Wpisz bezpieczne hasło dostępu, aby zarządzać rankingiem.</p>
-            
-            <input type="password" id="adminPasswordInput" placeholder="••••••••••••••••" class="w-full bg-slate-950 border border-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 rounded-2xl px-5 py-4 text-sm text-white outline-none mb-6 text-center tracking-widest font-bold">
-            
-            <div class="flex space-x-3">
-                <button onclick="verifyPassword()" class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-white shadow-lg shadow-purple-600/30 transition-all">Zaloguj się</button>
-                <button onclick="closeLoginModal()" class="flex-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-slate-300 transition-all">Anuluj</button>
-            </div>
-        </div>
-    </div>
-
-    <footer class="w-full max-w-6xl mx-auto px-6 mt-16 text-center text-xs text-slate-500 font-medium">
-        © 2026 Silly Rankings. Wszystkie prawa zastrzeżone.
-    </footer>
 
     <script>
-        const _encPass = "TWluZWNyYWZ0MjAyMCE=";
+        const SECRET_KEY = "!?!" + "0202tfarceniM";
+        let activeTierFilter = 'ALL';
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById("adminPasswordInput");
+            input.type = input.type === "password" ? "text" : "password";
+        }
+
+        function checkAuthState() {
+            const isAuthenticated = sessionStorage.getItem("silly_admin_auth") === "true";
+            document.getElementById("adminLoginArea").style.display = isAuthenticated ? "none" : "block";
+            document.getElementById("adminContentArea").style.display = isAuthenticated ? "block" : "none";
+        }
+
+        function checkAdminPassword() {
+            const inputVal = document.getElementById("adminPasswordInput").value;
+            const expected = SECRET_KEY.split("").reverse().join("");
+
+            if (inputVal === expected) {
+                sessionStorage.setItem("silly_admin_auth", "true");
+                document.getElementById("loginError").style.display = "none";
+                document.getElementById("adminPasswordInput").value = "";
+                checkAuthState();
+                renderAdminTable();
+            } else {
+                document.getElementById("loginError").style.display = "block";
+            }
+        }
+
+        function adminLogout() {
+            sessionStorage.removeItem("silly_admin_auth");
+            checkAuthState();
+        }
 
         const defaultPlayers = [
-            { name: "ItzAgg", tier: "HT1", elo: 3200 },
-            { name: "Carbstuk", tier: "LT1", elo: 2850 },
-            { name: "Connornonor", tier: "HT2", elo: 2710 },
-            { name: "Tchomad", tier: "LT3", elo: 2450 },
-            { name: "Dymoty", tier: "LT4", elo: 2100 },
-            { name: "Mloddy_", tier: "LT5", elo: 1300 },
-            { name: "ximixemx", tier: "LT5", elo: 800 }
+            { id: "p1", nick: "Technoblade", tierClass: "tier-ht1", tierName: "HT1 (High Tier 1)", elo: 3200, trend: "🔥" },
+            { id: "p2", nick: "Steve", tierClass: "tier-lt1", tierName: "LT1 (Low Tier 1)", elo: 2850, trend: "⚡" },
+            { id: "p3", nick: "Alex", tierClass: "tier-ht2", tierName: "HT2 (High Tier 2)", elo: 2710, trend: "📈" },
+            { id: "p4", nick: "Notch", tierClass: "tier-lt3", tierName: "LT3 (Low Tier 3)", elo: 2450, trend: "⚡" }
         ];
 
-        let players = JSON.parse(localStorage.getItem('silly_players')) || defaultPlayers;
-        let editingIndex = null;
-        let activeTierFilter = 'ALL';
-        let currentModalName = '';
+        const STORAGE_KEY = 'silly_rankings_players_v4';
+        let players = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultPlayers;
 
-        function createStars() {
-            const container = document.getElementById('spaceBackground');
-            for (let i = 0; i < 35; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 3 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${Math.random() * 100}vw`;
-                star.style.top = `${Math.random() * -50}vh`;
-                star.style.animationDuration = `${Math.random() * 5 + 3}s`;
-                star.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(star);
+        function saveAndSync() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(players));
+            renderAllViews();
+        }
+
+        function resetToDefaultPlayers() {
+            if (confirm("Czy na pewno chcesz przywrócić domyślną listę graczy?")) {
+                players = [...defaultPlayers];
+                saveAndSync();
             }
         }
 
-        function saveAndRender() {
-            players.sort((a, b) => b.elo - a.elo);
-            localStorage.setItem('silly_players', JSON.stringify(players));
-            renderTables();
-            updateStats();
+        function switchView(viewId, btnElement) {
+            document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            btnElement.classList.add('active');
+            renderAllViews();
         }
 
-        function updateStats() {
-            document.getElementById('statTotalPlayers').innerText = players.length;
-            if (players.length > 0) {
-                const totalElo = players.reduce((sum, p) => sum + p.elo, 0);
-                document.getElementById('statAvgElo').innerText = Math.round(totalElo / players.length);
-                document.getElementById('statTopPlayer').innerText = players[0].name;
-            } else {
-                document.getElementById('statAvgElo').innerText = 0;
-                document.getElementById('statTopPlayer').innerText = "-";
-            }
+        function renderAllViews() {
+            renderAdminTable();
+            renderViewerTable();
+            updateAdminStats();
+            renderPodium();
         }
 
-        function renderTables() {
-            const viewerBody = document.getElementById('playerTableBody');
-            const adminBody = document.getElementById('adminTableBody');
-            
-            viewerBody.innerHTML = '';
-            adminBody.innerHTML = '';
+        function updateAdminStats() {
+            document.getElementById("statTotalPlayers").textContent = players.length;
+            const avg = players.length ? Math.round(players.reduce((acc, p) => acc + p.elo, 0) / players.length) : 0;
+            document.getElementById("statAvgElo").textContent = avg;
+            const topPlayer = [...players].sort((a,b) => b.elo - a.elo)[0];
+            document.getElementById("statTopPlayer").textContent = topPlayer ? topPlayer.nick : "-";
+        }
 
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+        function renderPodium() {
+            const podiumBox = document.getElementById("podiumBox");
+            podiumBox.innerHTML = "";
+            const sorted = [...players].sort((a,b) => b.elo - a.elo).slice(0, 3);
 
-            players.forEach((p, index) => {
-                const matchesSearch = p.name.toLowerCase().includes(searchQuery);
-                const matchesTier = activeTierFilter === 'ALL' || p.tier === activeTierFilter;
+            const classes = ["p1", "p2", "p3"];
+            const titles = ["🥇 1. MIEJSCE", "🥈 2. MIEJSCE", "🥉 3. MIEJSCE"];
 
-                if (matchesSearch && matchesTier) {
-                    const tierClass = 'tier-' + p.tier.toLowerCase();
-                    viewerBody.innerHTML += `
-                        <tr onclick="openPlayerModal('${p.name}', '${p.tier}', ${p.elo}, ${index + 1})" class="hover:bg-slate-800/40 transition-colors cursor-pointer group">
-                            <td class="py-4 px-6 font-extrabold text-purple-400">#${index + 1}</td>
-                            <td class="py-4 px-6 flex items-center space-x-4">
-                                <img src="https://minotar.net/avatar/${p.name}/40.png" class="w-10 h-10 rounded-xl shadow-md group-hover:scale-105 transition-transform" alt="">
-                                <span class="font-bold text-slate-100 text-lg group-hover:text-purple-300 transition-colors">${p.name}</span>
-                            </td>
-                            <td class="py-4 px-6"><span class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClass}">${p.tier}</span></td>
-                            <td class="py-4 px-6 text-right font-mono font-bold text-purple-300 text-lg">${p.elo} ELO</td>
-                        </tr>
-                    `;
-                }
-
-                const tierClassAdmin = 'tier-' + p.tier.toLowerCase();
-                adminBody.innerHTML += `
-                    <tr class="hover:bg-slate-800/30 transition-colors">
-                        <td class="py-4 px-6 font-bold text-slate-400">#${index + 1}</td>
-                        <td class="py-4 px-6 flex items-center space-x-4">
-                            <img src="https://minotar.net/avatar/${p.name}/40.png" class="w-10 h-10 rounded-xl shadow-md" alt="">
-                            <span class="font-bold text-slate-100 text-lg">${p.name}</span>
-                        </td>
-                        <td class="py-4 px-6"><span class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider ${tierClassAdmin}">${p.tier}</span></td>
-                        <td class="py-4 px-6 font-mono font-bold text-purple-300 text-lg">${p.elo} ELO</td>
-                        <td class="py-4 px-6 text-right space-x-2">
-                            <button onclick="editPlayer(${index})" class="bg-blue-600/25 hover:bg-blue-600/40 text-blue-400 border border-blue-500/30 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">Edytuj</button>
-                            <button onclick="deletePlayer(${index})" class="bg-red-600/25 hover:bg-red-600/40 text-red-400 border border-red-500/30 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">Usuń</button>
-                        </td>
-                    </tr>
+            sorted.forEach((player, i) => {
+                podiumBox.innerHTML += `
+                    <div class="podium-card ${classes[i]}">
+                        <div class="podium-badge">${titles[i]}</div>
+                        <img src="https://minotar.net/helm/${player.nick}/48.png" onerror="this.src='https://minotar.net/helm/Steve/48.png'" style="margin-top:10px; border-radius:6px;">
+                        <div style="font-weight:700; margin-top:5px;">${player.nick}</div>
+                        <div style="color:#38bdf8; font-family:monospace; font-weight:700;">${player.elo} ELO</div>
+                    </div>
                 `;
             });
         }
 
-        function filterTier(tier) {
+        function quickEloChange(playerId, amount) {
+            const player = players.find(p => p.id === playerId);
+            if (player) {
+                player.elo += amount;
+                saveAndSync();
+            }
+        }
+
+        function filterByTier(tier, btn) {
             activeTierFilter = tier;
-            document.querySelectorAll('.flex.flex-wrap.gap-2 button').forEach(btn => {
-                btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all";
+            document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderViewerTable();
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById("adminTableBody");
+            if (!tbody) return;
+            const filter = document.getElementById("adminSearchInput") ? document.getElementById("adminSearchInput").value.toUpperCase() : "";
+            tbody.innerHTML = "";
+
+            const sortedPlayers = [...players].sort((a, b) => b.elo - a.elo);
+
+            let visibleIndex = 1;
+            sortedPlayers.forEach((player) => {
+                if (player.nick.toUpperCase().includes(filter)) {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="rank">#${visibleIndex}</td>
+                            <td class="player"><img src="https://minotar.net/helm/${player.nick}/36.png" onerror="this.src='https://minotar.net/helm/Steve/36.png'"> ${player.nick}</td>
+                            <td><span class="badge ${player.tierClass}">${player.tierName}</span></td>
+                            <td>
+                                <button class="btn-quick-elo" onclick="quickEloChange('${player.id}', -10)">-10</button>
+                                <button class="btn-quick-elo" onclick="quickEloChange('${player.id}', 10)">+10</button>
+                            </td>
+                            <td class="score">${player.elo} ELO</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn btn-edit" onclick="openEditModal('${player.id}')">✏️</button>
+                                    <button class="btn btn-delete" onclick="deletePlayer('${player.id}')">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    visibleIndex++;
+                }
             });
-            event.target.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg";
-            renderTables();
         }
 
-        function openPlayerModal(name, tier, elo, rankPos) {
-            currentModalName = name;
-            document.getElementById('modalPlayerName').innerText = name;
-            document.getElementById('modalPlayerRankPos').innerText = `Pozycja w rankingu: #${rankPos}`;
-            document.getElementById('modalPlayerTier').innerText = tier;
-            document.getElementById('modalPlayerTier').className = "px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider tier-" + tier.toLowerCase();
-            document.getElementById('modalPlayerElo').innerText = elo + " ELO";
-            document.getElementById('modalPlayerSkin').src = `https://minotar.net/body/${name}/150.png`;
-            document.getElementById('modalNameMcBtn').href = `https://namemc.com/search?q=${name}`;
-            document.getElementById('playerModal').classList.remove('hidden');
-        }
+        function renderViewerTable() {
+            const tbody = document.getElementById("viewerTableBody");
+            const filter = document.getElementById("viewerSearchInput") ? document.getElementById("viewerSearchInput").value.toUpperCase() : "";
+            tbody.innerHTML = "";
 
-        function closePlayerModal() {
-            document.getElementById('playerModal').classList.add('hidden');
-        }
+            const sortedPlayers = [...players].sort((a, b) => b.elo - a.elo);
 
-        function copyProfileLink() {
-            const url = `https://namemc.com/search?q=${currentModalName}`;
-            navigator.clipboard.writeText(url).then(() => {
-                alert(`Skopiowano link do profilu gracza ${currentModalName}!`);
+            let visibleIndex = 1;
+            sortedPlayers.forEach((player) => {
+                const matchesTier = activeTierFilter === 'ALL' || player.tierClass === activeTierFilter;
+                if (player.nick.toUpperCase().includes(filter) && matchesTier) {
+                    let rankClass = visibleIndex === 1 ? "rank-1" : visibleIndex === 2 ? "rank-2" : visibleIndex === 3 ? "rank-3" : "";
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="rank ${rankClass}">#${visibleIndex}</td>
+                            <td class="player"><img src="https://minotar.net/helm/${player.nick}/36.png" onerror="this.src='https://minotar.net/helm/Steve/36.png'"> ${player.nick}</td>
+                            <td><span class="badge ${player.tierClass}">${player.tierName}</span></td>
+                            <td>${player.trend || '⚡'}</td>
+                            <td class="score">${player.elo} ELO</td>
+                        </tr>
+                    `;
+                    visibleIndex++;
+                }
             });
         }
 
-        function switchView(view) {
-            const viewer = document.getElementById('viewerView');
-            const admin = document.getElementById('adminView');
-            const btnV = document.getElementById('btnViewer');
-            const btnA = document.getElementById('btnAdmin');
+        function addPlayer() {
+            const nick = document.getElementById("newNick").value.trim();
+            const [tierClass, tierName] = document.getElementById("newTier").value.split("|");
+            const elo = parseInt(document.getElementById("newElo").value);
 
-            if (view === 'viewer') {
-                viewer.classList.remove('hidden');
-                admin.classList.add('hidden');
-                btnV.className = "px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all";
-                btnA.className = "px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all";
-            } else {
-                viewer.classList.add('hidden');
-                admin.classList.remove('hidden');
-                btnA.className = "px-6 py-3 text-sm font-bold rounded-xl bg-purple-600 text-white shadow-lg transition-all";
-                btnV.className = "px-6 py-3 text-sm font-bold rounded-xl text-slate-400 hover:text-white transition-all";
+            if (!nick || isNaN(elo)) return alert("Wprowadź poprawne dane!");
+
+            players.push({
+                id: 'p_' + Date.now(),
+                nick, tierClass, tierName, elo, trend: '🔥'
+            });
+
+            saveAndSync();
+            document.getElementById("newNick").value = "";
+            document.getElementById("newElo").value = "";
+        }
+
+        function openEditModal(playerId) {
+            const player = players.find(p => p.id === playerId);
+            if (!player) return;
+            document.getElementById("editIndex").value = player.id;
+            document.getElementById("editNick").value = player.nick;
+            document.getElementById("editTier").value = `${player.tierClass}|${player.tierName}`;
+            document.getElementById("editElo").value = player.elo;
+            document.getElementById("editModal").classList.add("active");
+        }
+
+        function closeEditModal() { document.getElementById("editModal").classList.remove("active"); }
+
+        function savePlayerEdit() {
+            const id = document.getElementById("editIndex").value;
+            const nick = document.getElementById("editNick").value.trim();
+            const [tierClass, tierName] = document.getElementById("editTier").value.split("|");
+            const elo = parseInt(document.getElementById("editElo").value);
+
+            const index = players.findIndex(p => p.id === id);
+            if (index !== -1) {
+                players[index] = { ...players[index], nick, tierClass, tierName, elo };
+                saveAndSync();
+                closeEditModal();
             }
         }
 
-        function showLoginModal() {
-            document.getElementById('adminPasswordInput').value = '';
-            document.getElementById('loginModal').classList.remove('hidden');
-            document.getElementById('adminPasswordInput').focus();
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('hidden');
-        }
-
-        function verifyPassword() {
-            const inputVal = document.getElementById('adminPasswordInput').value;
-            if (btoa(inputVal) === _encPass) {
-                closeLoginModal();
-                switchView('admin');
-            } else {
-                alert("Błędne hasło administratora!");
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminPasswordInput').focus();
+        function deletePlayer(playerId) {
+            if (confirm("Usunąć gracza?")) {
+                players = players.filter(p => p.id !== playerId);
+                saveAndSync();
             }
         }
 
-        function logoutAdmin() {
-            switchView('viewer');
-        }
-
-        function addOrUpdatePlayer() {
-            const name = document.getElementById('adminName').value.trim();
-            const tier = document.getElementById('adminTier').value;
-            const elo = parseInt(document.getElementById('adminElo').value);
-
-            if (!name || isNaN(elo)) {
-                alert('Wpisz poprawny nick oraz punkty ELO!');
-                return;
-            }
-
-            if (editingIndex !== null) {
-                players[editingIndex] = { name, tier, elo };
-                editingIndex = null;
-                document.getElementById('saveBtn').innerText = "Dodaj do Rankingu";
-            } else {
-                players.push({ name, tier, elo });
-            }
-
-            document.getElementById('adminName').value = '';
-            document.getElementById('adminElo').value = '';
-            saveAndRender();
-        }
-
-        function editPlayer(index) {
-            const p = players[index];
-            document.getElementById('adminName').value = p.name;
-            document.getElementById('adminTier').value = p.tier;
-            document.getElementById('adminElo').value = p.elo;
-            editingIndex = index;
-            document.getElementById('saveBtn').innerText = "Zaktualizuj Gracza (EDYCJA)";
-            window.scrollTo({ top: 200, behavior: 'smooth' });
-        }
-
-        function deletePlayer(index) {
-            if (confirm("Na pewno usunąć tego gracza?")) {
-                players.splice(index, 1);
-                saveAndRender();
-            }
-        }
-
-        function clearAllData() {
-            if (confirm("Czy na pewno chcesz wyczyścić cały ranking? Ta operacja usunie wszystkich graczy!")) {
+        function clearAllPlayers() {
+            if (confirm("Usunąć WSZYSTKICH graczy?")) {
                 players = [];
-                saveAndRender();
+                saveAndSync();
             }
         }
 
-        function filterPlayers() {
-            renderTables();
-        }
-
-        document.getElementById('adminPasswordInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                verifyPassword();
-            }
-        });
-
-        createStars();
-        saveAndRender();
+        checkAuthState();
+        renderAllViews();
     </script>
 </body>
 </html>
