@@ -127,7 +127,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-wrap gap-2 mb-6 pb-6 border-b border-slate-800/60">
+                <div class="flex flex-wrap gap-2 mb-6 pb-6 border-b border-slate-800/60" id="tierFilterButtons">
                     <button onclick="filterTier('ALL')" id="filterAll" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg">Wszystkie</button>
                     <button onclick="filterTier('HT1')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">HT1</button>
                     <button onclick="filterTier('LT1')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all">LT1</button>
@@ -152,7 +152,6 @@
                             </tr>
                         </thead>
                         <tbody id="playerTableBody" class="divide-y divide-slate-800/50 text-base">
-                            <!-- Generowane dynamicznie -->
                         </tbody>
                     </table>
                 </div>
@@ -202,14 +201,13 @@
                         </tr>
                     </thead>
                     <tbody id="adminTableBody" class="divide-y divide-slate-800/50 text-base">
-                        <!-- Generowane dynamicznie -->
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
 
-    <!-- OKIENKO MODAL PROFILU GRACZA (Dla Viewerów) -->
+    <!-- MODAL PROFILU -->
     <div id="playerModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
         <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden">
             <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
@@ -240,7 +238,7 @@
         </div>
     </div>
 
-    <!-- SPECJALNE GUI DO HASŁA (MODAL) -->
+    <!-- MODAL LOGOWANIA -->
     <div id="loginModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-6">
         <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-md border-purple-500/40 text-center shadow-2xl relative overflow-hidden">
             <div class="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl"></div>
@@ -280,11 +278,10 @@
             { name: "franczesco4", tier: "LT5", elo: 900 }
         ];
 
-        // Wymuszenie aktualizacji wersji pamięci podręcznej na v6
         let players = defaultPlayers;
-        if(!localStorage.getItem('silly_fixed_v6')) {
+        if(!localStorage.getItem('silly_fixed_v7')) {
             localStorage.setItem('silly_players', JSON.stringify(defaultPlayers));
-            localStorage.setItem('silly_fixed_v6', 'true');
+            localStorage.setItem('silly_fixed_v7', 'true');
         }
         players = JSON.parse(localStorage.getItem('silly_players')) || defaultPlayers;
 
@@ -376,7 +373,7 @@
 
         function filterTier(tier) {
             activeTierFilter = tier;
-            document.querySelectorAll('.flex.flex-wrap.gap-2 button').forEach(btn => {
+            document.querySelectorAll('#tierFilterButtons button').forEach(btn => {
                 btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition-all";
             });
             event.target.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white transition-all shadow-lg";
@@ -513,4 +510,3 @@
     </script>
 </body>
 </html>
-
