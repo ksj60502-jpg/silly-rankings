@@ -1,83 +1,22 @@
-package com.example.client;
-
-import com.example.SillyTierTagger;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import net.fabricmc.api.ClientModInitializer;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-
-public class SillyTierTaggerClient implements ClientModInitializer {
-
-    private static final String DATA_URL =
-            "https://ksj60502-jpg.github.io/silly-rankings/players.json";
-
-    private static final Map<String, String> TIERS = new HashMap<>();
-
-    @Override
-    public void onInitializeClient() {
-        SillyTierTagger.LOGGER.info("Silly Tier Tagger client uruchomiony!");
-
-        Thread loader = new Thread(
-                SillyTierTaggerClient::loadTiers,
-                "SillyTierTagger-Loader"
-        );
-
-        loader.setDaemon(true);
-        loader.start();
-    }
-
-    private static void loadTiers() {
-        try {
-            HttpURLConnection connection =
-                    (HttpURLConnection) URI.create(DATA_URL).toURL().openConnection();
-
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(5000);
-            connection.setRequestProperty("User-Agent", "SillyTierTagger");
-
-            try (InputStream input = connection.getInputStream();
-                 InputStreamReader reader =
-                         new InputStreamReader(input, StandardCharsets.UTF_8)) {
-
-                JsonArray players = new Gson().fromJson(reader, JsonArray.class);
-
-                TIERS.clear();
-
-                for (var element : players) {
-                    JsonObject player = element.getAsJsonObject();
-
-                    String name = player.get("name").getAsString();
-                    String tier = player.get("tier").getAsString();
-
-                    TIERS.put(name.toLowerCase(), tier);
-                }
-
-                SillyTierTagger.LOGGER.info(
-                        "Pobrano {} graczy z Silly Rankings.",
-                        TIERS.size()
-                );
-            }
-
-            connection.disconnect();
-
-        } catch (Exception e) {
-            SillyTierTagger.LOGGER.error(
-                    "Nie udało się pobrać players.json!",
-                    e
-            );
-        }
-    }
-
-    public static String getTier(String playerName) {
-        return TIERS.get(playerName.toLowerCase());
-    }
-}
+[
+  {
+    "name": "ItzAgg",
+    "tier": "HT1"
+  },
+  {
+    "name": "Carbstuk",
+    "tier": "HT2"
+  },
+  {
+    "name": "Szybki_Hubcio_ES",
+    "tier": "HT3"
+  },
+  {
+    "name": "Tchomad",
+    "tier": "HT4"
+  },
+  {
+    "name": "ximixemx",
+    "tier": "HT5"
+  }
+]
